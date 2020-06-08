@@ -103,7 +103,7 @@ int main ( void )
     /* Indicate that bootloader code is running */
     LED_Clear();
 
-    bootloader_Start();
+    bootloader_Tasks();
 
     /* Execution should not come here during normal operation */
     return ( EXIT_FAILURE );
