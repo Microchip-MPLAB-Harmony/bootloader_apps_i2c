@@ -115,11 +115,11 @@ static BUFFER_ATTRIBUTES uint8_t        sdCardBuffer[APP_MAX_MEM_PAGE_SIZE];
 const APP_FIRMWARE_UPDATE_INFO  firmwareUpdateInfo[APP_BL_NUM_I2C_SLAVES] =
 {
     {
-        .i2cSlaveAddr       = 0x0054,
-        .erasePageSize      = 8192,
-        .programPageSize    = 512,
-        .appStartAddr       = 0x2000,
-        .filename           = "sam_e54_xpro.X.production.bin"
+        .i2cSlaveAddr       = APP_I2C_SLAVE_ADDR,
+        .erasePageSize      = APP_ERASE_PAGE_SIZE,
+        .programPageSize    = APP_PROGRAM_PAGE_SIZE,
+        .appStartAddr       = APP_IMAGE_START_ADDR,
+        .filename           = APP_HEX_HEADER_FILE
     },
 
     /* Add firmware update information for the additional I2C slaves on the bus

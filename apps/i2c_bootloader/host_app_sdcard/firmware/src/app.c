@@ -115,16 +115,16 @@ static BUFFER_ATTRIBUTES uint8_t        sdCardBuffer[APP_MAX_MEM_PAGE_SIZE];
 const APP_FIRMWARE_UPDATE_INFO  firmwareUpdateInfo[APP_BL_NUM_I2C_SLAVES] =
 {
     {
-        .i2cSlaveAddr       = 0x0054,
-        .erasePageSize      = 256,
+        .i2cSlaveAddr       = APP_I2C_SLAVE_ADDR,
+        .erasePageSize      = APP_ERASE_PAGE_SIZE,
         /* This example programs all the pages in an erase row in one shot. In case the
          * embedded host has limited RAM, the programPageSize macro can be set to
          * the actual program page size to reduce the RAM used to hold the
          * program data.
          */
-        .programPageSize    = 256,
-        .appStartAddr       = 0x800,
-        .filename           = "sam_d21_xpro.X.production.bin"
+        .programPageSize    = APP_PROGRAM_PAGE_SIZE,
+        .appStartAddr       = APP_IMAGE_START_ADDR,
+        .filename           = APP_HEX_HEADER_FILE
     },
 
     /* Add firmware update information for the additional I2C slaves on the bus
