@@ -1,49 +1,38 @@
-![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
-![Harmony logo small](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_mplab_harmony_logo_small.png)
+[![MCHP](https://www.microchip.com/ResourcePackages/Microchip/assets/dist/images/logo.png)](https://www.microchip.com)
 
-# MPLAB® Harmony 3 I2C Bootloader for SAMD20E15BU and SAMD20E16BU
-This application is a bootloader application which resides in the starting location of the device flash memory. The bootloader application uses SERCOM I2C in slave mode with interrupts disabled.
+To clone or download this application from Github,go to the [main page of this repository](https://github.com/Microchip-MPLAB-Harmony/bootloader_apps_i2c) and then click Clone button to clone this repo or download as zip file. This content can also be download using content manager by following [these instructions](https://github.com/Microchip-MPLAB-Harmony/contentmanager/wiki)
 
-# Building the Application
-| Application Path |  bootloader/apps/i2c_bootloader/bootloader_wlcsp/firmware |
-|------------------|-----------------------------------------------------------|
+# I2C WLCSP Bootloader
 
-To build the application, refer the following table and open the appropriate project file in the MPLAB X IDE v5.30.
+This example application shows how to use the Bootloader Library to bootload an application using I2C protocol.
 
-| Project Name    | Description                                                |
-|-----------------|------------------------------------------------------------|
-| samd20e15bu_wlcsp.X    | Bootloader application for SAMD20E15BU              |
-| samd20e16bu_wlcsp.X    | Bootloader application for SAMD20E16BU              |
+### Bootloader Application
 
-# Hardware Setup
-1. Project samd20e15bu_wlcsp.X
-   * Hardware setup:
-        * Connect the I2C SDA line (SERCOM2 PAD[0]/PA08) of SAMD20E15BU running the bootloader application to the I2C SDA line of the bootloader host application
-        * Connect the I2C SCL line (SERCOM2 PAD[1]/PA09) of SAMD20E15BU running the bootloader application to the I2C SCL line of the bootloader host application
-        * Connect a ground wire between the bootloader host and SAMD20E15BU
-2. Project samd20e16bu_wlcsp.X
-   * Hardware setup:
-        * Connect the I2C SDA line (SERCOM2 PAD[0]/PA08) of SAMD20E16BU running the bootloader application to the I2C SDA line of the bootloader host application
-        * Connect the I2C SCL line (SERCOM2 PAD[1]/PA09) of SAMD20E16BU running the bootloader application to the I2C SCL line of the bootloader host application
-        * Connect a ground wire between the bootloader host and SAMD20E16BU
+- This is a bootloader application which resides from starting location of the device flash memory
+- Bootloader runs from RAM to allow self-upgradation of the bootloader code itself.
+- Trigger Methods:
+    * By driving I2C SDA and SCL low on external reset. This assumes that the bootloader host application has control over the reset pin to ensure that execution of the bootloader starts after the values of SCL and SDA pins is settled to a desired level.
+    * Pattern - 0x5048434D in each of the first 4 words (total 16 bytes), starting from RAM address - 0x20000000
+    * No valid application. Application is considered invalid if the first 4 bytes of the application (which contains the starting address for the main stack pointer) are 0xFFFFFFFF
+- Port pins used for I2C communication:
+    * PA08 (SERCOM2_PAD0)
+    * PA09 (SERCOM2_PAD1)
+- Bootloader programs fuse settings to default values. Any custom fuse bit settings must be programmed by the application
+- Bootloader uses I2C peripheral library in non-interrupt mode and implements two tasks:
+    1. To process the I2C events
+    2. To perform flash read/write/verify operations
+- It is implemented in non-blocking mode thereby allowing other tasks to co-exist (if any)
 
-# Running the Application
-1. The bootloader can be triggered in one of the following ways:
-    * By driving both I2C SCL and SDA lines of SAMD20E15BU/SAMD20E16BU to logic low upon power up
-    * By writing the 16 bytes of bootloader trigger pattern - 0x5048434D from the start of the RAM location - 0x20000000
-    * Bootloader will automatically be entered if an application is not programmed. An application is considered as not being programmed, if the first word (32-bits) of the application (ie. Main Stack Pointer) contains 0xFFFFFFFF
-2. To program the user application, one of the host application examples can be used or a custom host application can be developed by implementing the bootloader protocol.
-	* [MPLAB® Harmony 3 Bootloader Host NVM Application Help](https://microchip-mplab-harmony.github.io/bootloader/00019.html)
-	* [MPLAB® Harmony 3 Bootloader Host SD Card Application Help](https://microchip-mplab-harmony.github.io/bootloader/00024.html)
+### SDCARD Host Application
+- This is a embedded I2C host application which sends the application image stored in the SD card to the target board over the I2C bus
+- The user application binary is copied into an SD card and inserted in the SD card slot on the host board
 
-For more information, please refer the following bootloader help document.
+    ![i2c_bootloader_host_sdcard](../docs/images/i2c_bootloader_host_sdcard.png)
 
-- [MPLAB® Harmony 3 Bootloader Help](https://microchip-mplab-harmony.github.io/bootloader)
-____
+## Targets
+The following table provides links to documentation on how to build and run I2C WLCSP bootloader on SAMD20E15BU and SAMD20E16BU targets
 
-[![Follow us on Youtube](https://img.shields.io/badge/Youtube-Follow%20us%20on%20Youtube-red.svg)](https://www.youtube.com/user/MicrochipTechnology)
-[![Follow us on LinkedIn](https://img.shields.io/badge/LinkedIn-Follow%20us%20on%20LinkedIn-blue.svg)](https://www.linkedin.com/company/microchip-technology)
-[![Follow us on Facebook](https://img.shields.io/badge/Facebook-Follow%20us%20on%20Facebook-blue.svg)](https://www.facebook.com/microchiptechnology/)
-[![Follow us on Twitter](https://img.shields.io/twitter/follow/MicrochipTech.svg?style=social)](https://twitter.com/MicrochipTech)
-
-
+| Development Kit |
+|:---------|
+|[SAMD20E15BU](docs/readme_sam_d20_e15.md) |
+|[SAMD20E16BU](docs/readme_sam_d20_e16.md) |
