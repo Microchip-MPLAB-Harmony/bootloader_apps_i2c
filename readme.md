@@ -31,9 +31,10 @@ To clone or download these application from Github,go to the [main page of this 
 
 The following applications are provided to demonstrate the I2C bootloader
 
-| Name                                                                  | Description                                                       |
-| ---------                                                             | -----------                                                       |
-|[I2C Bootloader](apps/i2c_bootloader/readme.md)                        | This example application shows how to use the Bootloader Library to bootload an application using I2C protocol |
+| Name                                                                   | Description                                                       |
+| ---------                                                              | -----------                                                       |
+| [I2C Bootloader](apps/i2c_bootloader/readme.md)                        | This example application shows how to use the Bootloader Library to bootload an application using I2C protocol                                           |
+| [I2C Faile Safe Bootloader](apps/i2c_fail_safe_bootloader/readme.md)   | This example application shows how to use the Bootloader Library to bootload an application on device having dual flash bank feature using I2C protocol  |
 
 
 ## Bootloader Library
