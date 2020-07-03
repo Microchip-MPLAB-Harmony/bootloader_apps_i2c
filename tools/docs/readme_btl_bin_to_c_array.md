@@ -1,3 +1,11 @@
+---
+parent: I2C Bootloader Host Tools
+title: Bootloader Binary to C Array script
+has_children: false
+has_toc: false
+nav_order: 1
+---
+
 [![MCHP](https://www.microchip.com/ResourcePackages/Microchip/assets/dist/images/logo.png)](https://www.microchip.com)
 
 # Bootloader Binary to C Array script help

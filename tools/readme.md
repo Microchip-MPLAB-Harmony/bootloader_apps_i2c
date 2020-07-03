@@ -1,3 +1,10 @@
+---
+title: I2C Bootloader Host Tools
+has_children: true
+has_toc: false
+nav_order: 4
+---
+
 [![MCHP](https://www.microchip.com/ResourcePackages/Microchip/assets/dist/images/logo.png)](https://www.microchip.com)
 
 # I2C Bootloader Tools Help

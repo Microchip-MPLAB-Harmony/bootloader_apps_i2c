@@ -1,3 +1,10 @@
+---
+grand_parent: I2C Bootloader Applications
+parent: I2C Bootloader
+title: Building and Running on SAM L10 Xplained Pro Evaluation Kit
+has_toc: false
+---
+
 [![MCHP](https://www.microchip.com/ResourcePackages/Microchip/assets/dist/images/logo.png)](https://www.microchip.com)
 
 # Building and Running the I2C Bootloader applications
