@@ -98,7 +98,7 @@ extern "C" {
  * This macro takes one of the following values: 
  * SAM_C21N, SAM_D11, SAM_D20, SAM_D21, SAM_DA1, SAM_E54, SAM_HA1, SAM_L10, SAM_L21, SAM_L22
  */       
-#define APP_I2C_BOOTLOADER_TARGET_DEVICE        SAM_C21N_XPRO    
+#define APP_I2C_BOOTLOADER_TARGET_DEVICE        SAM_L22_XPRO    
     
 #if APP_I2C_BOOTLOADER_TARGET_DEVICE == SAM_C21N_XPRO
 #define APP_HEX_HEADER_FILE         "test_app_images/image_pattern_hex_sam_c21n_xpro.h"

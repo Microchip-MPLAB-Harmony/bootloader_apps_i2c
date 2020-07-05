@@ -124,7 +124,7 @@ const APP_FIRMWARE_UPDATE_INFO  firmwareUpdateInfo[APP_BL_NUM_I2C_SLAVES] =
          */
         .programPageSize    = APP_PROGRAM_PAGE_SIZE,
         .appStartAddr       = APP_IMAGE_START_ADDR,
-        .filename           = APP_HEX_HEADER_FILE
+        .filename           = APP_BINARY_FILE
     },
 
     /* Add firmware update information for the additional I2C slaves on the bus

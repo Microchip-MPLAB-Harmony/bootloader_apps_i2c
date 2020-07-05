@@ -112,7 +112,7 @@ extern "C" {
 #define APP_I2C_BOOTLOADER_TARGET_DEVICE        SAM_E54_XPRO
 
 #if APP_I2C_BOOTLOADER_TARGET_DEVICE == SAM_C21N_XPRO
-#define APP_HEX_HEADER_FILE         "test_app_images/image_pattern_hex_sam_c21n_xpro.h"
+#define APP_BINARY_FILE         	"sam_c21n_xpro.X.production.bin"
 #define APP_I2C_SLAVE_ADDR          0x0054
 #define APP_ERASE_PAGE_SIZE         (256L)
 #define APP_PROGRAM_PAGE_SIZE       (256L)
@@ -120,63 +120,63 @@ extern "C" {
 
 
 #elif APP_I2C_BOOTLOADER_TARGET_DEVICE == SAM_D11_XPRO
-#define APP_HEX_HEADER_FILE         "sam_d11_xpro.X.production.bin"
+#define APP_BINARY_FILE         	"sam_d11_xpro.X.production.bin"
 #define APP_I2C_SLAVE_ADDR          0x0054
 #define APP_ERASE_PAGE_SIZE         (256L)
 #define APP_PROGRAM_PAGE_SIZE       (256L)
 #define APP_IMAGE_START_ADDR        0x800UL
 
 #elif APP_I2C_BOOTLOADER_TARGET_DEVICE == SAM_D20_XPRO
-#define APP_HEX_HEADER_FILE         "sam_d20_xpro.X.production.bin"
+#define APP_BINARY_FILE         	"sam_d20_xpro.X.production.bin"
 #define APP_I2C_SLAVE_ADDR          0x0054
 #define APP_ERASE_PAGE_SIZE         (256L)
 #define APP_PROGRAM_PAGE_SIZE       (256L)
 #define APP_IMAGE_START_ADDR        0x800UL
 
 #elif APP_I2C_BOOTLOADER_TARGET_DEVICE == SAM_D21_XPRO
-#define APP_HEX_HEADER_FILE         "sam_d21_xpro.X.production.bin"
+#define APP_BINARY_FILE		        "sam_d21_xpro.X.production.bin"
 #define APP_I2C_SLAVE_ADDR          0x0054
 #define APP_ERASE_PAGE_SIZE         (256L)
 #define APP_PROGRAM_PAGE_SIZE       (256L)
 #define APP_IMAGE_START_ADDR        0x800UL
 
 #elif APP_I2C_BOOTLOADER_TARGET_DEVICE == SAM_DA1_XPRO
-#define APP_HEX_HEADER_FILE         "sam_da1_xpro.X.production.bin"
+#define APP_BINARY_FILE         	"sam_da1_xpro.X.production.bin"
 #define APP_I2C_SLAVE_ADDR          0x0054
 #define APP_ERASE_PAGE_SIZE         (256L)
 #define APP_PROGRAM_PAGE_SIZE       (256L)
 #define APP_IMAGE_START_ADDR        0x800UL
 
 #elif APP_I2C_BOOTLOADER_TARGET_DEVICE == SAM_E54_XPRO
-#define APP_HEX_HEADER_FILE         "sam_e54_xpro.X.production.bin"
+#define APP_BINARY_FILE         	"sam_e54_xpro.X.production.bin"
 #define APP_I2C_SLAVE_ADDR          0x0054
 #define APP_ERASE_PAGE_SIZE         (8192L)
 #define APP_PROGRAM_PAGE_SIZE       (8192L)
 #define APP_IMAGE_START_ADDR        0x2000UL
 
 #elif APP_I2C_BOOTLOADER_TARGET_DEVICE == SAM_HA1_XPRO
-#define APP_HEX_HEADER_FILE         "sam_ha1_xpro.X.production.bin"
+#define APP_BINARY_FILE         	"sam_ha1_xpro.X.production.bin"
 #define APP_I2C_SLAVE_ADDR          0x0054
 #define APP_ERASE_PAGE_SIZE         (256L)
 #define APP_PROGRAM_PAGE_SIZE       (256L)
 #define APP_IMAGE_START_ADDR        0x800UL
 
 #elif APP_I2C_BOOTLOADER_TARGET_DEVICE == SAM_L10_XPRO
-#define APP_HEX_HEADER_FILE         "sam_l10_xpro.X.production.bin"
+#define APP_BINARY_FILE         	"sam_l10_xpro.X.production.bin"
 #define APP_I2C_SLAVE_ADDR          0x0054
 #define APP_ERASE_PAGE_SIZE         (256L)
 #define APP_PROGRAM_PAGE_SIZE       (256L)
 #define APP_IMAGE_START_ADDR        0x800UL
 
 #elif APP_I2C_BOOTLOADER_TARGET_DEVICE == SAM_L21_XPRO
-#define APP_HEX_HEADER_FILE         "sam_l21_xpro.X.production.bin"
+#define APP_BINARY_FILE         	"sam_l21_xpro.X.production.bin"
 #define APP_I2C_SLAVE_ADDR          0x0054
 #define APP_ERASE_PAGE_SIZE         (256L)
 #define APP_PROGRAM_PAGE_SIZE       (256L)
 #define APP_IMAGE_START_ADDR        0x800UL
 
 #elif APP_I2C_BOOTLOADER_TARGET_DEVICE == SAM_L22_XPRO
-#define APP_HEX_HEADER_FILE         "sam_l22_xpro.X.production.bin"
+#define APP_BINARY_FILE         	"sam_l22_xpro.X.production.bin"
 #define APP_I2C_SLAVE_ADDR          0x0054
 #define APP_ERASE_PAGE_SIZE         (256L)
 #define APP_PROGRAM_PAGE_SIZE       (256L)
