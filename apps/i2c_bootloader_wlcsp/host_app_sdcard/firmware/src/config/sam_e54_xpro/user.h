@@ -94,7 +94,7 @@ extern "C" {
 /* Configure the binary file to read from the SD card and program into the target 
  * Example: samd20e15bu_wlcsp.X.production.bin or samd20e16bu_wlcsp.X.production.bin
  */
-#define APP_BINARY_FILE         	""
+#define APP_BINARY_FILE         	"image.bin"
 #define APP_I2C_SLAVE_ADDR          0x0054
 #define APP_ERASE_PAGE_SIZE         (256L)
 #define APP_PROGRAM_PAGE_SIZE       (256L)
