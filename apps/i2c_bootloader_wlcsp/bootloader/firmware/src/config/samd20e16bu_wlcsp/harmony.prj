@@ -4,7 +4,8 @@
     <Name dnOrder="0" value="samd20e16bu_wlcsp"/>
     <Processor dnOrder="1" value="ATSAMD20E16BU"/>
     <Harmony dnOrder="2" path="../../../.."/>
-    <Manifest dnOrder="3">
+    <Folder_Name dnOrder="3" value=""/>
+    <Manifest dnOrder="4">
       <Files dnOrder="0">
         <File dnOrder="0">
           <Type dnOrder="0">SOURCE</Type>
@@ -12,8 +13,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/samd20e16bu_wlcsp/bootloader/</LogicalPath>
           <PhysicalPath dnOrder="4">/bootloader/</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">039E5B6B18F47DAB12933EB38CC24D4D</GeneratedChecksum>
-          <UserChecksum dnOrder="6">039E5B6B18F47DAB12933EB38CC24D4D</UserChecksum>
+          <GeneratedChecksum dnOrder="5">CF83FD1F9C16EA01DFC230A133B251F6</GeneratedChecksum>
+          <UserChecksum dnOrder="6">CF83FD1F9C16EA01DFC230A133B251F6</UserChecksum>
         </File>
         <File dnOrder="1">
           <Type dnOrder="0">SOURCE</Type>
@@ -21,8 +22,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/samd20e16bu_wlcsp/</LogicalPath>
           <PhysicalPath dnOrder="4">/</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">F4683EFE9BA60DB087EDBEEC174B919D</GeneratedChecksum>
-          <UserChecksum dnOrder="6">F4683EFE9BA60DB087EDBEEC174B919D</UserChecksum>
+          <GeneratedChecksum dnOrder="5">8EFA299E59059014F260785D54DCA339</GeneratedChecksum>
+          <UserChecksum dnOrder="6">8EFA299E59059014F260785D54DCA339</UserChecksum>
         </File>
         <File dnOrder="2">
           <Type dnOrder="0">SOURCE</Type>
@@ -147,8 +148,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/samd20e16bu_wlcsp/bootloader/</LogicalPath>
           <PhysicalPath dnOrder="4">/bootloader/</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">41ED3C22BBA2A443811848CD57DF5825</GeneratedChecksum>
-          <UserChecksum dnOrder="6">41ED3C22BBA2A443811848CD57DF5825</UserChecksum>
+          <GeneratedChecksum dnOrder="5">5E72410EBB7A36F4FCB4BEC646B6105B</GeneratedChecksum>
+          <UserChecksum dnOrder="6">5E72410EBB7A36F4FCB4BEC646B6105B</UserChecksum>
         </File>
         <File dnOrder="16">
           <Type dnOrder="0">HEADER</Type>
@@ -498,8 +499,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3"/>
           <PhysicalPath dnOrder="4">/</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">5EC56AD10E34259F45CE1A80D918308F</GeneratedChecksum>
-          <UserChecksum dnOrder="6">5EC56AD10E34259F45CE1A80D918308F</UserChecksum>
+          <GeneratedChecksum dnOrder="5">ECDDC53B47CF1A44AC60D2B676C85C5E</GeneratedChecksum>
+          <UserChecksum dnOrder="6">ECDDC53B47CF1A44AC60D2B676C85C5E</UserChecksum>
         </File>
       </Files>
       <Settings dnOrder="1">
@@ -508,10 +509,9 @@
         <Setting category="C32-LD" dnOrder="2" key="heap-size" security="NON_SECURE" value="512"/>
         <Setting category="C32-LD" dnOrder="3" key="no-device-startup-code" security="NON_SECURE" value="true"/>
         <Setting category="C32-LD" dnOrder="4" key="no-startup-files" security="NON_SECURE" value="true"/>
-        <Setting append="true" category="C32-LD" delimiter=";" dnOrder="5" key="preprocessor-macros" security="NON_SECURE" value="ROM_ORIGIN=0x800;ROM_LENGTH=0xf800"/>
       </Settings>
     </Manifest>
-    <Settings dnOrder="4">
+    <Settings dnOrder="5">
       <Setting dnOrder="0" key="CMSISPath" value=".\dev_packs\arm\CMSIS\5.6.0"/>
       <Setting dnOrder="1" key="DFPPath" value=".\dev_packs\Microchip\SAMD20_DFP\3.2.51\samd20b\atdf\ATSAMD20E16BU.atdf"/>
       <Setting dnOrder="2" key="FORCE_OPTIMIZATION" value="false"/>
