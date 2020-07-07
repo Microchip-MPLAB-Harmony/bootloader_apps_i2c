@@ -29,7 +29,6 @@ This example application shows how to use the Bootloader Library to bootload an 
 - Bootloader uses I2C peripheral library in non-interrupt mode and implements two tasks:
     1. To process the I2C events
     2. To perform flash read/write/verify operations
-- It is implemented in non-blocking mode thereby allowing other tasks to co-exist (if any)
 
 ### SDCARD Host Application
 - This is a embedded I2C host application which sends the application image stored in the SD card to the target board over the I2C bus

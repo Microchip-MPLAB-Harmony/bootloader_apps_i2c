@@ -73,7 +73,7 @@ If the SDCARD Host Development Kit being used is other than [SAM E54 Xplained Pr
 3. Open the test application project *test_app/firmware/sam_e54_xpro.X* in the IDE
 4. Build the project to generate the binary **(Do not program the binary)**
 
-5. Copy the application binary into the SD card and insert the SD card in the SD card slot
+5. Copy the application binary into the SD card and insert the SD card in the SD card slot available on the  [SAM E54 Xplained Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/atsame54-xpro) 
 
 6. Open the Terminal application (Ex.:Tera Term) on the computer
 7. Configure the serial port settings for **Host Development kit** as follows:
@@ -92,16 +92,15 @@ If the SDCARD Host Development Kit being used is other than [SAM E54 Xplained Pr
     - **LED0** will be turned-on to indicate that bootloader code is running on the target
     - **LED0** will also turn on when the bootloader does not find a valid application; i.e. the first word of the application (stack pointer), contains 0xFFFFFFFF
 
-3. **If the test application is being programmed**, Open the Terminal application (Ex.:Tera Term) on the computer
-4. Configure the serial port settings for **Target Development kit** as follows:
+3. **If the test application is being programmed**, Open the Terminal application (Ex.:Tera Term) on the computer and configure the serial port settings for **Target Development kit** as follows:
     - Baud : 115200
     - Data : 8 Bits
     - Parity : None
     - Stop : 1 Bit
     - Flow Control : None
 
-5. Press the Switch **SW0** on the Host development kit to trigger programming of the application binary
-6. Once the programming is complete,
+4. Press the Switch **SW0** on the Host development kit to trigger programming of the application binary
+5. Once the programming is complete,
     - **LED0** on the Host development kit will be turned on indicating success
 
     - If **SDCARD Host application** was used to program the application binary following message will be displayed on the terminal of **Host development kit**
@@ -114,10 +113,13 @@ If the SDCARD Host Development Kit being used is other than [SAM E54 Xplained Pr
 
         ![output](./images/btl_i2c_test_app_console_success.png)
 
-7. Press and hold the Switch **SW0** to trigger Bootloader from test application
-8. Press Reset button on the Host development kit to reprogram the application binary
-9. Repeat Steps 5-6 once
-    - This step is to verify that bootloader is running after triggering bootloader from test application in Step 7
+6. Press and hold the Switch **SW0** to trigger Bootloader from test application and you should see below output
+
+    ![output](./images/btl_i2c_test_app_console_trigger_bootloader.png)
+
+7. Press Reset button on the Host development kit to reprogram the application binary
+8. Repeat Steps 4-5 once
+    - This step is to verify that bootloader is running after triggering bootloader from test application in Step 6
 
 
 ## Additional Steps (Optional)

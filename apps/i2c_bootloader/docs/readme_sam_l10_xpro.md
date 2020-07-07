@@ -68,16 +68,15 @@ If the NVM Host Development Kit being used is other than [SAM L10 Xplained Pro E
     - **LED0** will be turned-on to indicate that bootloader code is running on the target
     - **LED0** will also turn on when the bootloader does not find a valid application; i.e. the first word of the application (stack pointer), contains 0xFFFFFFFF
 
-3. **If the test application is being programmed**, Open the Terminal application (Ex.:Tera Term) on the computer
-4. Configure the serial port settings for **Target Development kit** as follows:
+3. **If the test application is being programmed**, Open the Terminal application (Ex.:Tera Term) on the computer and configure the serial port settings for **Target Development kit** as follows:
     - Baud : 115200
     - Data : 8 Bits
     - Parity : None
     - Stop : 1 Bit
     - Flow Control : None
 
-5. Press the Switch **SW0** on the Host development kit to trigger programming of the application binary
-6. Once the programming is complete,
+4. Press the Switch **SW0** on the Host development kit to trigger programming of the application binary
+5. Once the programming is complete,
     - **LED0** on the Host development kit will be turned on indicating success
 
     - The target development kit will be reset. Upon re-start, the boot-loader will jump to the user application

@@ -18,10 +18,6 @@ This example application shows how to use the Bootloader Library to bootload an 
 
 - This is a fail safe bootloader application which resides from starting location of both the banks of device flash memory region for SAM devices with dual bank support
 - It uses I2C peripheral library in non-interrupt mode
-- It implements two tasks
-    1. To process the I2C events
-    2. To perform flash read/write/verify operations
-- It is implemented in non-blocking mode thereby allowing other tasks to co-exist (if any)
 - Trigger Methods
     - It uses the On board Switch as bootloader trigger pin to force enter the bootloader at reset of device
     - It checks for bootloader request pattern **(0x5048434D)** from the starting 16 Bytes of RAM to force enter bootloader at reset of device

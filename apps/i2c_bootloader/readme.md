@@ -18,10 +18,6 @@ This example application shows how to use the Bootloader Library to bootload an 
 
 - This is a bootloader application which resides from starting location of the device flash memory
 - It uses I2C peripheral library in non-interrupt mode
-- It implements two tasks
-    1. To process the I2C events
-    2. To perform flash read/write/verify operations
-- It is implemented in non-blocking mode thereby allowing other tasks to co-exist (if any)
 - Trigger Methods
     - It uses the On board Switch as bootloader trigger pin to force enter the bootloader at reset of device
     - It checks for bootloader request pattern **(0x5048434D)** from the starting 16 Bytes of RAM to force enter bootloader at reset of device
@@ -37,7 +33,7 @@ This example application shows how to use the Bootloader Library to bootload an 
 
 ### SDCARD Host Application
 - This is a embedded I2C host application which sends the application image stored in the SD card to the target board over the I2C bus
-- The user application binary is copied into an SD card and inserted in the SD card slot on the host board
+- The user application binary is copied into an SD card and inserted in the SD card connected on the host board
 
     ![i2c_bootloader_host_sdcard](../docs/images/i2c_bootloader_host_sdcard.png)
 
