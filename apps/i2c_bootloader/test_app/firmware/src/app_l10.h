@@ -194,13 +194,12 @@ void APP_L10_Initialize ( void );
 void APP_L10_Tasks( void );
 
 
-
-#endif /* _APP_L10_H */
-
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }
 #endif
+
+#endif /* _APP_L10_H */
 //DOM-IGNORE-END
 
 /*******************************************************************************
