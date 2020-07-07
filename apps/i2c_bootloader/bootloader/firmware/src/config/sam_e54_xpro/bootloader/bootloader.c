@@ -178,6 +178,8 @@ static uint32_t BL_CRCGenerate(void)
        &crc
    );
 
+    PAC_PeripheralProtectSetup (PAC_PERIPHERAL_DSU, PAC_PROTECTION_SET);
+
     return crc;
 }
 
@@ -258,15 +260,15 @@ static bool BL_I2CMasterWriteHandler(uint8_t rdByte)
                 if (blProtocol.command == BL_COMMAND_UNLOCK)
                 {
                     /* Save application start address and size for future reference */
-                    if ((blProtocol.cmdProtocol.unlockCommand.appImageStartAddr + blProtocol.cmdProtocol.unlockCommand.appImageSize) < FLASH_LENGTH)
-                    {
-                        blProtocol.appImageStartAddr = blProtocol.cmdProtocol.unlockCommand.appImageStartAddr;
-                        blProtocol.appImageEndAddr = blProtocol.cmdProtocol.unlockCommand.appImageStartAddr + blProtocol.cmdProtocol.unlockCommand.appImageSize;
-                    }
-                    else
+                    if ((blProtocol.cmdProtocol.unlockCommand.appImageStartAddr + blProtocol.cmdProtocol.unlockCommand.appImageSize) > FLASH_LENGTH)
                     {
                         SET_BIT(blProtocol.status, BL_STATUS_BIT_INVALID_MEM_ADDR);
                         return false;
+                    }
+                    else
+                    {
+                        blProtocol.appImageStartAddr = blProtocol.cmdProtocol.unlockCommand.appImageStartAddr;
+                        blProtocol.appImageEndAddr = blProtocol.cmdProtocol.unlockCommand.appImageStartAddr + blProtocol.cmdProtocol.unlockCommand.appImageSize;
                     }
                 }
                 else if (blProtocol.command == BL_COMMAND_PROGRAM)
@@ -464,7 +466,7 @@ bool __WEAK bootloader_Trigger(void)
     return false;
 }
 
-void bootloader_Start(void)
+void bootloader_Tasks(void)
 {
     blProtocol.flashState = BL_FLASH_STATE_IDLE;
 
