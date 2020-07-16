@@ -102,6 +102,7 @@
       <itemPath>Makefile</itemPath>
       <itemPath>../src/config/sam_da1_xpro/harmony.prj</itemPath>
       <itemPath>../../../../../../mhc/../bootloader_apps_i2c/apps/i2c_bootloader/bootloader/firmware/src/config/sam_da1_xpro/sam_da1_xpro.xml</itemPath>
+      <itemPath>../src/config/sam_da1_xpro/sam_da1_xpro.xml</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -162,7 +163,7 @@
         <targetDevice>ATSAMDA1J16B</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>noID</platformTool>
+        <platformTool>EdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>2.41</languageToolchainVersion>
         <platform>3</platform>
