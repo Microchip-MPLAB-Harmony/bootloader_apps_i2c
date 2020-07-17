@@ -130,7 +130,7 @@ extern "C" {
 #define DRV_SDSPI_INDEX_0                       0
 #define DRV_SDSPI_CLIENTS_NUMBER_IDX0           1
 #define DRV_SDSPI_QUEUE_SIZE_IDX0               4
-#define DRV_SDSPI_CHIP_SELECT_PIN_IDX0          SYS_PORT_PIN_PA05
+#define DRV_SDSPI_CHIP_SELECT_PIN_IDX0          SYS_PORT_PIN_PA17
 #define DRV_SDSPI_SPEED_HZ_IDX0                 5000000
 #define DRV_SDSPI_POLLING_INTERVAL_MS_IDX0      1000
 

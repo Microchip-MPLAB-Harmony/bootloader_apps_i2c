@@ -66,14 +66,14 @@
 // *****************************************************************************
 
   
-/*** Macros for GPIO_PA05 pin ***/
-#define GPIO_PA05_Set()               (PORT_REGS->GROUP[0].PORT_OUTSET = 1 << 5)
-#define GPIO_PA05_Clear()             (PORT_REGS->GROUP[0].PORT_OUTCLR = 1 << 5)
-#define GPIO_PA05_Toggle()            (PORT_REGS->GROUP[0].PORT_OUTTGL = 1 << 5)
-#define GPIO_PA05_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 5)) & 0x01)
-#define GPIO_PA05_OutputEnable()      (PORT_REGS->GROUP[0].PORT_DIRSET = 1 << 5)
-#define GPIO_PA05_InputEnable()       (PORT_REGS->GROUP[0].PORT_DIRCLR = 1 << 5)
-#define GPIO_PA05_PIN                  PORT_PIN_PA05
+/*** Macros for GPIO_PA17 pin ***/
+#define GPIO_PA17_Set()               (PORT_REGS->GROUP[0].PORT_OUTSET = 1 << 17)
+#define GPIO_PA17_Clear()             (PORT_REGS->GROUP[0].PORT_OUTCLR = 1 << 17)
+#define GPIO_PA17_Toggle()            (PORT_REGS->GROUP[0].PORT_OUTTGL = 1 << 17)
+#define GPIO_PA17_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 17)) & 0x01)
+#define GPIO_PA17_OutputEnable()      (PORT_REGS->GROUP[0].PORT_DIRSET = 1 << 17)
+#define GPIO_PA17_InputEnable()       (PORT_REGS->GROUP[0].PORT_DIRCLR = 1 << 17)
+#define GPIO_PA17_PIN                  PORT_PIN_PA17
 
 
 

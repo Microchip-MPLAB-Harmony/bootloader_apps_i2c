@@ -47,7 +47,7 @@
                 <itemPath>../src/config/sam_d21_xpro/peripheral/sercom/i2c_master/plib_sercom2_i2c_master.h</itemPath>
               </logicalFolder>
               <logicalFolder name="f3" displayName="spim" projectFiles="true">
-                <itemPath>../src/config/sam_d21_xpro/peripheral/sercom/spim/plib_sercom0_spi.h</itemPath>
+                <itemPath>../src/config/sam_d21_xpro/peripheral/sercom/spim/plib_sercom1_spi.h</itemPath>
                 <itemPath>../src/config/sam_d21_xpro/peripheral/sercom/spim/plib_sercom_spi_common.h</itemPath>
               </logicalFolder>
               <logicalFolder name="f1" displayName="usart" projectFiles="true">
@@ -174,6 +174,7 @@
       <itemPath>Makefile</itemPath>
       <itemPath>../src/config/sam_d21_xpro/harmony.prj</itemPath>
       <itemPath>../../../../../../mhc/../bootloader_apps_i2c/apps/i2c_bootloader/host_app_sdcard/firmware/src/config/sam_d21_xpro/sam_d21_xpro.xml</itemPath>
+      <itemPath>../src/config/sam_d21_xpro/sam_d21_xpro.xml</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -221,7 +222,7 @@
                 <itemPath>../src/config/sam_d21_xpro/peripheral/sercom/i2c_master/plib_sercom2_i2c_master.c</itemPath>
               </logicalFolder>
               <logicalFolder name="f3" displayName="spim" projectFiles="true">
-                <itemPath>../src/config/sam_d21_xpro/peripheral/sercom/spim/plib_sercom0_spi.c</itemPath>
+                <itemPath>../src/config/sam_d21_xpro/peripheral/sercom/spim/plib_sercom1_spi.c</itemPath>
               </logicalFolder>
               <logicalFolder name="f1" displayName="usart" projectFiles="true">
                 <itemPath>../src/config/sam_d21_xpro/peripheral/sercom/usart/plib_sercom3_usart.c</itemPath>
@@ -282,7 +283,7 @@
         <targetDevice>ATSAMD21J18A</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>noID</platformTool>
+        <platformTool>EdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>2.41</languageToolchainVersion>
         <platform>3</platform>

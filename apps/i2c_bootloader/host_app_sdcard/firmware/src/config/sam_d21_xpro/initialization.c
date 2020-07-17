@@ -92,21 +92,21 @@ static DRV_SDSPI_BUFFER_OBJ drvSDSPI0TransferObjPool[DRV_SDSPI_QUEUE_SIZE_IDX0];
 const DRV_SDSPI_PLIB_INTERFACE drvSDSPI0PlibAPI = {
 
     /* SPI PLIB WriteRead function */
-    .writeRead = (DRV_SDSPI_PLIB_WRITEREAD)SERCOM0_SPI_WriteRead,
+    .writeRead = (DRV_SDSPI_PLIB_WRITEREAD)SERCOM1_SPI_WriteRead,
 
     /* SPI PLIB Write function */
-    .write = (DRV_SDSPI_PLIB_WRITE)SERCOM0_SPI_Write,
+    .write = (DRV_SDSPI_PLIB_WRITE)SERCOM1_SPI_Write,
 
     /* SPI PLIB Read function */
-    .read = (DRV_SDSPI_PLIB_READ)SERCOM0_SPI_Read,
+    .read = (DRV_SDSPI_PLIB_READ)SERCOM1_SPI_Read,
 
     /* SPI PLIB Transfer Status function */
-    .isBusy = (DRV_SDSPI_PLIB_IS_BUSY)SERCOM0_SPI_IsBusy,
+    .isBusy = (DRV_SDSPI_PLIB_IS_BUSY)SERCOM1_SPI_IsBusy,
 
-    .transferSetup = (DRV_SDSPI_PLIB_SETUP)SERCOM0_SPI_TransferSetup,
+    .transferSetup = (DRV_SDSPI_PLIB_SETUP)SERCOM1_SPI_TransferSetup,
 
     /* SPI PLIB Callback Register */
-    .callbackRegister = (DRV_SDSPI_PLIB_CALLBACK_REGISTER)SERCOM0_SPI_CallbackRegister,
+    .callbackRegister = (DRV_SDSPI_PLIB_CALLBACK_REGISTER)SERCOM1_SPI_CallbackRegister,
 };
 
 const uint32_t drvSDSPI0remapDataBits[]= { 0x0, 0x1, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF };
@@ -299,9 +299,9 @@ void SYS_Initialize ( void* data )
 
     SERCOM2_I2C_Initialize();
 
-    EVSYS_Initialize();
+    SERCOM1_SPI_Initialize();
 
-    SERCOM0_SPI_Initialize();
+    EVSYS_Initialize();
 
     TC3_TimerInitialize();
 
