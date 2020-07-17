@@ -66,7 +66,7 @@ If the NVM Host Development Kit being used is other than [SAM D21 Xplained Pro E
 
 If the SDCARD Host Development Kit being used is other than [SAM D21 Xplained Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/atsamd21-xpro) then follow the steps mentioned in [Configuring SDCARD Host application project](../../docs/readme_configure_host_app_sdcard.md#configuring-the-sdcard-host-application)
 
-1. Connect [IO1 Xplained Pro Extension Kit](https://www.microchip.com/developmenttools/ProductDetails/ATIO1-XPRO) to the EXT1 header of [SAM D21 Xplained Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/atsamd21-xpro) 
+1. Connect [IO1 Xplained Pro Extension Kit](https://www.microchip.com/developmenttools/ProductDetails/ATIO1-XPRO) to the EXT2 header of [SAM D21 Xplained Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/atsamd21-xpro) 
 
 2. Open the SDCARD host application project *host_app_sdcard/firmware/sam_d21_xpro.X* in the IDE
     - If a SDCARD host application project of different development kit is used then open that project in the IDE
