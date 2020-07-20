@@ -85,6 +85,8 @@
 #define GPIO_PD09_OutputEnable()                    (PORT_REGS->GROUP[3].PORT_DIRSET = 1 << 9)
 #define GPIO_PD08_Clear()                           (PORT_REGS->GROUP[3].PORT_OUTCLR = 1 << 8)
 #define GPIO_PD09_Clear()                           (PORT_REGS->GROUP[3].PORT_OUTCLR = 1 << 9)
+#define GPIO_PD08_Set()                             (PORT_REGS->GROUP[3].PORT_OUTSET = 1 << 8)
+#define GPIO_PD09_Set()                             (PORT_REGS->GROUP[3].PORT_OUTSET = 1 << 9)
 // *****************************************************************************
 /* Application Data
 
@@ -352,22 +354,19 @@ static int32_t APP_ImageDataWrite(
 }
 
 void APP_ForceBootloaderEntry(void)
-{
-    /* Disable PIN MUX */
-    GPIO_PD08_PinMuxDisable();
-    GPIO_PD09_PinMuxDisable();
-    
-    /* Set direction to output */
-    GPIO_PD08_OutputEnable();
-    GPIO_PD09_OutputEnable();
-   
+{    
     /* Driver PA08 and PA09 to low state to force the target to enter bootloader mode */
     GPIO_PD08_Clear();
     GPIO_PD09_Clear();             
 }
 
-void APP_ReConfigureI2CPinMux(void)
+void APP_ConfigureI2CPinFunctionality(void)
 {
+    GPIO_PD08_Set();
+    GPIO_PD09_Set();  
+    
+    PORT_REGS->GROUP[3].PORT_PMUX[4] = 0x22;
+    
     /* Enable PINMUX to let peripheral driver the IO lines */
     GPIO_PD08_PinMuxEnable();
     GPIO_PD09_PinMuxEnable();
@@ -457,7 +456,7 @@ void APP_SAME54_Tasks ( void )
             if (SWITCH_GET() == SWITCH_STATUS_PRESSED)
             {
                 /* Re-configure the GPIO lines for I2C functionality */
-                APP_ReConfigureI2CPinMux();
+                APP_ConfigureI2CPinFunctionality();
                 appData.state = APP_LOAD_I2C_SLAVE_DATA;
             }
             break;

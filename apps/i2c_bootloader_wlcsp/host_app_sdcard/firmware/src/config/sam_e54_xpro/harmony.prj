@@ -166,8 +166,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/sam_e54_xpro/peripheral/port/</LogicalPath>
           <PhysicalPath dnOrder="4">/peripheral/port/</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">985C270D61DF4C3C36ECB0C0F11C725C</GeneratedChecksum>
-          <UserChecksum dnOrder="6">985C270D61DF4C3C36ECB0C0F11C725C</UserChecksum>
+          <GeneratedChecksum dnOrder="5">6864FD7DBC1565A6DB08F0CAE2F7F9FE</GeneratedChecksum>
+          <UserChecksum dnOrder="6">6864FD7DBC1565A6DB08F0CAE2F7F9FE</UserChecksum>
         </File>
         <File dnOrder="18">
           <Type dnOrder="0">SOURCE</Type>
@@ -805,8 +805,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/sam_e54_xpro/peripheral/port/</LogicalPath>
           <PhysicalPath dnOrder="4">/peripheral/port/</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">1E8109E76E8CBD6030140221509CA28D</GeneratedChecksum>
-          <UserChecksum dnOrder="6">1E8109E76E8CBD6030140221509CA28D</UserChecksum>
+          <GeneratedChecksum dnOrder="5">5392BABD298B16EDEA4D12AEA7FB27EC</GeneratedChecksum>
+          <UserChecksum dnOrder="6">5392BABD298B16EDEA4D12AEA7FB27EC</UserChecksum>
         </File>
         <File dnOrder="89">
           <Type dnOrder="0">HEADER</Type>

@@ -66,6 +66,24 @@
 // *****************************************************************************
 
   
+/*** Macros for GPIO_PD08 pin ***/
+#define GPIO_PD08_Set()               (PORT_REGS->GROUP[3].PORT_OUTSET = 1 << 8)
+#define GPIO_PD08_Clear()             (PORT_REGS->GROUP[3].PORT_OUTCLR = 1 << 8)
+#define GPIO_PD08_Toggle()            (PORT_REGS->GROUP[3].PORT_OUTTGL = 1 << 8)
+#define GPIO_PD08_Get()               (((PORT_REGS->GROUP[3].PORT_IN >> 8)) & 0x01)
+#define GPIO_PD08_OutputEnable()      (PORT_REGS->GROUP[3].PORT_DIRSET = 1 << 8)
+#define GPIO_PD08_InputEnable()       (PORT_REGS->GROUP[3].PORT_DIRCLR = 1 << 8)
+#define GPIO_PD08_PIN                  PORT_PIN_PD08
+
+/*** Macros for GPIO_PD09 pin ***/
+#define GPIO_PD09_Set()               (PORT_REGS->GROUP[3].PORT_OUTSET = 1 << 9)
+#define GPIO_PD09_Clear()             (PORT_REGS->GROUP[3].PORT_OUTCLR = 1 << 9)
+#define GPIO_PD09_Toggle()            (PORT_REGS->GROUP[3].PORT_OUTTGL = 1 << 9)
+#define GPIO_PD09_Get()               (((PORT_REGS->GROUP[3].PORT_IN >> 9)) & 0x01)
+#define GPIO_PD09_OutputEnable()      (PORT_REGS->GROUP[3].PORT_DIRSET = 1 << 9)
+#define GPIO_PD09_InputEnable()       (PORT_REGS->GROUP[3].PORT_DIRCLR = 1 << 9)
+#define GPIO_PD09_PIN                  PORT_PIN_PD09
+
 
 
 // *****************************************************************************
