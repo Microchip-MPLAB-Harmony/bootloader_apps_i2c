@@ -29,8 +29,8 @@ To build the application, refer to the following table and open the project usin
 
     ![i2c_bootloader_host_target_connection](../../docs/images/i2c_bootloader_host_target_connection.png)
 
-- Connect the I2C SDA line (SERCOM7 PAD[0]/PD08) of the **Host development kit** to the I2C SDA line (SERCOM2 PAD[0]/PA08) of the target
-- Connect the I2C SCL line (SERCOM7 PAD[1]/PD09) of the **Host development kit** to the I2C SCL line (SERCOM2 PAD[1]/PA09) of the target
+- Connect the I2C SDA line Pin 11 (SERCOM7 PAD[0]/PD08) on EXT3 of the **Host development kit** to the I2C SDA line (SERCOM2 PAD[0]/PA08) of the target
+- Connect the I2C SCL line Pin 12 (SERCOM7 PAD[1]/PD09) on EXT3 of the **Host development kit** to the I2C SCL line (SERCOM2 PAD[1]/PA09) of the target
 - Connect a ground wire between the Host development kit and target
 - Connect the Debug USB port on the Host development kit to the computer using a micro USB cable
 - Power up the target board
