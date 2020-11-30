@@ -8,6 +8,16 @@ nav_order: 99
 
 # Microchip MPLAB® Harmony 3 Release Notes
 
+## I2C Bootloader Applications Release v3.0.2
+
+- Added discover.microchip.com metadata
+
+### Known Issues
+- No changes from v3.0.0
+
+### Development Tools
+- No changes from v3.0.0
+
 ## I2C Bootloader Applications Release v3.0.1
 
 - Updated package.xml

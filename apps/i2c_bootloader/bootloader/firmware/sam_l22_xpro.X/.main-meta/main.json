@@ -1,0 +1,74 @@
+{
+	"metaDataVersion": "1.0.0",
+	"category": "com.microchip.ide.project",
+	"content": {
+		"metaDataVersion": "1.1.0",
+		"name": "com.microchip.mcu32.mplabx.project.bootloader_apps_i2c_i2c_bootloader_sam_l22_xpro",
+		"version": "3.0.2",
+		"displayName": "I2C Bootloader Example for SAM L21/L22 Family",
+		"projectName": "i2c_bootloader_sam_l22_xpro",
+		"shortDescription": "This example application shows how to use the Bootloader Library to bootload an application using I2C protocol.",
+		"ide": {
+			"name": "MPLABX",
+			"semverRange": ">=5.40.0"
+		},
+		"compiler": [
+			{
+				"name": "XC32",
+				"semverRange": ">=2.40.0"
+			}
+		],
+		"dfp": {
+			"name": "SAML22_DFP",
+			"semverRange": "^3.3.47"
+		},
+		"configurator": {
+			"name": "MHC",
+			"semverRange": ">=3.4.1"
+		},
+		"device": {
+			"metaDataVersion": "1.0.0",
+			"category": "com.microchip.portal.contentRef",
+			"content": {
+				"metaDataVersion": "1.0.0",
+				"category": "com.microchip.device",
+				"name": "ATSAML22N18A",
+				"versionRange": "*"
+			}
+		},
+		"author": "Microchip",
+		"subcategories": [
+			[
+				"Development Kit", "SAM L22 Xplained Pro Evaluation Kit"
+			],
+			[
+				"Harmony", "Bootloader", "I2C"
+			],
+			[
+				"Bootloader", "I2C"
+			]
+		],
+		"peripherals": [
+			"Bootloader"
+		],
+		"keywords": [
+			"MHC",
+			"Harmony",
+			"Bootloader",
+			"I2C",
+			"ATSAML22N18A",
+			"SAM L21/L22 Family"
+		],
+		"additionalData": {
+			"longDescription": {
+				"metaDataVersion": "1.0.0",
+				"category": "com.microchip.portal.fileRef",
+				"content": {
+					"metaDataVersion": "1.0.0",
+					"fileName": "./../../../readme.md",
+					"mimeType": "text/markdown"
+				}
+			}
+		}
+	}
+}
