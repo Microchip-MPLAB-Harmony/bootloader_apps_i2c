@@ -81,12 +81,7 @@
 #define GPIO_PD09_PinMuxDisable()                   PORT_REGS->GROUP[3].PORT_PINCFG[9] = 0x0;
 #define GPIO_PD08_PinMuxEnable()                    PORT_REGS->GROUP[3].PORT_PINCFG[8] = 0x1;
 #define GPIO_PD09_PinMuxEnable()                    PORT_REGS->GROUP[3].PORT_PINCFG[9] = 0x1;
-#define GPIO_PD08_OutputEnable()                    (PORT_REGS->GROUP[3].PORT_DIRSET = 1 << 8)
-#define GPIO_PD09_OutputEnable()                    (PORT_REGS->GROUP[3].PORT_DIRSET = 1 << 9)
-#define GPIO_PD08_Clear()                           (PORT_REGS->GROUP[3].PORT_OUTCLR = 1 << 8)
-#define GPIO_PD09_Clear()                           (PORT_REGS->GROUP[3].PORT_OUTCLR = 1 << 9)
-#define GPIO_PD08_Set()                             (PORT_REGS->GROUP[3].PORT_OUTSET = 1 << 8)
-#define GPIO_PD09_Set()                             (PORT_REGS->GROUP[3].PORT_OUTSET = 1 << 9)
+
 // *****************************************************************************
 /* Application Data
 
