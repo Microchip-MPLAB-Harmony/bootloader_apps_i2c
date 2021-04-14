@@ -134,7 +134,7 @@ void APP_I2CEventHandler(uintptr_t context )
 {
     APP_TRANSFER_STATUS* trasnferStatus = (APP_TRANSFER_STATUS*)context;
 
-    if(SERCOM2_I2C_ErrorGet() == SERCOM_I2C_ERROR_NONE)
+    if(I2C_FUNC(ErrorGet)() == SERCOM_I2C_ERROR_NONE)
     {
         if (trasnferStatus)
         {
@@ -262,7 +262,7 @@ int main ( void )
         switch (appData.state)
         {
             case APP_STATE_INIT:
-                SERCOM2_I2C_CallbackRegister( APP_I2CEventHandler, (uintptr_t)&appData.trasnferStatus );
+                I2C_FUNC(CallbackRegister)( APP_I2CEventHandler, (uintptr_t)&appData.trasnferStatus );
                 appData.state = APP_STATE_WAIT_SW_PRESS;
                 break;
 
@@ -277,7 +277,7 @@ int main ( void )
 
                 nTxBytes = APP_UnlockCommandSend(APP_IMAGE_START_ADDR, APP_IMAGE_SIZE);
                 appData.trasnferStatus = APP_TRANSFER_STATUS_IN_PROGRESS;
-                SERCOM2_I2C_Write(APP_I2C_SLAVE_ADDR, &appData.wrBuffer[0], nTxBytes);
+                I2C_FUNC(Write)(APP_I2C_SLAVE_ADDR, &appData.wrBuffer[0], nTxBytes);
                 appData.state = APP_STATE_WAIT_UNLOCK_COMMAND_TRANSFER_COMPLETE;
                 break;
 
@@ -300,7 +300,7 @@ int main ( void )
                     {
                         appData.nBytesWrittenInErasedPage = 0;
                         appData.trasnferStatus = APP_TRANSFER_STATUS_IN_PROGRESS;
-                        SERCOM2_I2C_Write(APP_I2C_SLAVE_ADDR, &appData.wrBuffer[0], nTxBytes);
+                        I2C_FUNC(Write)(APP_I2C_SLAVE_ADDR, &appData.wrBuffer[0], nTxBytes);
                         appData.state = APP_STATE_WAIT_ERASE_COMMAND_TRANSFER_COMPLETE;
                     }
                 }
@@ -317,7 +317,7 @@ int main ( void )
                     /* Read the status of the erase command */
                     appData.wrBuffer[0] = APP_BL_COMMAND_READ_STATUS;
                     appData.trasnferStatus = APP_TRANSFER_STATUS_IN_PROGRESS;
-                    SERCOM2_I2C_WriteRead(APP_I2C_SLAVE_ADDR, &appData.wrBuffer[0], 1,  &appData.status, 1);
+                    I2C_FUNC(WriteRead)(APP_I2C_SLAVE_ADDR, &appData.wrBuffer[0], 1,  &appData.status, 1);
                     appData.state = APP_STATE_CHECK_STATUS;
                     appData.nextState = APP_STATE_SEND_WRITE_COMMAND;
                 }
@@ -333,7 +333,7 @@ int main ( void )
                 {
                     nTxBytes = APP_ImageDataWrite((appData.appMemStartAddr + appData.nBytesWritten), APP_PROGRAM_PAGE_SIZE);
                     appData.trasnferStatus = APP_TRANSFER_STATUS_IN_PROGRESS;
-                    SERCOM2_I2C_Write(APP_I2C_SLAVE_ADDR, &appData.wrBuffer[0], nTxBytes);
+                    I2C_FUNC(Write)(APP_I2C_SLAVE_ADDR, &appData.wrBuffer[0], nTxBytes);
                     appData.state = APP_STATE_WAIT_WRITE_COMMAND_TRANSFER_COMPLETE;
                 }
                 else if (appData.trasnferStatus == APP_TRANSFER_STATUS_ERROR)
@@ -351,7 +351,7 @@ int main ( void )
                     /* Read the status of the write command */
                     appData.wrBuffer[0] = APP_BL_COMMAND_READ_STATUS;
                     appData.trasnferStatus = APP_TRANSFER_STATUS_IN_PROGRESS;
-                    SERCOM2_I2C_WriteRead(APP_I2C_SLAVE_ADDR, &appData.wrBuffer[0], 1,  &appData.status, 1);
+                    I2C_FUNC(WriteRead)(APP_I2C_SLAVE_ADDR, &appData.wrBuffer[0], 1,  &appData.status, 1);
                     appData.state = APP_STATE_CHECK_STATUS;
                     if (appData.nBytesWrittenInErasedPage == APP_ERASE_PAGE_SIZE)
                     {
@@ -374,7 +374,7 @@ int main ( void )
                 crc = APP_CRCGenerate();
                 nTxBytes = APP_VerifyCommandSend(crc);
                 appData.trasnferStatus = APP_TRANSFER_STATUS_IN_PROGRESS;
-                SERCOM2_I2C_Write(APP_I2C_SLAVE_ADDR, &appData.wrBuffer[0], nTxBytes);
+                I2C_FUNC(Write)(APP_I2C_SLAVE_ADDR, &appData.wrBuffer[0], nTxBytes);
                 appData.state = APP_STATE_WAIT_VERIFY_COMMAND_TRANSFER_COMPLETE;
                 break;
 
@@ -384,7 +384,7 @@ int main ( void )
                     /* Read the status of the verify command */
                     appData.wrBuffer[0] = APP_BL_COMMAND_READ_STATUS;
                     appData.trasnferStatus = APP_TRANSFER_STATUS_IN_PROGRESS;
-                    SERCOM2_I2C_WriteRead(APP_I2C_SLAVE_ADDR, &appData.wrBuffer[0], 1,  &appData.status, 1);
+                    I2C_FUNC(WriteRead)(APP_I2C_SLAVE_ADDR, &appData.wrBuffer[0], 1,  &appData.status, 1);
                     appData.state = APP_STATE_CHECK_STATUS;
                     appData.nextState = APP_STATE_SEND_RESET_COMMAND;
                 }
@@ -411,7 +411,7 @@ int main ( void )
                     /* Slave is busy. Keep checking the status */
                     appData.wrBuffer[0] = APP_BL_COMMAND_READ_STATUS;
                     appData.trasnferStatus = APP_TRANSFER_STATUS_IN_PROGRESS;
-                    SERCOM2_I2C_WriteRead(APP_I2C_SLAVE_ADDR, &appData.wrBuffer[0], 1,  &appData.status, 1);
+                    I2C_FUNC(WriteRead)(APP_I2C_SLAVE_ADDR, &appData.wrBuffer[0], 1,  &appData.status, 1);
                 }
                 break;
 
@@ -419,7 +419,7 @@ int main ( void )
 
                 appData.wrBuffer[0] = APP_BL_COMMAND_RESET;
                 appData.trasnferStatus = APP_TRANSFER_STATUS_IN_PROGRESS;
-                SERCOM2_I2C_Write(APP_I2C_SLAVE_ADDR, &appData.wrBuffer[0], 1);
+                I2C_FUNC(Write)(APP_I2C_SLAVE_ADDR, &appData.wrBuffer[0], 1);
                 appData.state = APP_STATE_WAIT_RESET_COMMAND_TRANSFER_COMPLETE;
                 break;
 

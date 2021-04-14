@@ -68,6 +68,8 @@ extern "C" {
 /* Include the Header file defining the target configuration for the board selected above */
 #include "test_app_images/i2c_target_config.h"
 
+#define I2C_FUNC(OP)           (SERCOM2_I2C_ ## OP)
+
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }

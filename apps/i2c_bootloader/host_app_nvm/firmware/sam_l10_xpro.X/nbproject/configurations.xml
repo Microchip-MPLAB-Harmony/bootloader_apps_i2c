@@ -159,7 +159,7 @@
           <itemPath>../src/config/sam_l10_xpro/libc_syscalls.c</itemPath>
         </logicalFolder>
       </logicalFolder>
-      <itemPath>../src/main_l10_d11.c</itemPath>
+      <itemPath>../src/main.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>

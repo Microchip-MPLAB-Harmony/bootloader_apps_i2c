@@ -41,11 +41,6 @@
             </Boolean>
           </Attributes>
         </Menu>
-        <String dnOrder="7" id="CoreMainFileName">
-          <Values dnOrder="0">
-            <User dnOrder="0" value="main_e54"/>
-          </Values>
-        </String>
         <KeyValueSet dnOrder="8" id="DEVICE_SECURITY">
           <Values dnOrder="0">
             <Dynamic dnOrder="0" id="core" value="0"/>
@@ -174,13 +169,6 @@
             <Dynamic dnOrder="0" id="core" value="true"/>
           </Values>
         </Boolean>
-        <File dnOrder="32" id="MAIN_C">
-          <Attributes dnOrder="0">
-            <String dnOrder="0" id="name">
-              <Value dnOrder="0">main_e54.c</Value>
-            </String>
-          </Attributes>
-        </File>
         <Integer dnOrder="33" id="MAIN_CLOCK_FREQUENCY">
           <Values dnOrder="0">
             <Dynamic dnOrder="0" id="core" value="120000000"/>

@@ -45,7 +45,7 @@
         </File>
         <File dnOrder="4">
           <Type dnOrder="0">SOURCE</Type>
-          <Name dnOrder="1">main_l10_d11.c</Name>
+          <Name dnOrder="1">main.c</Name>
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3"/>
           <PhysicalPath dnOrder="4">/../../</PhysicalPath>

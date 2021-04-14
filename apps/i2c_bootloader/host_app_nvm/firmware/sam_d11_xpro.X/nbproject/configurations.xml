@@ -147,7 +147,7 @@
           <itemPath>../src/config/sam_d11_xpro/libc_syscalls.c</itemPath>
         </logicalFolder>
       </logicalFolder>
-      <itemPath>../src/main_l10_d11.c</itemPath>
+      <itemPath>../src/main.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
