@@ -50,6 +50,7 @@ The following table provides links to documentation on how to build and run I2C 
 
 | Development Kit |
 |:---------|
+|[PIC32CM MC00 Curiosity Pro Evaluation Kit](docs/readme_pic32cm_mc00_curiosity_pro.md) |
 |[SAM C21N Xplained Pro Evaluation Kit](docs/readme_sam_c21n_xpro.md) |
 |[SAM D11 Xplained Pro Evaluation Kit](docs/readme_sam_d11_xpro.md) |
 |[SAM D20 Xplained Pro Evaluation Kit](docs/readme_sam_d20_xpro.md) |
