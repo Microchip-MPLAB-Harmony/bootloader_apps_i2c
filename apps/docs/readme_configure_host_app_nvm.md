@@ -30,7 +30,7 @@ To clone or download this application from Github,go to the [main page of this r
 3. Convert the generated binary (.bin file) to a header file containing the image data in a C style array:
     - On a Windows machine, open the command prompt and launch the **btl_bin_to_c_array.py** utility to generate a header file containing the image data in an array
 
-          python <harmony3_path>\bootloader\tools\btl_bin_to_c_array.py -b <binary_file> -o <hex_file> -d <device>
+          python <harmony3_path>/bootloader/tools/btl_bin_to_c_array.py -b <binary_file> -o <hex_file> -d <device>
 
     - Refer to [btl_bin_to_c_array utility](../../tools/docs/readme_btl_bin_to_c_array.md) for converting the binary to C array in hex format
 
@@ -51,12 +51,21 @@ To clone or download this application from Github,go to the [main page of this r
 
     ![i2c_bootloader_host_app_nvm_user_ide](./images/i2c_bootloader_host_app_nvm_user_ide.png)
 
-3. In the "user.h" file specify the Bootloader Target Device used using the predefined macros
+3. Open **test_app_images/i2c_target_boards.h** to get predefined macros of supported Bootloader Target Devices
+
+    ![i2c_bootloader_host_app_nvm_target_board](./images/i2c_bootloader_host_app_nvm_target_board.png)
+
+4. In the "user.h" file specify the Bootloader Target Device used using the predefined macros from **test_app_images/i2c_target_boards.h**
+
        #define APP_I2C_BOOTLOADER_TARGET_DEVICE     SAM_D21_XPRO
 
     ![i2c_bootloader_host_app_nvm_user_config](./images/i2c_bootloader_host_app_nvm_user_config.png)
 
-4. Navigate to the **#if block** for the specified **Bootloader Target Device** and verify the below settings are as expected.
+5. Open **test_app_images/i2c_target_config.h** to get predefined configuration of supported Bootloader Target Devices
+
+6. Navigate to the **#if block** for the specified **Bootloader Target Device** and verify the below settings are as expected.
+
+    ![i2c_bootloader_host_app_nvm_target_config](./images/i2c_bootloader_host_app_nvm_target_config.png)
 
     - **APP_HEX_HEADER_FILE:** Relative path to the generated header file containing the application hex image in an array
     - **APP_I2C_SLAVE_ADDR:** I2C slave address
