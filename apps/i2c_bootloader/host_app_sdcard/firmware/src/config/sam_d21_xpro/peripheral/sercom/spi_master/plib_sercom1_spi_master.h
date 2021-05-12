@@ -5,10 +5,10 @@
     Microchip Technology Inc.
 
   File Name
-    plib_sercom1_spi.h
+    plib_sercom1_spi_master.h
 
   Summary
-   SERCOM1_SPI PLIB Header File.
+   SERCOM1_SPI Master PLIB Header File.
 
   Description
     This file defines the interface to the SERCOM SPI peripheral library.
@@ -45,8 +45,8 @@
 *******************************************************************************/
 // DOM-IGNORE-END
 
-#ifndef PLIB_SERCOM1_SPI_H // Guards against multiple inclusion
-#define PLIB_SERCOM1_SPI_H
+#ifndef PLIB_SERCOM1_SPI_MASTER_H // Guards against multiple inclusion
+#define PLIB_SERCOM1_SPI_MASTER_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -56,7 +56,7 @@
 /* This section lists the other files that are included in this file.
 */
 
-#include "plib_sercom_spi_common.h"
+#include "plib_sercom_spi_master_common.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus // Provide C++ Compatibility
@@ -161,10 +161,10 @@ void SERCOM1_SPI_Initialize (void);
         setup.clockPolarity = SPI_CLOCK_POLARITY_IDLE_LOW;
         setup.dataBits = SPI_DATA_BITS_8;
 
-        // Assuming 20 MHz as peripheral Master clock frequency
+        Assuming 20 MHz as peripheral Master clock frequency
         if (SERCOM1_SPI_TransferSetup (&setup, 20000000) == false)
         {
-            // this means setup could not be done, debug the reason.
+            this means setup could not be done, debug the reason.
         }
 
     </code>
@@ -252,9 +252,9 @@ bool SERCOM1_SPI_TransferSetup(SPI_TRANSFER_SETUP *setup, uint32_t spiSourceCloc
   Example:
     <code>
 
-    // The following code snippet shows an example using the
-    // SERCOM1_SPI_WriteRead() function in interrupt mode operation using the
-    // callback function.
+     The following code snippet shows an example using the
+     SERCOM1_SPI_WriteRead() function in interrupt mode operation using the
+     callback function.
 
     uint8_t     txBuffer[4];
     uint8_t     rxBuffer[10];
@@ -263,21 +263,21 @@ bool SERCOM1_SPI_TransferSetup(SPI_TRANSFER_SETUP *setup, uint32_t spiSourceCloc
 
     void APP_SPITransferHandler(uintptr_t context)
     {
-       //Transfer was completed without error, do something else now.
+       Transfer was completed without error, do something else now.
     }
 
     SERCOM1_SPI_Initialize();
     SERCOM1_SPI_CallbackRegister(&APP_SPITransferHandler, (uintptr_t)NULL);
     if(SERCOM1_SPI_WriteRead(&txBuffer, txSize, &rxBuffer, rxSize))
     {
-        // request got accepted
+        request got accepted
     }
     else
     {
-        // request didn't get accepted, try again later with correct arguments
+        request didn't get accepted, try again later with correct arguments
     }
-    // The following code snippet shows non-interrupt or blocking mode
-    // operation.
+    The following code snippet shows non-interrupt or blocking mode
+    operation.
 
     uint8_t txBuffer[4];
     uint8_t rxBuffer[10];
@@ -286,7 +286,7 @@ bool SERCOM1_SPI_TransferSetup(SPI_TRANSFER_SETUP *setup, uint32_t spiSourceCloc
 
     SERCOM1_SPI_Initialize();
 
-    // This function call will block.
+    This function call will block.
     SERCOM1_SPI_WriteRead(&txBuffer, txSize, &rxBuffer, rxSize);
 
     </code>
@@ -359,18 +359,18 @@ bool SERCOM1_SPI_WriteRead (void* pTransmitData, size_t txSize, void* pReceiveDa
 
     void APP_SPITransferHandler(uintptr_t context)
     {
-        //Transfer was completed without error, do something else now.
+        Transfer was completed without error, do something else now.
     }
 
     SERCOM1_SPI_Initialize();
     SERCOM1_SPI_CallbackRegister(&APP_SPITransferHandler, (uintptr_t)NULL);
     if(SERCOM1_SPI_Write(&txBuffer, txSize))
     {
-        // request got accepted
+        request got accepted
     }
     else
     {
-        // request didn't get accepted, try again later with correct arguments
+        request didn't get accepted, try again later with correct arguments
     }
 
     </code>
@@ -444,18 +444,18 @@ bool SERCOM1_SPI_Write(void* pTransmitData, size_t txSize);
 
     void APP_SPITransferHandler(uintptr_t context)
     {
-        //Transfer was completed without error, do something else now.
+        Transfer was completed without error, do something else now.
     }
 
     SERCOM1_SPI_Initialize();
     SERCOM1_SPI_CallbackRegister(&APP_SPITransferHandler, (uintptr_t)NULL);
     if(SERCOM1_SPI_Read(&rxBuffer, rxSize))
     {
-        // request got accepted
+        request got accepted
     }
     else
     {
-        // request didn't get accepted, try again later with correct arguments
+        request didn't get accepted, try again later with correct arguments
     }
     </code>
 
@@ -511,17 +511,17 @@ bool SERCOM1_SPI_Read(void* pReceiveData, size_t rxSize);
 
     if(SERCOM1_SPI_WriteRead(&txBuffer, txSize, &rxBuffer, rxSize ))
     {
-        // request got accepted
+        request got accepted
     }
     else
     {
-        // request didn't get accepted, try again later with correct arguments
+        request didn't get accepted, try again later with correct arguments
     }
 
     void APP_SPICallBack(uintptr_t contextHandle)
-        {
-            //Exchange was completed without error, do something else.
-        }
+    {
+        Exchange was completed without error, do something else.
+    }
     </code>
 
   Remarks:
@@ -562,9 +562,9 @@ void SERCOM1_SPI_CallbackRegister(SERCOM_SPI_CALLBACK callBack, uintptr_t contex
 
   Example:
     <code>
-        // The following code example demonstrates the use of the
-        // SERCOM1_SPI_IsBusy() function. This example shows a blocking while
-        // loop. The function can also be called periodically.
+        The following code example demonstrates the use of the
+        SERCOM1_SPI_IsBusy() function. This example shows a blocking while
+        loop. The function can also be called periodically.
 
         uint8_t dataBuffer[20];
 
@@ -573,7 +573,7 @@ void SERCOM1_SPI_CallbackRegister(SERCOM_SPI_CALLBACK callBack, uintptr_t contex
 
         while (SERCOM1_SPI_IsBusy() == true)
         {
-            // Wait here till the transfer is done.
+            Wait here till the transfer is done.
         }
     </code>
 
@@ -588,4 +588,4 @@ bool SERCOM1_SPI_IsBusy (void);
 }
 #endif
 
-#endif /* PLIB_SERCOM1_SPI_H */
+#endif /* PLIB_SERCOM1_SPI_MASTER_H */
