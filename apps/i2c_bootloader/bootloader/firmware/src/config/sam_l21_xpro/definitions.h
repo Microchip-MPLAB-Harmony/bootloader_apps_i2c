@@ -51,11 +51,11 @@
 #include "peripheral/nvmctrl/plib_nvmctrl.h"
 #include "peripheral/sercom/i2c_slave/plib_sercom2_i2c_slave.h"
 #include "peripheral/evsys/plib_evsys.h"
+#include "peripheral/pm/plib_pm.h"
 #include "peripheral/port/plib_port.h"
 #include "peripheral/clock/plib_clock.h"
 #include "peripheral/nvic/plib_nvic.h"
 #include "peripheral/pac/plib_pac.h"
-#include "peripheral/pm/plib_pm.h"
 #include "bootloader/bootloader.h"
 #include "peripheral/dsu/plib_dsu.h"
 
@@ -66,6 +66,9 @@ extern "C" {
 
 #endif
 // DOM-IGNORE-END
+
+/* CPU clock frequency */
+#define CPU_CLOCK_FREQUENCY 48000000
 
 // *****************************************************************************
 // *****************************************************************************

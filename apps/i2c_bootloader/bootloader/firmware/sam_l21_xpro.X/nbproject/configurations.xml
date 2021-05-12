@@ -7,6 +7,26 @@
       <logicalFolder name="f1" displayName="config" projectFiles="true">
         <logicalFolder name="f1" displayName="sam_l21_xpro" projectFiles="true">
           <logicalFolder name="f2" displayName="bootloader" projectFiles="true">
+            <logicalFolder name="f1" displayName="clock" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="f2" displayName="dsu" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="f3" displayName="evsys" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="f4" displayName="nvic" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="f5" displayName="nvmctrl" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="f6" displayName="pac" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="f7" displayName="pm" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="f8" displayName="port" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="f9" displayName="sercom" projectFiles="true">
+              <logicalFolder name="f1" displayName="i2c_slave" projectFiles="true">
+              </logicalFolder>
+            </logicalFolder>
             <itemPath>../src/config/sam_l21_xpro/bootloader/bootloader.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f1" displayName="peripheral" projectFiles="true">
@@ -44,6 +64,8 @@
           <itemPath>../src/config/sam_l21_xpro/device_cache.h</itemPath>
           <itemPath>../src/config/sam_l21_xpro/toolchain_specifics.h</itemPath>
           <itemPath>../src/config/sam_l21_xpro/definitions.h</itemPath>
+          <itemPath>../src/config/sam_l21_xpro/device.h</itemPath>
+          <itemPath>../src/config/sam_l21_xpro/device_vectors.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f2" displayName="packs" projectFiles="true">
@@ -79,12 +101,55 @@
             <itemPath>../src/packs/ATSAML21J18B_DFP/component/usb.h</itemPath>
             <itemPath>../src/packs/ATSAML21J18B_DFP/component/wdt.h</itemPath>
           </logicalFolder>
+          <logicalFolder name="f3" displayName="instance" projectFiles="true">
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/ac.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/adc.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/aes.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/ccl.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/dac.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/dmac.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/dsu.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/eic.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/evsys.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/gclk.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/mclk.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/mtb.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/nvmctrl.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/opamp.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/osc32kctrl.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/oscctrl.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/pac.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/pm.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/port.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/ptc.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/rstc.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/rtc.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/sercom0.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/sercom1.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/sercom2.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/sercom3.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/sercom4.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/sercom5.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/supc.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/tc0.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/tc1.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/tc2.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/tc3.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/tc4.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/tcc0.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/tcc1.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/tcc2.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/trng.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/usb.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/wdt.h</itemPath>
+          </logicalFolder>
           <logicalFolder name="f2" displayName="pio" projectFiles="true">
             <itemPath>../src/packs/ATSAML21J18B_DFP/pio/saml21j18b.h</itemPath>
           </logicalFolder>
           <itemPath>../src/packs/ATSAML21J18B_DFP/device.h</itemPath>
           <itemPath>../src/packs/ATSAML21J18B_DFP/atsaml21j18b_compat.h</itemPath>
           <itemPath>../src/packs/ATSAML21J18B_DFP/atsaml21j18b.h</itemPath>
+          <itemPath>../src/packs/ATSAML21J18B_DFP/saml21j18b.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f2" displayName="CMSIS" projectFiles="true">
           <logicalFolder name="f1" displayName="CMSIS" projectFiles="true">
@@ -99,6 +164,7 @@
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang_ltm.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/core_cm0plus.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/mpu_armv7.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cachel1_armv7.h</itemPath>
               </logicalFolder>
             </logicalFolder>
           </logicalFolder>
@@ -109,8 +175,7 @@
                    displayName="Important Files"
                    projectFiles="true">
       <itemPath>Makefile</itemPath>
-      <itemPath>../src/config/sam_l21_xpro/harmony.prj</itemPath>
-      <itemPath>../../../../../../mhc/../bootloader_apps_i2c/apps/i2c_bootloader/bootloader/firmware/src/config/sam_l21_xpro/sam_l21_xpro.xml</itemPath>
+      <itemPath>../src/config/sam_l21_xpro/harmony-manifest-success.yml</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -123,6 +188,26 @@
       <logicalFolder name="f1" displayName="config" projectFiles="true">
         <logicalFolder name="f1" displayName="sam_l21_xpro" projectFiles="true">
           <logicalFolder name="f2" displayName="bootloader" projectFiles="true">
+            <logicalFolder name="f1" displayName="clock" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="f2" displayName="dsu" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="f3" displayName="evsys" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="f4" displayName="nvic" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="f5" displayName="nvmctrl" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="f6" displayName="pac" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="f7" displayName="pm" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="f8" displayName="port" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="f9" displayName="sercom" projectFiles="true">
+              <logicalFolder name="f1" displayName="i2c_slave" projectFiles="true">
+              </logicalFolder>
+            </logicalFolder>
             <itemPath>../src/config/sam_l21_xpro/bootloader/bootloader.c</itemPath>
           </logicalFolder>
           <logicalFolder name="f1" displayName="peripheral" projectFiles="true">
@@ -176,11 +261,11 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>2.41</languageToolchainVersion>
+        <languageToolchainVersion>3.00</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="SAML21_DFP" vendor="Microchip" version="3.3.68"/>
+        <pack name="SAML21_DFP" vendor="Microchip" version="3.5.87"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -201,6 +286,7 @@
       </compileType>
       <makeCustomizationType>
         <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>
+        <makeUseCleanTarget>false</makeUseCleanTarget>
         <makeCustomizationPreStep></makeCustomizationPreStep>
         <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
         <makeCustomizationPostStep></makeCustomizationPostStep>
@@ -241,18 +327,19 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/sam_l21_xpro;../src/packs/ATSAML21J18B_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/"/>
+                  value="../src;../src/config/sam_l21_xpro;../src/packs/ATSAML21J18B_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
         <property key="make-warnings-into-errors" value="true"/>
-        <property key="optimization-level" value="-O1"/>
+        <property key="optimization-level" value="-O2"/>
         <property key="place-data-into-section" value="false"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
         <property key="preprocessor-macros" value=""/>
         <property key="strict-ansi" value="false"/>
         <property key="support-ansi" value="false"/>
+        <property key="tentative-definitions" value="-fno-common"/>
         <property key="toplevel-reordering" value=""/>
         <property key="unaligned-access" value=""/>
         <property key="use-cci" value="false"/>
@@ -284,6 +371,7 @@
       </C32-AS>
       <C32-CO>
         <property key="coverage-enable" value=""/>
+        <property key="stack-guidance" value="false"/>
       </C32-CO>
       <C32-LD>
         <property key="additional-options-use-response-files" value="false"/>
@@ -336,7 +424,8 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exceptions" value="true"/>
         <property key="exclude-floating-point" value="false"/>
-        <property key="extra-include-directories" value=""/>
+        <property key="extra-include-directories"
+                  value="../src;../src/config/sam_l21_xpro;../src/packs/ATSAML21J18B_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -364,6 +453,7 @@
         <property key="omit-pack-options" value="1"/>
         <property key="relaxed-math" value="false"/>
         <property key="save-temps" value="false"/>
+        <property key="stack-smashing" value=""/>
         <property key="wpo-lto" value="false"/>
       </C32Global>
       <EdbgTool>
