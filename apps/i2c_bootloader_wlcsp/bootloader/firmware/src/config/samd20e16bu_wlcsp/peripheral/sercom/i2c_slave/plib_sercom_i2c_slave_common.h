@@ -68,6 +68,22 @@
 
 // *****************************************************************************
 // *****************************************************************************
+// Section:Preprocessor macros
+// *****************************************************************************
+// *****************************************************************************
+// *****************************************************************************
+
+// *****************************************************************************
+/* I2C Error convenience macros */
+// *****************************************************************************
+// *****************************************************************************
+
+#define SERCOM_I2C_SLAVE_ERROR_BUSERR  SERCOM_I2CS_STATUS_BUSERR_Msk
+#define SERCOM_I2C_SLAVE_ERROR_COLL SERCOM_I2CS_STATUS_COLL_Msk
+#define SERCOM_I2C_SLAVE_ERROR_ALL (SERCOM_I2C_SLAVE_ERROR_BUSERR | SERCOM_I2C_SLAVE_ERROR_COLL  )
+
+// *****************************************************************************
+// *****************************************************************************
 // Section: Data Types
 // *****************************************************************************
 // *****************************************************************************
@@ -105,7 +121,7 @@ typedef enum
     SERCOM_I2C_SLAVE_INTFLAG_PREC = SERCOM_I2CS_INTFLAG_PREC_Msk,
     SERCOM_I2C_SLAVE_INTFLAG_AMATCH = SERCOM_I2CS_INTFLAG_AMATCH_Msk,
     SERCOM_I2C_SLAVE_INTFLAG_DRDY = SERCOM_I2CS_INTFLAG_DRDY_Msk,
-    }SERCOM_I2C_SLAVE_INTFLAG;
+}SERCOM_I2C_SLAVE_INTFLAG;
 
 typedef enum
 {
@@ -117,13 +133,13 @@ typedef enum
 {
     SERCOM_I2C_SLAVE_TRANSFER_EVENT_NONE = 0,
     SERCOM_I2C_SLAVE_TRANSFER_EVENT_ADDR_MATCH,
-	
-	/* Data sent by I2C Master is available */
+
+    /* Data sent by I2C Master is available */
     SERCOM_I2C_SLAVE_TRANSFER_EVENT_RX_READY,
-	
-	/* I2C slave can respond to data read request from I2C Master */
+
+    /* I2C slave can respond to data read request from I2C Master */
     SERCOM_I2C_SLAVE_TRANSFER_EVENT_TX_READY,
-	
+
     SERCOM_I2C_SLAVE_TRANSFER_EVENT_STOP_BIT_RECEIVED,
 }SERCOM_I2C_SLAVE_TRANSFER_EVENT;
 
@@ -135,12 +151,7 @@ typedef enum
     SERCOM_I2C_SLAVE_COMMAND_WAIT_FOR_START,
 }SERCOM_I2C_SLAVE_COMMAND;
 
-typedef enum
-{
-    SERCOM_I2C_SLAVE_ERROR_BUSERR = SERCOM_I2CS_STATUS_BUSERR_Msk,
-    SERCOM_I2C_SLAVE_ERROR_COLL = SERCOM_I2CS_STATUS_COLL_Msk,
-    SERCOM_I2C_SLAVE_ERROR_ALL = (SERCOM_I2C_SLAVE_ERROR_BUSERR | SERCOM_I2C_SLAVE_ERROR_COLL  )
-}SERCOM_I2C_SLAVE_ERROR;
+typedef uint32_t SERCOM_I2C_SLAVE_ERROR;
 
 // *****************************************************************************
 /* SERCOM I2C Callback
