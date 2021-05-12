@@ -48,7 +48,9 @@
 // *****************************************************************************
 // *****************************************************************************
 
+#include "interrupts.h"
 #include "plib_sercom2_i2c_master.h"
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -60,6 +62,7 @@
 /* SERCOM2 I2C baud value */
 #define SERCOM2_I2CM_BAUD_VALUE         (0x34U)
 
+
 static SERCOM_I2C_OBJ sercom2I2CObj;
 
 // *****************************************************************************
@@ -69,56 +72,96 @@ static SERCOM_I2C_OBJ sercom2I2CObj;
 // *****************************************************************************
 // *****************************************************************************
 
-// *****************************************************************************
-/* Function:
-    void SERCOM2_I2C_Initialize(void)
-
-  Summary:
-    Initializes the instance of the SERCOM peripheral operating in I2C mode.
-
-  Description:
-    This function initializes the given instance of the SERCOM I2C peripheral as
-    configured by the user from the MHC.
-
-  Remarks:
-    Refer plib_sercom2_i2c.h for more information.
-*/
-
 void SERCOM2_I2C_Initialize(void)
 {
     /* Reset the module */
     SERCOM2_REGS->I2CM.SERCOM_CTRLA = SERCOM_I2CM_CTRLA_SWRST_Msk ;
 
     /* Wait for synchronization */
-    while((SERCOM2_REGS->I2CM.SERCOM_STATUS & SERCOM_I2CM_STATUS_SYNCBUSY_Msk) & SERCOM_I2CM_STATUS_SYNCBUSY_Msk);
+    while((SERCOM2_REGS->I2CM.SERCOM_STATUS & (uint16_t)SERCOM_I2CM_STATUS_SYNCBUSY_Msk) == (uint16_t)SERCOM_I2CM_STATUS_SYNCBUSY_Msk)
+    {
+        /* Do nothing */
+    }
 
-    /* Enable smart mode enable */
+    /* Enable smart mode */
     SERCOM2_REGS->I2CM.SERCOM_CTRLB = SERCOM_I2CM_CTRLB_SMEN_Msk;
 
     /* Wait for synchronization */
-    while((SERCOM2_REGS->I2CM.SERCOM_STATUS & SERCOM_I2CM_STATUS_SYNCBUSY_Msk) & SERCOM_I2CM_STATUS_SYNCBUSY_Msk);
+    while((SERCOM2_REGS->I2CM.SERCOM_STATUS & (uint16_t)SERCOM_I2CM_STATUS_SYNCBUSY_Msk) == (uint16_t)SERCOM_I2CM_STATUS_SYNCBUSY_Msk)
+    {
+        /* Do nothing */
+    }
 
     /* Baud rate - Master Baud Rate*/
-    SERCOM2_REGS->I2CM.SERCOM_BAUD = (SERCOM_I2CM_BAUD_BAUDLOW(SERCOM2_I2CM_BAUD_VALUE >> 8) | SERCOM_I2CM_BAUD_BAUD(SERCOM2_I2CM_BAUD_VALUE));
+    SERCOM2_REGS->I2CM.SERCOM_BAUD = SERCOM2_I2CM_BAUD_VALUE;
 
     /* Set Operation Mode (Master), SDA Hold time, run in stand by and i2c master enable */
     SERCOM2_REGS->I2CM.SERCOM_CTRLA = SERCOM_I2CM_CTRLA_MODE_I2C_MASTER | SERCOM_I2CM_CTRLA_SDAHOLD_75NS | SERCOM_I2CM_CTRLA_ENABLE_Msk ;
 
     /* Wait for synchronization */
-    while((SERCOM2_REGS->I2CM.SERCOM_STATUS & SERCOM_I2CM_STATUS_SYNCBUSY_Msk) & SERCOM_I2CM_STATUS_SYNCBUSY_Msk);
+    while((SERCOM2_REGS->I2CM.SERCOM_STATUS & (uint16_t)SERCOM_I2CM_STATUS_SYNCBUSY_Msk) == (uint16_t)SERCOM_I2CM_STATUS_SYNCBUSY_Msk)
+    {
+        /* Do nothing */
+    }
 
     /* Initial Bus State: IDLE */
-    SERCOM2_REGS->I2CM.SERCOM_STATUS = SERCOM_I2CM_STATUS_BUSSTATE(0x01);
+    SERCOM2_REGS->I2CM.SERCOM_STATUS = (uint16_t)SERCOM_I2CM_STATUS_BUSSTATE(0x01UL);
 
     /* Wait for synchronization */
-    while((SERCOM2_REGS->I2CM.SERCOM_STATUS & SERCOM_I2CM_STATUS_SYNCBUSY_Msk) & SERCOM_I2CM_STATUS_SYNCBUSY_Msk);
+    while((SERCOM2_REGS->I2CM.SERCOM_STATUS & (uint16_t)SERCOM_I2CM_STATUS_SYNCBUSY_Msk) == (uint16_t)SERCOM_I2CM_STATUS_SYNCBUSY_Msk)
+    {
+        /* Do nothing */
+    }
 
     /* Initialize the SERCOM2 PLib Object */
     sercom2I2CObj.error = SERCOM_I2C_ERROR_NONE;
     sercom2I2CObj.state = SERCOM_I2C_STATE_IDLE;
 
     /* Enable all Interrupts */
-    SERCOM2_REGS->I2CM.SERCOM_INTENSET = SERCOM_I2CM_INTENSET_Msk;
+    SERCOM2_REGS->I2CM.SERCOM_INTENSET = (uint8_t)SERCOM_I2CM_INTENSET_Msk;
+}
+
+static bool SERCOM2_I2C_CalculateBaudValue(uint32_t srcClkFreq, uint32_t i2cClkSpeed, uint32_t* baudVal)
+{
+    uint32_t baudValue = 0U;
+    float fSrcClkFreq = (float)srcClkFreq;
+    float fI2cClkSpeed = (float)i2cClkSpeed;
+    float fBaudValue = 0.0f;
+
+    /* Reference clock frequency must be atleast two times the baud rate */
+    if (srcClkFreq < (2U * i2cClkSpeed))
+    {
+        return false;
+    }
+
+    if (i2cClkSpeed <= 400000U)
+    {
+        /* Standard, FM and FM+ baud calculation */
+        fBaudValue = (fSrcClkFreq / fI2cClkSpeed) - ((fSrcClkFreq * (100.0f / 1000000000.0f)) + 10.0f);
+        baudValue = (uint32_t)fBaudValue;
+
+        /* For I2C clock speed upto 400 KHz, the value of BAUD<7:0> determines both SCL_L and SCL_H with SCL_L = SCL_H */
+        if (baudValue > (0xFFU * 2U))
+        {
+            /* Set baud rate to the minimum possible value */
+            baudValue = 0xFFU;
+        }
+        else if (baudValue <= 1U)
+        {
+            /* Baud value cannot be 0. Set baud rate to maximum possible value */
+            baudValue = 1U;
+        }
+        else
+        {
+            baudValue /= 2U;
+        }
+    }
+    else
+    {
+        return false;
+    }
+    *baudVal = baudValue;
+    return true;
 }
 
 bool SERCOM2_I2C_TransferSetup(SERCOM_I2C_TRANSFER_SETUP* setup, uint32_t srcClkFreq )
@@ -133,112 +176,52 @@ bool SERCOM2_I2C_TransferSetup(SERCOM_I2C_TRANSFER_SETUP* setup, uint32_t srcClk
 
     i2cClkSpeed = setup->clkSpeed;
 
-    if( srcClkFreq == 0)
+    if( srcClkFreq == 0U)
     {
         srcClkFreq = 48000000UL;
     }
 
-    /* Reference clock frequency must be atleast two times the baud rate */
-    if (srcClkFreq < (2*i2cClkSpeed))
+    if (SERCOM2_I2C_CalculateBaudValue(srcClkFreq, i2cClkSpeed, &baudValue) == false)
     {
         return false;
     }
 
-    baudValue = (uint32_t) (((((float)srcClkFreq)/i2cClkSpeed) - ((((float)srcClkFreq) * (100/1000000000.0)) + 10)));
-
-    if (i2cClkSpeed <= 400000)
-    {
-        /* For I2C clock speed upto 400 KHz, the value of BAUD<7:0> determines both SCL_L and SCL_H with SCL_L = SCL_H */
-        if (baudValue > (0xFF * 2))
-        {
-            /* Set baud rate to the minimum possible value */
-            baudValue = 0xFF;
-        }
-        else if (baudValue <= 1)
-        {
-            /* Baud value cannot be 0. Set baud rate to maximum possible value */
-            baudValue = 1;
-        }
-        else
-        {
-            baudValue /= 2;
-        }
-    }
-    else
-	{
-		return false;
-	}
 
     /* Disable the I2C before changing the I2C clock speed */
     SERCOM2_REGS->I2CM.SERCOM_CTRLA &= ~SERCOM_I2CM_CTRLA_ENABLE_Msk;
 
     /* Wait for synchronization */
-    while((SERCOM2_REGS->I2CM.SERCOM_STATUS & SERCOM_I2CM_STATUS_SYNCBUSY_Msk) & SERCOM_I2CM_STATUS_SYNCBUSY_Msk);
+    while((SERCOM2_REGS->I2CM.SERCOM_STATUS & (uint16_t)SERCOM_I2CM_STATUS_SYNCBUSY_Msk) == (uint16_t)SERCOM_I2CM_STATUS_SYNCBUSY_Msk)
+    {
+        /* Do nothing */
+    }
+
 
     /* Baud rate - Master Baud Rate*/
-    SERCOM2_REGS->I2CM.SERCOM_BAUD = (SERCOM_I2CM_BAUD_BAUDLOW(baudValue >> 8) | SERCOM_I2CM_BAUD_BAUD(baudValue));
+    SERCOM2_REGS->I2CM.SERCOM_BAUD = baudValue;
 
 
     /* Re-enable the I2C module */
     SERCOM2_REGS->I2CM.SERCOM_CTRLA |= SERCOM_I2CM_CTRLA_ENABLE_Msk;
 
     /* Wait for synchronization */
-    while((SERCOM2_REGS->I2CM.SERCOM_STATUS & SERCOM_I2CM_STATUS_SYNCBUSY_Msk) & SERCOM_I2CM_STATUS_SYNCBUSY_Msk);
+    while((SERCOM2_REGS->I2CM.SERCOM_STATUS & (uint16_t)SERCOM_I2CM_STATUS_SYNCBUSY_Msk) == (uint16_t)SERCOM_I2CM_STATUS_SYNCBUSY_Msk)
+    {
+        /* Do nothing */
+    }
+
 
     /* Since the I2C module was disabled, re-initialize the bus state to IDLE */
-    SERCOM2_REGS->I2CM.SERCOM_STATUS = SERCOM_I2CM_STATUS_BUSSTATE(0x01);
+    SERCOM2_REGS->I2CM.SERCOM_STATUS = (uint16_t)SERCOM_I2CM_STATUS_BUSSTATE(0x01UL);
 
     /* Wait for synchronization */
-    while((SERCOM2_REGS->I2CM.SERCOM_STATUS & SERCOM_I2CM_STATUS_SYNCBUSY_Msk) & SERCOM_I2CM_STATUS_SYNCBUSY_Msk);
+    while((SERCOM2_REGS->I2CM.SERCOM_STATUS & (uint16_t)SERCOM_I2CM_STATUS_SYNCBUSY_Msk) == (uint16_t)SERCOM_I2CM_STATUS_SYNCBUSY_Msk)
+    {
+        /* Do nothing */
+    }
 
     return true;
 }
-
-// *****************************************************************************
-/* Function:
-    void SERCOM2_I2C_InitiateRead(uint16_t address)
-
-  Summary:
-    Intiates I2C Read
-
-  Description:
-
-  Remarks:
-    Refer plib_sercom2_i2c.h for more information.
-*/
-
-static void SERCOM2_I2C_InitiateRead(uint16_t address)
-{
-    sercom2I2CObj.state = SERCOM_I2C_STATE_TRANSFER_READ;
-
-    SERCOM2_REGS->I2CM.SERCOM_ADDR = (address << 1) | I2C_TRANSFER_READ;
-
-    /* Wait for synchronization */
-    while((SERCOM2_REGS->I2CM.SERCOM_STATUS & SERCOM_I2CM_STATUS_SYNCBUSY_Msk) & SERCOM_I2CM_STATUS_SYNCBUSY_Msk);
-}
-
-// *****************************************************************************
-/* Function:
-    void SERCOM2_I2C_CallbackRegister(SERCOM_I2C_CALLBACK callback,
-                                                              uintptr_t context)
-
-   Summary:
-    Sets the pointer to the function (and it's context) to be called when the
-    given SERCOM I2C's transfer events occur.
-
-   Precondition:
-    SERCOMx_I2C_Initialize must have been called for the associated SERCOM instance.
-
-   Parameters:
-    callback - A pointer to a function with a calling signature defined
-    by the SERCOM_I2C_CALLBACK data type.
-
-    context - A value (usually a pointer) passed (unused) into the function
-    identified by the callback parameter.
-
-   Returns:
-    None.
-*/
 
 void SERCOM2_I2C_CallbackRegister(SERCOM_I2C_CALLBACK callback, uintptr_t contextHandle)
 {
@@ -247,83 +230,66 @@ void SERCOM2_I2C_CallbackRegister(SERCOM_I2C_CALLBACK callback, uintptr_t contex
     sercom2I2CObj.context  = contextHandle;
 }
 
-/// *****************************************************************************
-/* Function:
-    void SERCOM2_2C_InitiateTransfer(uint16_t address, bool type)
 
-  Summary:
-    Send the 7-bit or 10-bit slave address.
-
-  Precondition:
-    SERCOMx_I2C_Initialize must have been called for the associated SERCOM instance.
-
-   Parameters:
-     address - 7-bit / 10-bit slave address.
-     type - Read / Write
-
-  Remarks:
-    None.
-*/
-
-static void SERCOM2_I2C_InitiateTransfer(uint16_t address, bool type)
+static void SERCOM2_I2C_SendAddress(uint16_t address, bool dir)
 {
-    sercom2I2CObj.writeCount = 0;
-    sercom2I2CObj.readCount = 0;
+    /* If operation is I2C read */
+    if(dir)
+    {
+        /* <xxxx-xxxR> <read-data> <P> */
+
+        /* Next state will be to read data */
+        sercom2I2CObj.state = SERCOM_I2C_STATE_TRANSFER_READ;
+    }
+    else
+    {
+        /* <xxxx-xxxW> <write-data> <P> */
+
+        /* Next state will be to write data */
+        sercom2I2CObj.state = SERCOM_I2C_STATE_TRANSFER_WRITE;
+    }
+
+
+    SERCOM2_REGS->I2CM.SERCOM_ADDR = ((uint32_t)address << 1U) | (dir ? 1UL :0UL);
+
+    /* Wait for synchronization */
+    while((SERCOM2_REGS->I2CM.SERCOM_STATUS & (uint16_t)SERCOM_I2CM_STATUS_SYNCBUSY_Msk) == (uint16_t)SERCOM_I2CM_STATUS_SYNCBUSY_Msk)
+    {
+        /* Do nothing */
+    }
+
+}
+
+static void SERCOM2_I2C_InitiateTransfer(uint16_t address, bool dir)
+{
+    sercom2I2CObj.writeCount = 0U;
+    sercom2I2CObj.readCount = 0U;
 
     /* Clear all flags */
-    SERCOM2_REGS->I2CM.SERCOM_INTFLAG = SERCOM_I2CM_INTFLAG_Msk;
+    SERCOM2_REGS->I2CM.SERCOM_INTFLAG = (uint8_t)SERCOM_I2CM_INTFLAG_Msk;
 
-    /* Smart mode enabled - ACK is set to send while receiving the data */
+    /* Smart mode enabled with SCLSM = 0, - ACK is set to send while receiving the data */
     SERCOM2_REGS->I2CM.SERCOM_CTRLB &= ~SERCOM_I2CM_CTRLB_ACKACT_Msk;
 
     /* Wait for synchronization */
-    while((SERCOM2_REGS->I2CM.SERCOM_STATUS & SERCOM_I2CM_STATUS_SYNCBUSY_Msk) & SERCOM_I2CM_STATUS_SYNCBUSY_Msk);
-
-    /* Reset Error Information */
-    sercom2I2CObj.error = SERCOM_I2C_ERROR_NONE;
-
-    if(type)
+    while((SERCOM2_REGS->I2CM.SERCOM_STATUS & (uint16_t)SERCOM_I2CM_STATUS_SYNCBUSY_Msk) == (uint16_t)SERCOM_I2CM_STATUS_SYNCBUSY_Msk)
     {
-        sercom2I2CObj.state = SERCOM_I2C_STATE_TRANSFER_READ;
-
-        /* Write 7bit address with direction (ADDR.ADDR[0]) equal to 1*/
-        SERCOM2_REGS->I2CM.SERCOM_ADDR = (address << 1) | I2C_TRANSFER_READ;
-    }
-    else
-    {
-        sercom2I2CObj.state = SERCOM_I2C_STATE_TRANSFER_WRITE;
-
-        /* Write 7bit address with direction (ADDR.ADDR[0]) equal to 0*/
-        SERCOM2_REGS->I2CM.SERCOM_ADDR = (address << 1) | I2C_TRANSFER_WRITE;
+        /* Do nothing */
     }
 
-    /* Wait for synchronization */
-    while((SERCOM2_REGS->I2CM.SERCOM_STATUS & SERCOM_I2CM_STATUS_SYNCBUSY_Msk) & SERCOM_I2CM_STATUS_SYNCBUSY_Msk);
+
+    SERCOM2_I2C_SendAddress(address, dir);
 }
 
-// *****************************************************************************
-/* Function:
-    bool SERCOM2_I2C_Read(uint16_t address, uint8_t *pdata,
-                                                                 uint32_t length)
-
-   Summary:
-    Reads data from the slave.
-
-   Precondition:
-    SERCOMx_I2C_Initialize must have been called for the associated SERCOM instance.
-
-   Parameters:
-    address - 7-bit / 10-bit slave address.
-    pdata   - pointer to destination data buffer
-    length  - length of data buffer in number of bytes.
-
-   Returns:
-    Request status.
-    True - Request was successful.
-    False - Request has failed.
-*/
-
-bool SERCOM2_I2C_Read(uint16_t address, uint8_t *pdata, uint32_t length)
+static bool SERCOM2_I2C_XferSetup(
+    uint16_t address,
+    uint8_t* wrData,
+    uint32_t wrLength,
+    uint8_t* rdData,
+    uint32_t rdLength,
+    bool dir,
+    bool isHighSpeed
+)
 {
     /* Check for ongoing transfer */
     if(sercom2I2CObj.state != SERCOM_I2C_STATE_IDLE)
@@ -331,194 +297,65 @@ bool SERCOM2_I2C_Read(uint16_t address, uint8_t *pdata, uint32_t length)
         return false;
     }
 
-    sercom2I2CObj.address = address;
-    sercom2I2CObj.readBuffer = pdata;
-    sercom2I2CObj.readSize = length;
-    sercom2I2CObj.writeBuffer = NULL;
-    sercom2I2CObj.writeSize = 0;
-    sercom2I2CObj.error = SERCOM_I2C_ERROR_NONE;
+    sercom2I2CObj.address        = address;
+    sercom2I2CObj.readBuffer     = rdData;
+    sercom2I2CObj.readSize       = rdLength;
+    sercom2I2CObj.writeBuffer    = wrData;
+    sercom2I2CObj.writeSize      = wrLength;
+    sercom2I2CObj.transferDir    = dir;
+    sercom2I2CObj.isHighSpeed    = isHighSpeed;
+    sercom2I2CObj.error          = SERCOM_I2C_ERROR_NONE;
 
-    SERCOM2_I2C_InitiateTransfer(address, true);
+
+    SERCOM2_I2C_InitiateTransfer(address, dir);
 
     return true;
 }
 
-// *****************************************************************************
-/* Function:
-    bool SERCOM2_I2C_Write(uint16_t address, uint8_t *pdata,
-                                                                 uint32_t length)
-
-   Summary:
-    Writes data onto the slave.
-
-   Precondition:
-    SERCOMx_I2C_Initialize must have been called for the associated SERCOM instance.
-
-   Parameters:
-    address - 7-bit / 10-bit slave address.
-    pdata   - pointer to source data buffer
-    length  - length of data buffer in number of bytes.
-
-   Returns:
-    Request status.
-    True - Request was successful.
-    False - Request has failed.
-*/
-
-bool SERCOM2_I2C_Write(uint16_t address, uint8_t *pdata, uint32_t length)
+bool SERCOM2_I2C_Read(uint16_t address, uint8_t* rdData, uint32_t rdLength)
 {
-    /* Check for ongoing transfer */
-    if(sercom2I2CObj.state != SERCOM_I2C_STATE_IDLE)
-    {
-        return false;
-    }
-
-    sercom2I2CObj.address = address;
-    sercom2I2CObj.readBuffer = NULL;
-    sercom2I2CObj.readSize = 0;
-    sercom2I2CObj.writeBuffer = pdata;
-    sercom2I2CObj.writeSize = length;
-    sercom2I2CObj.error = SERCOM_I2C_ERROR_NONE;
-
-    SERCOM2_I2C_InitiateTransfer(address, false);
-
-    return true;
+    return SERCOM2_I2C_XferSetup(address, NULL, 0, rdData, rdLength, true, false);
 }
 
-// *****************************************************************************
-/* Function:
-    bool SERCOM2_I2C_WriteRead(uint16_t address, uint8_t *wdata,
-                               uint32_t wlength, uint8_t *rdata, uint32_t rlength)
-
-   Summary:
-    Write and Read data from Slave.
-
-   Precondition:
-    SERCOMx_I2C_Initialize must have been called for the associated SERCOM instance.
-
-   Parameters:
-    address - 7-bit / 10-bit slave address.
-    wdata   - pointer to write data buffer
-    wlength - write data length in bytes.
-    rdata   - pointer to read data buffer.
-    rlength - read data length in bytes.
-
-   Returns:
-    Request status.
-    True - Request was successful.
-    False - Request has failed.
-*/
-
-bool SERCOM2_I2C_WriteRead(uint16_t address, uint8_t *wdata, uint32_t wlength, uint8_t *rdata, uint32_t rlength)
+bool SERCOM2_I2C_Write(uint16_t address, uint8_t* wrData, uint32_t wrLength)
 {
-    /* Check for ongoing transfer */
-    if(sercom2I2CObj.state != SERCOM_I2C_STATE_IDLE)
-    {
-        return false;
-    }
-
-    sercom2I2CObj.address = address;
-    sercom2I2CObj.readBuffer = rdata;
-    sercom2I2CObj.readSize = rlength;
-    sercom2I2CObj.writeBuffer = wdata;
-    sercom2I2CObj.writeSize = wlength;
-    sercom2I2CObj.error = SERCOM_I2C_ERROR_NONE;
-
-    SERCOM2_I2C_InitiateTransfer(address, false);
-
-    return true;
+    return SERCOM2_I2C_XferSetup(address, wrData, wrLength, NULL, 0, false, false);
 }
 
-// *****************************************************************************
-/* Function:
-    bool SERCOM2_I2C_IsBusy(void)
+bool SERCOM2_I2C_WriteRead(uint16_t address, uint8_t* wrData, uint32_t wrLength, uint8_t* rdData, uint32_t rdLength)
+{
+    return SERCOM2_I2C_XferSetup(address, wrData, wrLength, rdData, rdLength, false, false);
+}
 
-   Summary:
-    Returns the Peripheral busy status.
-
-   Precondition:
-    SERCOMx_I2C_Initialize must have been called for the associated SERCOM instance.
-
-   Parameters:
-    None.
-
-   Returns:
-    true - Busy.
-    false - Not busy.
-*/
 
 bool SERCOM2_I2C_IsBusy(void)
 {
-    if((sercom2I2CObj.state == SERCOM_I2C_STATE_IDLE) && ((SERCOM2_REGS->I2CM.SERCOM_STATUS & SERCOM_I2CM_STATUS_BUSSTATE_Msk) == SERCOM_I2CM_STATUS_BUSSTATE(0x01)))
+    bool isBusy = true;
+    if((sercom2I2CObj.state == SERCOM_I2C_STATE_IDLE))
     {
-        return false;
+        if(((SERCOM2_REGS->I2CM.SERCOM_STATUS & SERCOM_I2CM_STATUS_BUSSTATE_Msk) == SERCOM_I2CM_STATUS_BUSSTATE(0x01UL)))
+        {
+           isBusy = false; 
+        }
     }
-    else
-    {
-        return true;
-    }
+    return isBusy;
 }
-
-// *****************************************************************************
-/* Function:
-    SERCOM_I2C_ERROR SERCOM2_I2C_ErrorGet(void)
-
-   Summary:
-    Returns the error during transfer.
-
-   Precondition:
-    SERCOMx_I2C_Initialize must have been called for the associated SERCOM instance.
-
-   Parameters:
-    None.
-
-   Returns:
-    Error during transfer.
-*/
 
 SERCOM_I2C_ERROR SERCOM2_I2C_ErrorGet(void)
 {
     return sercom2I2CObj.error;
 }
 
-// *****************************************************************************
-/* Function:
-    void SERCOM2_I2C_InterruptHandler(void)
-
-  Summary:
-    SERCOM2 I2C Peripheral Interrupt Handler.
-
-  Description:
-    This function is SERCOM2 I2C Peripheral Interrupt Handler and will
-    called on every SERCOM2 I2C interrupt.
-
-   Precondition:
-    None.
-
-   Parameters:
-    None.
-
-   Returns:
-    None.
-
-   Remarks:
-    The function is called as peripheral instance's interrupt handler if the
-    instance interrupt is enabled. If peripheral instance's interrupt is not
-    enabled user need to call it from the main while loop of the application.
-*/
-
 void SERCOM2_I2C_InterruptHandler(void)
 {
-    if(SERCOM2_REGS->I2CM.SERCOM_INTENSET != 0)
+    if(SERCOM2_REGS->I2CM.SERCOM_INTENSET != 0U)
     {
         /* Checks if the arbitration lost in multi-master scenario */
         if((SERCOM2_REGS->I2CM.SERCOM_STATUS & SERCOM_I2CM_STATUS_ARBLOST_Msk) == SERCOM_I2CM_STATUS_ARBLOST_Msk)
         {
-            /*
-             * Re-initiate the transfer if arbitration is lost
-             * in between of the transfer
-             */
-            sercom2I2CObj.state = SERCOM_I2C_REINITIATE_TRANSFER;
+            /* Set Error status */
+            sercom2I2CObj.state = SERCOM_I2C_STATE_ERROR;
+            sercom2I2CObj.error = SERCOM_I2C_ERROR_BUS;
 
         }
         /* Check for Bus Error during transmission */
@@ -528,7 +365,7 @@ void SERCOM2_I2C_InterruptHandler(void)
             sercom2I2CObj.state = SERCOM_I2C_STATE_ERROR;
             sercom2I2CObj.error = SERCOM_I2C_ERROR_BUS;
         }
-        /* Checks slave acknowledge for address or data*/
+        /* Checks slave acknowledge for address or data */
         else if((SERCOM2_REGS->I2CM.SERCOM_STATUS & SERCOM_I2CM_STATUS_RXNACK_Msk) == SERCOM_I2CM_STATUS_RXNACK_Msk)
         {
             sercom2I2CObj.state = SERCOM_I2C_STATE_ERROR;
@@ -539,8 +376,8 @@ void SERCOM2_I2C_InterruptHandler(void)
             switch(sercom2I2CObj.state)
             {
                 case SERCOM_I2C_REINITIATE_TRANSFER:
-                {
-                    if (sercom2I2CObj.writeSize != 0)
+
+                    if (sercom2I2CObj.writeSize != 0U)
                     {
                         /* Initiate Write transfer */
                         SERCOM2_I2C_InitiateTransfer(sercom2I2CObj.address, false);
@@ -552,26 +389,43 @@ void SERCOM2_I2C_InterruptHandler(void)
                     }
 
                     break;
-                }
+
 
                 case SERCOM_I2C_STATE_IDLE:
-                {
+
                     break;
-                }
+
+
+
                 case SERCOM_I2C_STATE_TRANSFER_WRITE:
-                {
+
                     if (sercom2I2CObj.writeCount == (sercom2I2CObj.writeSize))
                     {
-                        if(sercom2I2CObj.readSize != 0)
+                        if(sercom2I2CObj.readSize != 0U)
                         {
-                            SERCOM2_I2C_InitiateRead(sercom2I2CObj.address);
+
+                            /* Write 7bit address with direction (ADDR.ADDR[0]) equal to 1*/
+                            SERCOM2_REGS->I2CM.SERCOM_ADDR =  ((uint32_t)(sercom2I2CObj.address) << 1U) | (uint32_t)I2C_TRANSFER_READ;
+
+                            /* Wait for synchronization */
+                            while((SERCOM2_REGS->I2CM.SERCOM_STATUS & (uint16_t)SERCOM_I2CM_STATUS_SYNCBUSY_Msk) == (uint16_t)SERCOM_I2CM_STATUS_SYNCBUSY_Msk)
+                            {
+                                /* Do nothing */
+                            }
+
+                            sercom2I2CObj.state = SERCOM_I2C_STATE_TRANSFER_READ;
+
                         }
                         else
                         {
-                            SERCOM2_REGS->I2CM.SERCOM_CTRLB |= SERCOM_I2CM_CTRLB_CMD(3);
+                            SERCOM2_REGS->I2CM.SERCOM_CTRLB |= SERCOM_I2CM_CTRLB_CMD(3UL);
 
                             /* Wait for synchronization */
-                            while((SERCOM2_REGS->I2CM.SERCOM_STATUS & SERCOM_I2CM_STATUS_SYNCBUSY_Msk) & SERCOM_I2CM_STATUS_SYNCBUSY_Msk);
+                            while((SERCOM2_REGS->I2CM.SERCOM_STATUS & (uint16_t)SERCOM_I2CM_STATUS_SYNCBUSY_Msk) == (uint16_t)SERCOM_I2CM_STATUS_SYNCBUSY_Msk)
+                            {
+                                /* Do nothing */
+                            }
+
 
                             sercom2I2CObj.state = SERCOM_I2C_STATE_TRANSFER_DONE;
                         }
@@ -583,16 +437,19 @@ void SERCOM2_I2C_InterruptHandler(void)
                     }
 
                     break;
-                }
+
                 case SERCOM_I2C_STATE_TRANSFER_READ:
-                {
-                    if(sercom2I2CObj.readCount == (sercom2I2CObj.readSize - 1))
+
+                    if(sercom2I2CObj.readCount == (sercom2I2CObj.readSize - 1U))
                     {
                         /* Set NACK and send stop condition to the slave from master */
-                        SERCOM2_REGS->I2CM.SERCOM_CTRLB |= SERCOM_I2CM_CTRLB_ACKACT_Msk | SERCOM_I2CM_CTRLB_CMD(3);
+                        SERCOM2_REGS->I2CM.SERCOM_CTRLB |= SERCOM_I2CM_CTRLB_ACKACT_Msk | SERCOM_I2CM_CTRLB_CMD(3UL);
 
                         /* Wait for synchronization */
-                        while((SERCOM2_REGS->I2CM.SERCOM_STATUS & SERCOM_I2CM_STATUS_SYNCBUSY_Msk) & SERCOM_I2CM_STATUS_SYNCBUSY_Msk);
+                        while((SERCOM2_REGS->I2CM.SERCOM_STATUS & (uint16_t)SERCOM_I2CM_STATUS_SYNCBUSY_Msk) == (uint16_t)SERCOM_I2CM_STATUS_SYNCBUSY_Msk)
+                        {
+                            /* Do nothing */
+                        }
 
                         sercom2I2CObj.state = SERCOM_I2C_STATE_TRANSFER_DONE;
                     }
@@ -600,12 +457,13 @@ void SERCOM2_I2C_InterruptHandler(void)
                     /* Read the received data */
                     sercom2I2CObj.readBuffer[sercom2I2CObj.readCount++] = SERCOM2_REGS->I2CM.SERCOM_DATA;
 
+
                     break;
-                }
+
                 default:
-                {
+
+                    /* Do nothing */
                     break;
-                }
             }
         }
 
@@ -616,12 +474,16 @@ void SERCOM2_I2C_InterruptHandler(void)
             sercom2I2CObj.state = SERCOM_I2C_STATE_IDLE;
 
             /* Generate STOP condition */
-            SERCOM2_REGS->I2CM.SERCOM_CTRLB |= SERCOM_I2CM_CTRLB_CMD(3);
+            SERCOM2_REGS->I2CM.SERCOM_CTRLB |= SERCOM_I2CM_CTRLB_CMD(3UL);
 
             /* Wait for synchronization */
-            while((SERCOM2_REGS->I2CM.SERCOM_STATUS & SERCOM_I2CM_STATUS_SYNCBUSY_Msk) & SERCOM_I2CM_STATUS_SYNCBUSY_Msk);
+            while((SERCOM2_REGS->I2CM.SERCOM_STATUS & (uint16_t)SERCOM_I2CM_STATUS_SYNCBUSY_Msk) == (uint16_t)SERCOM_I2CM_STATUS_SYNCBUSY_Msk)
+            {
+                /* Do nothing */
+            }
 
-            SERCOM2_REGS->I2CM.SERCOM_INTFLAG = SERCOM_I2CM_INTFLAG_Msk;
+
+            SERCOM2_REGS->I2CM.SERCOM_INTFLAG = (uint8_t)SERCOM_I2CM_INTFLAG_Msk;
 
             if (sercom2I2CObj.callback != NULL)
             {
@@ -635,16 +497,23 @@ void SERCOM2_I2C_InterruptHandler(void)
             sercom2I2CObj.state = SERCOM_I2C_STATE_IDLE;
             sercom2I2CObj.error = SERCOM_I2C_ERROR_NONE;
 
-            SERCOM2_REGS->I2CM.SERCOM_INTFLAG = SERCOM_I2CM_INTFLAG_Msk;
+            SERCOM2_REGS->I2CM.SERCOM_INTFLAG = (uint8_t)SERCOM_I2CM_INTFLAG_Msk;
 
             /* Wait for the NAK and STOP bit to be transmitted out and I2C state machine to rest in IDLE state */
-            while((SERCOM2_REGS->I2CM.SERCOM_STATUS & SERCOM_I2CM_STATUS_BUSSTATE_Msk) != SERCOM_I2CM_STATUS_BUSSTATE(0x01));
+            while((SERCOM2_REGS->I2CM.SERCOM_STATUS & SERCOM_I2CM_STATUS_BUSSTATE_Msk) != SERCOM_I2CM_STATUS_BUSSTATE(0x01UL))
+            {
+                /* Do nothing */
+            }
 
             if(sercom2I2CObj.callback != NULL)
             {
                 sercom2I2CObj.callback(sercom2I2CObj.context);
             }
 
+        }
+        else
+        {
+            /* Do nothing */
         }
     }
 
