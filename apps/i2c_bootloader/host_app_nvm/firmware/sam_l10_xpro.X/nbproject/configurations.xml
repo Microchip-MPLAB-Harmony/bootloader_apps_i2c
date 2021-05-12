@@ -7,31 +7,31 @@
       <logicalFolder name="f1" displayName="config" projectFiles="true">
         <logicalFolder name="f1" displayName="sam_l10_xpro" projectFiles="true">
           <logicalFolder name="f1" displayName="peripheral" projectFiles="true">
-            <logicalFolder name="f5" displayName="clock" projectFiles="true">
+            <logicalFolder name="f1" displayName="clock" projectFiles="true">
               <itemPath>../src/config/sam_l10_xpro/peripheral/clock/plib_clock.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f9" displayName="dsu" projectFiles="true">
+            <logicalFolder name="f2" displayName="dsu" projectFiles="true">
               <itemPath>../src/config/sam_l10_xpro/peripheral/dsu/plib_dsu.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f3" displayName="evsys" projectFiles="true">
               <itemPath>../src/config/sam_l10_xpro/peripheral/evsys/plib_evsys.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f6" displayName="nvic" projectFiles="true">
+            <logicalFolder name="f4" displayName="nvic" projectFiles="true">
               <itemPath>../src/config/sam_l10_xpro/peripheral/nvic/plib_nvic.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f1" displayName="nvmctrl" projectFiles="true">
+            <logicalFolder name="f5" displayName="nvmctrl" projectFiles="true">
               <itemPath>../src/config/sam_l10_xpro/peripheral/nvmctrl/plib_nvmctrl.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f7" displayName="pac" projectFiles="true">
+            <logicalFolder name="f6" displayName="pac" projectFiles="true">
               <itemPath>../src/config/sam_l10_xpro/peripheral/pac/plib_pac.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f8" displayName="pm" projectFiles="true">
+            <logicalFolder name="f7" displayName="pm" projectFiles="true">
               <itemPath>../src/config/sam_l10_xpro/peripheral/pm/plib_pm.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f4" displayName="port" projectFiles="true">
+            <logicalFolder name="f8" displayName="port" projectFiles="true">
               <itemPath>../src/config/sam_l10_xpro/peripheral/port/plib_port.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="sercom" projectFiles="true">
+            <logicalFolder name="f9" displayName="sercom" projectFiles="true">
               <logicalFolder name="f1" displayName="i2c_master" projectFiles="true">
                 <itemPath>../src/config/sam_l10_xpro/peripheral/sercom/i2c_master/plib_sercom_i2c_master_common.h</itemPath>
                 <itemPath>../src/config/sam_l10_xpro/peripheral/sercom/i2c_master/plib_sercom1_i2c_master.h</itemPath>
@@ -42,6 +42,9 @@
           <itemPath>../src/config/sam_l10_xpro/device_cache.h</itemPath>
           <itemPath>../src/config/sam_l10_xpro/toolchain_specifics.h</itemPath>
           <itemPath>../src/config/sam_l10_xpro/definitions.h</itemPath>
+          <itemPath>../src/config/sam_l10_xpro/device.h</itemPath>
+          <itemPath>../src/config/sam_l10_xpro/interrupts.h</itemPath>
+          <itemPath>../src/config/sam_l10_xpro/device_vectors.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f2" displayName="packs" projectFiles="true">
@@ -76,11 +79,44 @@
             <itemPath>../src/packs/ATSAML10E16A_DFP/component/trng.h</itemPath>
             <itemPath>../src/packs/ATSAML10E16A_DFP/component/wdt.h</itemPath>
           </logicalFolder>
+          <logicalFolder name="f3" displayName="instance" projectFiles="true">
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/ac.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/adc.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/ccl.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/dac.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/dmac.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/dsu.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/eic.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/evsys.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/freqm.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/gclk.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/idau.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/mclk.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/nvmctrl.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/opamp.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/osc32kctrl.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/oscctrl.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/pac.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/pm.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/port.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/ptc.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/rstc.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/rtc.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/sercom0.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/sercom1.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/sercom2.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/supc.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/tc0.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/tc1.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/tc2.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/tram.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/trng.h</itemPath>
+            <itemPath>../src/packs/ATSAML10E16A_DFP/instance/wdt.h</itemPath>
+          </logicalFolder>
           <logicalFolder name="f2" displayName="pio" projectFiles="true">
             <itemPath>../src/packs/ATSAML10E16A_DFP/pio/saml10e16a.h</itemPath>
           </logicalFolder>
-          <itemPath>../src/packs/ATSAML10E16A_DFP/device.h</itemPath>
-          <itemPath>../src/packs/ATSAML10E16A_DFP/atsaml10e16a.h</itemPath>
+          <itemPath>../src/packs/ATSAML10E16A_DFP/saml10e16a.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f2" displayName="CMSIS" projectFiles="true">
           <logicalFolder name="f1" displayName="CMSIS" projectFiles="true">
@@ -96,6 +132,7 @@
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/core_cm23.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/mpu_armv8.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/tz_context.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cachel1_armv7.h</itemPath>
               </logicalFolder>
             </logicalFolder>
           </logicalFolder>
@@ -106,12 +143,16 @@
                    displayName="Important Files"
                    projectFiles="true">
       <itemPath>Makefile</itemPath>
-      <itemPath>../src/config/sam_l10_xpro/harmony.prj</itemPath>
-      <itemPath>../../../../../../mhc/../bootloader_apps_i2c/apps/i2c_bootloader/host_app_nvm/firmware/src/config/sam_l10_xpro/sam_l10_xpro.xml</itemPath>
+      <itemPath>../src/config/sam_l10_xpro/harmony-manifest-success.yml</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
                    projectFiles="true">
+      <logicalFolder name="f1" displayName="config" projectFiles="true">
+        <logicalFolder name="f1" displayName="sam_l10_xpro" projectFiles="true">
+          <itemPath>../src/config/sam_l10_xpro/ATSAML10E16A.ld</itemPath>
+        </logicalFolder>
+      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -119,31 +160,31 @@
       <logicalFolder name="f1" displayName="config" projectFiles="true">
         <logicalFolder name="f1" displayName="sam_l10_xpro" projectFiles="true">
           <logicalFolder name="f1" displayName="peripheral" projectFiles="true">
-            <logicalFolder name="f5" displayName="clock" projectFiles="true">
+            <logicalFolder name="f1" displayName="clock" projectFiles="true">
               <itemPath>../src/config/sam_l10_xpro/peripheral/clock/plib_clock.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f9" displayName="dsu" projectFiles="true">
+            <logicalFolder name="f2" displayName="dsu" projectFiles="true">
               <itemPath>../src/config/sam_l10_xpro/peripheral/dsu/plib_dsu.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f3" displayName="evsys" projectFiles="true">
               <itemPath>../src/config/sam_l10_xpro/peripheral/evsys/plib_evsys.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f6" displayName="nvic" projectFiles="true">
+            <logicalFolder name="f4" displayName="nvic" projectFiles="true">
               <itemPath>../src/config/sam_l10_xpro/peripheral/nvic/plib_nvic.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f1" displayName="nvmctrl" projectFiles="true">
+            <logicalFolder name="f5" displayName="nvmctrl" projectFiles="true">
               <itemPath>../src/config/sam_l10_xpro/peripheral/nvmctrl/plib_nvmctrl.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f7" displayName="pac" projectFiles="true">
+            <logicalFolder name="f6" displayName="pac" projectFiles="true">
               <itemPath>../src/config/sam_l10_xpro/peripheral/pac/plib_pac.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f8" displayName="pm" projectFiles="true">
+            <logicalFolder name="f7" displayName="pm" projectFiles="true">
               <itemPath>../src/config/sam_l10_xpro/peripheral/pm/plib_pm.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f4" displayName="port" projectFiles="true">
+            <logicalFolder name="f8" displayName="port" projectFiles="true">
               <itemPath>../src/config/sam_l10_xpro/peripheral/port/plib_port.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="sercom" projectFiles="true">
+            <logicalFolder name="f9" displayName="sercom" projectFiles="true">
               <logicalFolder name="f1" displayName="i2c_master" projectFiles="true">
                 <itemPath>../src/config/sam_l10_xpro/peripheral/sercom/i2c_master/plib_sercom1_i2c_master.c</itemPath>
               </logicalFolder>
@@ -175,12 +216,12 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>2.41</languageToolchainVersion>
+        <languageToolchainVersion>3.00</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
         <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
-        <pack name="SAML10_DFP" vendor="Microchip" version="3.2.68"/>
+        <pack name="SAML10_DFP" vendor="Microchip" version="3.6.95"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -201,6 +242,7 @@
       </compileType>
       <makeCustomizationType>
         <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>
+        <makeUseCleanTarget>false</makeUseCleanTarget>
         <makeCustomizationPreStep></makeCustomizationPreStep>
         <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
         <makeCustomizationPostStep></makeCustomizationPostStep>
@@ -241,7 +283,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/sam_l10_xpro;../src/packs/ATSAML10E16A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/"/>
+                  value="../src;../src/config/sam_l10_xpro;../src/packs/ATSAML10E16A_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -253,6 +295,7 @@
         <property key="preprocessor-macros" value=""/>
         <property key="strict-ansi" value="false"/>
         <property key="support-ansi" value="false"/>
+        <property key="tentative-definitions" value=""/>
         <property key="toplevel-reordering" value=""/>
         <property key="unaligned-access" value=""/>
         <property key="use-cci" value="false"/>
@@ -284,6 +327,7 @@
       </C32-AS>
       <C32-CO>
         <property key="coverage-enable" value=""/>
+        <property key="stack-guidance" value="false"/>
       </C32-CO>
       <C32-LD>
         <property key="additional-options-use-response-files" value="false"/>
@@ -336,7 +380,8 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exceptions" value="true"/>
         <property key="exclude-floating-point" value="false"/>
-        <property key="extra-include-directories" value=""/>
+        <property key="extra-include-directories"
+                  value="../src;../src/config/sam_l10_xpro;../src/packs/ATSAML10E16A_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -364,6 +409,7 @@
         <property key="omit-pack-options" value="1"/>
         <property key="relaxed-math" value="false"/>
         <property key="save-temps" value="false"/>
+        <property key="stack-smashing" value=""/>
         <property key="wpo-lto" value="false"/>
       </C32Global>
       <EdbgTool>
