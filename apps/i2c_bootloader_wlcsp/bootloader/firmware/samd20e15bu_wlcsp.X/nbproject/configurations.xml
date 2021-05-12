@@ -6,32 +6,32 @@
                    projectFiles="true">
       <logicalFolder name="f1" displayName="config" projectFiles="true">
         <logicalFolder name="f1" displayName="samd20e15bu_wlcsp" projectFiles="true">
-          <logicalFolder name="f2" displayName="bootloader" projectFiles="true">
+          <logicalFolder name="f1" displayName="bootloader" projectFiles="true">
             <itemPath>../src/config/samd20e15bu_wlcsp/bootloader/bootloader.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f1" displayName="peripheral" projectFiles="true">
-            <logicalFolder name="f5" displayName="clock" projectFiles="true">
+          <logicalFolder name="f2" displayName="peripheral" projectFiles="true">
+            <logicalFolder name="f1" displayName="clock" projectFiles="true">
               <itemPath>../src/config/samd20e15bu_wlcsp/peripheral/clock/plib_clock.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f8" displayName="dsu" projectFiles="true">
+            <logicalFolder name="f2" displayName="dsu" projectFiles="true">
               <itemPath>../src/config/samd20e15bu_wlcsp/peripheral/dsu/plib_dsu.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f3" displayName="evsys" projectFiles="true">
               <itemPath>../src/config/samd20e15bu_wlcsp/peripheral/evsys/plib_evsys.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f6" displayName="nvic" projectFiles="true">
+            <logicalFolder name="f4" displayName="nvic" projectFiles="true">
               <itemPath>../src/config/samd20e15bu_wlcsp/peripheral/nvic/plib_nvic.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f1" displayName="nvmctrl" projectFiles="true">
+            <logicalFolder name="f5" displayName="nvmctrl" projectFiles="true">
               <itemPath>../src/config/samd20e15bu_wlcsp/peripheral/nvmctrl/plib_nvmctrl.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f7" displayName="pac" projectFiles="true">
+            <logicalFolder name="f6" displayName="pac" projectFiles="true">
               <itemPath>../src/config/samd20e15bu_wlcsp/peripheral/pac/plib_pac.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f4" displayName="port" projectFiles="true">
+            <logicalFolder name="f7" displayName="port" projectFiles="true">
               <itemPath>../src/config/samd20e15bu_wlcsp/peripheral/port/plib_port.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="sercom" projectFiles="true">
+            <logicalFolder name="f8" displayName="sercom" projectFiles="true">
               <logicalFolder name="f1" displayName="i2c_slave" projectFiles="true">
                 <itemPath>../src/config/samd20e15bu_wlcsp/peripheral/sercom/i2c_slave/plib_sercom_i2c_slave_common.h</itemPath>
                 <itemPath>../src/config/samd20e15bu_wlcsp/peripheral/sercom/i2c_slave/plib_sercom2_i2c_slave.h</itemPath>
@@ -41,6 +41,8 @@
           <itemPath>../src/config/samd20e15bu_wlcsp/device_cache.h</itemPath>
           <itemPath>../src/config/samd20e15bu_wlcsp/toolchain_specifics.h</itemPath>
           <itemPath>../src/config/samd20e15bu_wlcsp/definitions.h</itemPath>
+          <itemPath>../src/config/samd20e15bu_wlcsp/device.h</itemPath>
+          <itemPath>../src/config/samd20e15bu_wlcsp/device_vectors.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f2" displayName="packs" projectFiles="true">
@@ -64,11 +66,43 @@
             <itemPath>../src/packs/ATSAMD20E15BU_DFP/component/tc.h</itemPath>
             <itemPath>../src/packs/ATSAMD20E15BU_DFP/component/wdt.h</itemPath>
           </logicalFolder>
+          <logicalFolder name="f3" displayName="instance" projectFiles="true">
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/ac.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/adc.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/dac.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/dsu.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/eic.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/evsys.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/gclk.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/nvmctrl.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/pac0.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/pac1.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/pac2.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/pm.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/port.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/ptc.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/rtc.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/sercom0.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/sercom1.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/sercom2.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/sercom3.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/sercom4.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/sercom5.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/sysctrl.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/tc0.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/tc1.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/tc2.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/tc3.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/tc4.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/tc5.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/tc6.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/tc7.h</itemPath>
+            <itemPath>../src/packs/ATSAMD20E15BU_DFP/instance/wdt.h</itemPath>
+          </logicalFolder>
           <logicalFolder name="f2" displayName="pio" projectFiles="true">
             <itemPath>../src/packs/ATSAMD20E15BU_DFP/pio/samd20e15bu.h</itemPath>
           </logicalFolder>
-          <itemPath>../src/packs/ATSAMD20E15BU_DFP/device.h</itemPath>
-          <itemPath>../src/packs/ATSAMD20E15BU_DFP/atsamd20e15bu.h</itemPath>
+          <itemPath>../src/packs/ATSAMD20E15BU_DFP/samd20e15bu.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f2" displayName="CMSIS" projectFiles="true">
           <logicalFolder name="f1" displayName="CMSIS" projectFiles="true">
@@ -83,6 +117,7 @@
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang_ltm.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/core_cm0plus.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/mpu_armv7.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cachel1_armv7.h</itemPath>
               </logicalFolder>
             </logicalFolder>
           </logicalFolder>
@@ -92,9 +127,23 @@
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="true">
+      <logicalFolder name="f1"
+                     displayName="samd20e15bu_wlcsp.mhc"
+                     projectFiles="true">
+        <itemPath>../src/config/samd20e15bu_wlcsp/samd20e15bu_wlcsp.mhc/cmsis.yml</itemPath>
+        <itemPath>../src/config/samd20e15bu_wlcsp/samd20e15bu_wlcsp.mhc/core.yml</itemPath>
+        <itemPath>../src/config/samd20e15bu_wlcsp/samd20e15bu_wlcsp.mhc/dfp.yml</itemPath>
+        <itemPath>../src/config/samd20e15bu_wlcsp/samd20e15bu_wlcsp.mhc/dsu.yml</itemPath>
+        <itemPath>../src/config/samd20e15bu_wlcsp/samd20e15bu_wlcsp.mhc/evsys.yml</itemPath>
+        <itemPath>../src/config/samd20e15bu_wlcsp/samd20e15bu_wlcsp.mhc/GraphSettings.yml</itemPath>
+        <itemPath>../src/config/samd20e15bu_wlcsp/samd20e15bu_wlcsp.mhc/i2c_bootloader.yml</itemPath>
+        <itemPath>../src/config/samd20e15bu_wlcsp/samd20e15bu_wlcsp.mhc/nvmctrl.yml</itemPath>
+        <itemPath>../src/config/samd20e15bu_wlcsp/samd20e15bu_wlcsp.mhc/project.yml</itemPath>
+        <itemPath>../src/config/samd20e15bu_wlcsp/samd20e15bu_wlcsp.mhc/sercom2.yml</itemPath>
+        <itemPath>../src/config/samd20e15bu_wlcsp/samd20e15bu_wlcsp.mhc/settings.yml</itemPath>
+      </logicalFolder>
       <itemPath>Makefile</itemPath>
-      <itemPath>../src/config/samd20e15bu_wlcsp/harmony.prj</itemPath>
-      <itemPath>../../../../../../mhc/../bootloader_apps_i2c/apps/i2c_bootloader_wlcsp/bootloader/firmware/src/config/samd20e15bu_wlcsp/samd20e15bu_wlcsp.xml</itemPath>
+      <itemPath>../src/config/samd20e15bu_wlcsp/harmony-manifest-success.yml</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -106,32 +155,32 @@
                    projectFiles="true">
       <logicalFolder name="f1" displayName="config" projectFiles="true">
         <logicalFolder name="f1" displayName="samd20e15bu_wlcsp" projectFiles="true">
-          <logicalFolder name="f2" displayName="bootloader" projectFiles="true">
+          <logicalFolder name="f1" displayName="bootloader" projectFiles="true">
             <itemPath>../src/config/samd20e15bu_wlcsp/bootloader/bootloader.c</itemPath>
           </logicalFolder>
-          <logicalFolder name="f1" displayName="peripheral" projectFiles="true">
-            <logicalFolder name="f5" displayName="clock" projectFiles="true">
+          <logicalFolder name="f2" displayName="peripheral" projectFiles="true">
+            <logicalFolder name="f1" displayName="clock" projectFiles="true">
               <itemPath>../src/config/samd20e15bu_wlcsp/peripheral/clock/plib_clock.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f8" displayName="dsu" projectFiles="true">
+            <logicalFolder name="f2" displayName="dsu" projectFiles="true">
               <itemPath>../src/config/samd20e15bu_wlcsp/peripheral/dsu/plib_dsu.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f3" displayName="evsys" projectFiles="true">
               <itemPath>../src/config/samd20e15bu_wlcsp/peripheral/evsys/plib_evsys.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f6" displayName="nvic" projectFiles="true">
+            <logicalFolder name="f4" displayName="nvic" projectFiles="true">
               <itemPath>../src/config/samd20e15bu_wlcsp/peripheral/nvic/plib_nvic.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f1" displayName="nvmctrl" projectFiles="true">
+            <logicalFolder name="f5" displayName="nvmctrl" projectFiles="true">
               <itemPath>../src/config/samd20e15bu_wlcsp/peripheral/nvmctrl/plib_nvmctrl.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f7" displayName="pac" projectFiles="true">
+            <logicalFolder name="f6" displayName="pac" projectFiles="true">
               <itemPath>../src/config/samd20e15bu_wlcsp/peripheral/pac/plib_pac.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f4" displayName="port" projectFiles="true">
+            <logicalFolder name="f7" displayName="port" projectFiles="true">
               <itemPath>../src/config/samd20e15bu_wlcsp/peripheral/port/plib_port.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="sercom" projectFiles="true">
+            <logicalFolder name="f8" displayName="sercom" projectFiles="true">
               <logicalFolder name="f1" displayName="i2c_slave" projectFiles="true">
                 <itemPath>../src/config/samd20e15bu_wlcsp/peripheral/sercom/i2c_slave/plib_sercom2_i2c_slave.c</itemPath>
               </logicalFolder>
@@ -157,11 +206,11 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>2.41</languageToolchainVersion>
+        <languageToolchainVersion>3.00</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="SAMD20_DFP" vendor="Microchip" version="3.3.56"/>
+        <pack name="SAMD20_DFP" vendor="Microchip" version="3.4.68"/>
         <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
       </packs>
       <ScriptingSettings>
@@ -183,6 +232,7 @@
       </compileType>
       <makeCustomizationType>
         <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>
+        <makeUseCleanTarget>false</makeUseCleanTarget>
         <makeCustomizationPreStep></makeCustomizationPreStep>
         <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
         <makeCustomizationPostStep></makeCustomizationPostStep>
@@ -223,18 +273,19 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/samd20e15bu_wlcsp;../src/packs/ATSAMD20E15BU_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/"/>
+                  value="../src;../src/config/samd20e15bu_wlcsp;../src/packs/ATSAMD20E15BU_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
         <property key="make-warnings-into-errors" value="true"/>
-        <property key="optimization-level" value="-O1"/>
+        <property key="optimization-level" value="-O2"/>
         <property key="place-data-into-section" value="false"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
         <property key="preprocessor-macros" value=""/>
         <property key="strict-ansi" value="false"/>
         <property key="support-ansi" value="false"/>
+        <property key="tentative-definitions" value="-fno-common"/>
         <property key="toplevel-reordering" value=""/>
         <property key="unaligned-access" value=""/>
         <property key="use-cci" value="false"/>
@@ -266,6 +317,7 @@
       </C32-AS>
       <C32-CO>
         <property key="coverage-enable" value=""/>
+        <property key="stack-guidance" value="false"/>
       </C32-CO>
       <C32-LD>
         <property key="additional-options-use-response-files" value="false"/>
@@ -318,7 +370,8 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exceptions" value="true"/>
         <property key="exclude-floating-point" value="false"/>
-        <property key="extra-include-directories" value=""/>
+        <property key="extra-include-directories"
+                  value="../src;../src/config/samd20e15bu_wlcsp;../src/packs/ATSAMD20E15BU_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -346,6 +399,7 @@
         <property key="omit-pack-options" value="1"/>
         <property key="relaxed-math" value="false"/>
         <property key="save-temps" value="false"/>
+        <property key="stack-smashing" value=""/>
         <property key="wpo-lto" value="false"/>
       </C32Global>
       <PICkit3PlatformTool>
