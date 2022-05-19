@@ -88,8 +88,8 @@ DRV_SDMMC_Tasks(sysObj.drvSDMMC0);
     
 
     /* Maintain the application's state machine. */
-        /* Call Application task APP_SAME54. */
-    APP_SAME54_Tasks();
+        /* Call Application task APP. */
+    APP_Tasks();
 
 
 

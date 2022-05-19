@@ -69,13 +69,15 @@
 #define APP_BL_SDCARD_MOUNT_NAME                    SYS_FS_MEDIA_IDX0_MOUNT_NAME_VOLUME_IDX0
 #define APP_BL_SDCARD_DEV_NAME                      SYS_FS_MEDIA_IDX0_DEVICE_NAME_VOLUME_IDX0
 
+#define APP_BL_STATUS_READY                         (0x0)
 #define APP_BL_STATUS_BIT_BUSY                      (0x01 << 0)
 #define APP_BL_STATUS_BIT_INVALID_COMMAND           (0x01 << 1)
 #define APP_BL_STATUS_BIT_INVALID_MEM_ADDR          (0x01 << 2)
 #define APP_BL_STATUS_BIT_COMMAND_EXECUTION_ERROR   (0x01 << 3)      //Valid only when APP_BL_STATUS_BIT_BUSY is 0
 #define APP_BL_STATUS_BIT_CRC_ERROR                 (0x01 << 4)
+#define BL_STATUS_BIT_COMM_ERROR                    (0x01 << 5)
 #define APP_BL_STATUS_BIT_ALL                       (APP_BL_STATUS_BIT_BUSY | APP_BL_STATUS_BIT_INVALID_COMMAND | APP_BL_STATUS_BIT_INVALID_MEM_ADDR | \
-                                                    APP_BL_STATUS_BIT_COMMAND_EXECUTION_ERROR | APP_BL_STATUS_BIT_CRC_ERROR)
+                                                    APP_BL_STATUS_BIT_COMMAND_EXECUTION_ERROR | APP_BL_STATUS_BIT_CRC_ERROR | BL_STATUS_BIT_COMM_ERROR)
 // *****************************************************************************
 /* Application Data
 
@@ -91,9 +93,9 @@
     Application strings and buffers are be defined outside this structure.
 */
 
-static APP_DATA                         appData;
-static uint32_t                         crc_tab[256];
-static BUFFER_ATTRIBUTES uint8_t        sdCardBuffer[APP_MAX_MEM_PAGE_SIZE];
+static APP_DATA     appData;
+static uint32_t     crc_tab[256];
+static uint8_t      sdCardBuffer[APP_MAX_MEM_PAGE_SIZE];
 
 /* For multiple I2C slaves on the same bus, set the APP_BL_NUM_I2C_SLAVES macro
  * to the number of slaves on the bus and populate this data structure with the
@@ -105,14 +107,18 @@ static BUFFER_ATTRIBUTES uint8_t        sdCardBuffer[APP_MAX_MEM_PAGE_SIZE];
     .programPageSize    = 64 or 256,
     .appStartAddr       = 0x800,
     .filename           = <firmware file name (.bin)>
+    .devCfgProgram      = true
+    .devCfgFileName     = <device confgig file name (.txt)>
  * For SAM E54:
     .i2cSlaveAddr       = <I2C Slave Address>,
     .erasePageSize      = 8192,
     .programPageSize    = 512 or 8192,
     .appStartAddr       = 0x2000,
     .filename           = <firmware file name (.bin)>
+    .devCfgProgram      = true
+    .devCfgFileName     = <device confgig file name (.txt)>
  */
-const APP_FIRMWARE_UPDATE_INFO  firmwareUpdateInfo[APP_BL_NUM_I2C_SLAVES] =
+APP_FIRMWARE_UPDATE_INFO  firmwareUpdateInfo[APP_BL_NUM_I2C_SLAVES] =
 {
     {
         .i2cSlaveAddr       = APP_I2C_SLAVE_ADDR,
@@ -124,7 +130,9 @@ const APP_FIRMWARE_UPDATE_INFO  firmwareUpdateInfo[APP_BL_NUM_I2C_SLAVES] =
          */
         .programPageSize    = APP_PROGRAM_PAGE_SIZE,
         .appStartAddr       = APP_IMAGE_START_ADDR,
-        .filename           = APP_BINARY_FILE
+        .filename           = APP_BINARY_FILE,
+        .devCfgProgram      = APP_PROGRAM_DEV_CONFIG,
+        .devCfgFileName     = APP_DEVCFG_FILE,
     },
 
     /* Add firmware update information for the additional I2C slaves on the bus
@@ -141,7 +149,7 @@ static void APP_I2CEventHandler(uintptr_t context )
 {
     APP_TRANSFER_STATUS* trasnferStatus = (APP_TRANSFER_STATUS*)context;
 
-    if(SERCOM2_I2C_ErrorGet() == SERCOM_I2C_ERROR_NONE)
+    if(I2C_FUNC(ErrorGet)() == SERCOM_I2C_ERROR_NONE)
     {
         if (trasnferStatus)
         {
@@ -178,6 +186,8 @@ static void APP_SysFSEventHandler(SYS_FS_EVENT event, void* eventData, uintptr_t
             break;
 
         case SYS_FS_EVENT_ERROR:
+            break;
+            
         default:
             break;
     }
@@ -230,6 +240,78 @@ static uint32_t APP_CRCGenerate(
     return crc;
 }
 
+static int APP_SDCARD_ReadDevCfgData(void)
+{
+    uint32_t index = 0;
+    uint32_t address = 0;
+    char fileString[128];
+    char *strPtr = fileString;
+
+    SYS_FS_RESULT result = SYS_FS_RES_SUCCESS;
+
+    memset(firmwareUpdateInfo[appData.i2cSlaveIndex].devCfgData, 0xFF, sizeof(firmwareUpdateInfo[appData.i2cSlaveIndex].devCfgData));
+
+    while (1)
+    {
+        strPtr = fileString;
+
+        result = SYS_FS_FileStringGet(appData.fileHandle, fileString, sizeof(fileString));
+
+        if (result == SYS_FS_RES_FAILURE)
+        {
+            // If reached End of File then return Success
+            if(SYS_FS_FileEOF(appData.fileHandle) == true)
+            {
+                SYS_FS_FileClose(appData.fileHandle);
+
+                appData.fileHandle = SYS_FS_HANDLE_INVALID;
+
+                return 0;
+            }
+
+            return -1;
+        }
+
+        if (strlen(strPtr) == 0)
+        {
+            continue;
+        }
+
+        if (memcmp("ROW_START ", strPtr, (sizeof("ROW_START ") - 1)) == 0)
+        {
+            strPtr += (sizeof("ROW_START ") - 1) + 2;
+            
+            sscanf(strPtr, "%lx", &address);
+
+            // Get the Page start in which the address falls
+            firmwareUpdateInfo[appData.i2cSlaveIndex].devCfgAddr = (address & (~(firmwareUpdateInfo[appData.i2cSlaveIndex].erasePageSize - 1)));
+
+            // If address is not aligned to Erase boundary retain 0xFF until the actual address received
+            index = ((address - firmwareUpdateInfo[appData.i2cSlaveIndex].devCfgAddr) / sizeof(uint32_t));
+        }
+        else if (memcmp("ROW_END", strPtr, (sizeof("ROW_END") - 1)) == 0)
+        {
+            // Received Device configurations for one row. Send to target
+            return 1;
+        }
+        else if (memcmp("\r\n", strPtr, (sizeof("\r\n") - 1)) == 0)
+        {
+            // Do Nothing
+        }
+        else
+        {
+            // Skip the 0x in the string
+            strPtr += 2;
+
+            sscanf(strPtr, "%lx", &(firmwareUpdateInfo[appData.i2cSlaveIndex].devCfgData[index]));
+
+            index++;
+        }
+    }
+
+    return -1;
+}
+
 static int32_t APP_SDCARD_ReadData(uint8_t* pBuffer, uint32_t nBytes)
 {
     int32_t nBytesRead;
@@ -261,6 +343,26 @@ static uint32_t APP_ProgramCommandHeaderGen(
     uint32_t nTxBytes = 0;
 
     appData.wrBuffer[nTxBytes++] = APP_BL_COMMAND_PROGRAM;
+    appData.wrBuffer[nTxBytes++] = (nBytes >> 24);
+    appData.wrBuffer[nTxBytes++] = (nBytes >> 16);
+    appData.wrBuffer[nTxBytes++] = (nBytes >> 8);
+    appData.wrBuffer[nTxBytes++] = (nBytes);
+    appData.wrBuffer[nTxBytes++] = (memAddr >> 24);
+    appData.wrBuffer[nTxBytes++] = (memAddr >> 16);
+    appData.wrBuffer[nTxBytes++] = (memAddr >> 8);
+    appData.wrBuffer[nTxBytes++] = (memAddr);
+
+    return nTxBytes;
+}
+
+static uint32_t APP_DevConfigProgramCommandHeaderGen(
+    uint32_t memAddr,
+    uint32_t nBytes
+)
+{
+    uint32_t nTxBytes = 0;
+
+    appData.wrBuffer[nTxBytes++] = APP_BL_COMMAND_DEVCFG_PROGRAM;
     appData.wrBuffer[nTxBytes++] = (nBytes >> 24);
     appData.wrBuffer[nTxBytes++] = (nBytes >> 16);
     appData.wrBuffer[nTxBytes++] = (nBytes >> 8);
@@ -364,6 +466,7 @@ static int32_t APP_ImageDataWrite(
 
 void APP_Initialize ( void )
 {
+    /* Wait for the switch to reflect idle (not pressed) state */
     while(SWITCH_GET() == SWITCH_STATUS_PRESSED);
 
     APP_CRCTablePopulate();
@@ -380,7 +483,7 @@ void APP_Initialize ( void )
     appData.crcVal           = 0xffffffff;
 
     /* Register the File System Event handler */
-    SYS_FS_EventHandlerSet(APP_SysFSEventHandler, (uintptr_t)NULL);
+    SYS_FS_EventHandlerSet((void const*)APP_SysFSEventHandler, (uintptr_t)NULL);
 }
 
 
@@ -401,7 +504,7 @@ void APP_Tasks ( void )
     switch (appData.state)
     {
         case APP_INIT:
-            SERCOM2_I2C_CallbackRegister( APP_I2CEventHandler, (uintptr_t)&appData.trasnferStatus );
+            I2C_FUNC(CallbackRegister)( APP_I2CEventHandler, (uintptr_t)&appData.trasnferStatus );
             appData.state = APP_DISK_MOUNT_WAIT;
             break;
 
@@ -442,7 +545,6 @@ void APP_Tasks ( void )
                 appData.erasePageSize = firmwareUpdateInfo[appData.i2cSlaveIndex].erasePageSize;
                 appData.programPageSize = firmwareUpdateInfo[appData.i2cSlaveIndex].programPageSize;
                 appData.appStartAddr = firmwareUpdateInfo[appData.i2cSlaveIndex].appStartAddr;
-                printf("%s 0x%x ", "I2C Slave Addr:", appData.i2cSlaveAddr);
                 appData.state = APP_FILE_OPEN;
             }
             else
@@ -457,31 +559,66 @@ void APP_Tasks ( void )
             if(appData.fileHandle == SYS_FS_HANDLE_INVALID)
             {
                 /* Could not open the file. Error out */
+                printf("\r\nERROR!!! Unable to open the Binary file %s\r\n\r\n", firmwareUpdateInfo[appData.i2cSlaveIndex].filename);
                 appData.state = APP_ERROR;
             }
             else
             {
                 appData.fileSize = SYS_FS_FileSize(appData.fileHandle);
+                appData.state = APP_SEND_READ_VERSION_COMMAND;
+            }
+            break;
+
+        case APP_SEND_READ_VERSION_COMMAND:
+            /* Send Read status request */
+            appData.wrBuffer[0] = APP_BL_COMMAND_READ_VERSION;
+            appData.trasnferStatus = APP_TRANSFER_STATUS_IN_PROGRESS;
+            I2C_FUNC(WriteRead)(appData.i2cSlaveAddr, &appData.wrBuffer[0], 1,  (uint8_t *)&appData.btlVersion, 2);
+
+            appData.state = APP_WAIT_READ_VERSION_COMMAND_TRANSFER_COMPLETE;
+
+            break;
+
+        case APP_WAIT_READ_VERSION_COMMAND_TRANSFER_COMPLETE:
+            if (appData.trasnferStatus == APP_TRANSFER_STATUS_SUCCESS)
+            {
+                /* Read the status of erase command */
                 appData.state = APP_SEND_UNLOCK_COMMAND;
+                printf("\r\nBootloader Version: v%d.%d\r\n\r\n", (appData.btlVersion & 0xFF), ((appData.btlVersion >> 8) & 0xFF));
+            }
+            else if (appData.trasnferStatus == APP_TRANSFER_STATUS_ERROR)
+            {
+                appData.state = APP_ERROR;
             }
             break;
 
         case APP_SEND_UNLOCK_COMMAND:
+            printf("%s 0x%x ", "I2C Slave Addr:", appData.i2cSlaveAddr);
+
             appData.appImageSize = appData.fileSize;
 
             /* Convert image size to page size boundary */
-            appData.imageSizeMultipleOfPage = appData.appImageSize + (appData.erasePageSize - (appData.appImageSize % appData.erasePageSize));
+            if (appData.appImageSize % appData.erasePageSize)
+            {
+                appData.imageSizeMultipleOfPage = appData.appImageSize + (appData.erasePageSize - (appData.appImageSize % appData.erasePageSize));
+            }
+            else
+            {
+                appData.imageSizeMultipleOfPage = appData.appImageSize;
+            }
 
             nTxBytes = APP_UnlockCommandHeaderGen(appData.appStartAddr, appData.imageSizeMultipleOfPage);
             appData.trasnferStatus = APP_TRANSFER_STATUS_IN_PROGRESS;
-            SERCOM2_I2C_Write(appData.i2cSlaveAddr, &appData.wrBuffer[0], nTxBytes);
+            I2C_FUNC(Write)(appData.i2cSlaveAddr, &appData.wrBuffer[0], nTxBytes);
             appData.state = APP_WAIT_UNLOCK_COMMAND_TRANSFER_COMPLETE;
             break;
 
         case APP_WAIT_UNLOCK_COMMAND_TRANSFER_COMPLETE:
             if (appData.trasnferStatus == APP_TRANSFER_STATUS_SUCCESS)
             {
-                appData.state = APP_SEND_ERASE_COMMAND;
+                /* Command transfer complete. Wait for internal write to complete */
+				appData.state = APP_READ_STATUS;
+                appData.nextState = APP_SEND_ERASE_COMMAND;
             }
             else if (appData.trasnferStatus == APP_TRANSFER_STATUS_ERROR)
             {
@@ -496,7 +633,7 @@ void APP_Tasks ( void )
 
                 appData.nBytesWrittenInErasedPage = 0;
                 appData.trasnferStatus = APP_TRANSFER_STATUS_IN_PROGRESS;
-                SERCOM2_I2C_Write(appData.i2cSlaveAddr, &appData.wrBuffer[0], nTxBytes);
+                I2C_FUNC(Write)(appData.i2cSlaveAddr, &appData.wrBuffer[0], nTxBytes);
                 appData.state = APP_WAIT_ERASE_COMMAND_TRANSFER_COMPLETE;
             }
             else
@@ -510,10 +647,6 @@ void APP_Tasks ( void )
             if (appData.trasnferStatus == APP_TRANSFER_STATUS_SUCCESS)
             {
                 /* Read the status of erase command */
-                appData.wrBuffer[0] = APP_BL_COMMAND_READ_STATUS;
-                appData.trasnferStatus = APP_TRANSFER_STATUS_IN_PROGRESS;
-                SERCOM2_I2C_WriteRead(appData.i2cSlaveAddr, &appData.wrBuffer[0], 1,  &appData.status, 1);
-
                 appData.state = APP_READ_STATUS;
                 appData.nextState = APP_SEND_WRITE_COMMAND;
             }
@@ -552,13 +685,13 @@ void APP_Tasks ( void )
                 if (nTxBytes > 0)
                 {
                     appData.trasnferStatus = APP_TRANSFER_STATUS_IN_PROGRESS;
-                    SERCOM2_I2C_Write(appData.i2cSlaveAddr, &appData.wrBuffer[0], nTxBytes);
+                    I2C_FUNC(Write)(appData.i2cSlaveAddr, &appData.wrBuffer[0], nTxBytes);
                     appData.state = APP_WAIT_WRITE_COMMAND_TRANSFER_COMPLETE;
                 }
                 else
                 {
                     /* There was an error reading the data */
-                    appData.nextState = APP_ERROR;
+                    appData.state = APP_ERROR;
                 }
             }
             else
@@ -583,10 +716,6 @@ void APP_Tasks ( void )
                 }
 
                 /* Command transfer complete. Wait for internal write to complete */
-                appData.wrBuffer[0] = APP_BL_COMMAND_READ_STATUS;
-                appData.trasnferStatus = APP_TRANSFER_STATUS_IN_PROGRESS;
-                SERCOM2_I2C_WriteRead(appData.i2cSlaveAddr, &appData.wrBuffer[0], 1,  &appData.status, 1);
-
                 appData.state = APP_READ_STATUS;
                 if (appData.nBytesWrittenInErasedPage == appData.erasePageSize)
                 {
@@ -601,14 +730,14 @@ void APP_Tasks ( void )
             }
             else if (appData.trasnferStatus == APP_TRANSFER_STATUS_ERROR)
             {
-                appData.nextState = APP_ERROR;
+                appData.state = APP_ERROR;
             }
             break;
 
         case APP_SEND_VERIFY_COMMAND:
             nTxBytes = APP_VerifyCommandHeaderGen(appData.crcVal);
             appData.trasnferStatus = APP_TRANSFER_STATUS_IN_PROGRESS;
-            SERCOM2_I2C_Write(appData.i2cSlaveAddr, &appData.wrBuffer[0], nTxBytes);
+            I2C_FUNC(Write)(appData.i2cSlaveAddr, &appData.wrBuffer[0], nTxBytes);
             appData.state = APP_WAIT_VERIFY_COMMAND_TRANSFER_COMPLETE;
             break;
 
@@ -616,12 +745,17 @@ void APP_Tasks ( void )
             if (appData.trasnferStatus == APP_TRANSFER_STATUS_SUCCESS)
             {
                 /* Read the status of the verify command */
-                appData.wrBuffer[0] = APP_BL_COMMAND_READ_STATUS;
-                appData.trasnferStatus = APP_TRANSFER_STATUS_IN_PROGRESS;
-                SERCOM2_I2C_WriteRead(appData.i2cSlaveAddr, &appData.wrBuffer[0], 1,  &appData.status, 1);
-
                 appData.state = APP_READ_STATUS;
-                appData.nextState = APP_SEND_RESET_COMMAND;
+                
+                if (firmwareUpdateInfo[appData.i2cSlaveIndex].devCfgProgram == true)
+                {
+                    appData.nextState = APP_OPEN_DEVCFG_FILE;
+                }
+                else
+                {
+                    appData.nextState = APP_SEND_RESET_COMMAND;
+                }
+                
             }
             else if (appData.trasnferStatus == APP_TRANSFER_STATUS_ERROR)
             {
@@ -630,31 +764,137 @@ void APP_Tasks ( void )
             break;
 
         case APP_READ_STATUS:
+            /* Send Read status request */
+            appData.wrBuffer[0] = APP_BL_COMMAND_READ_STATUS;
+            appData.trasnferStatus = APP_TRANSFER_STATUS_IN_PROGRESS;
+            I2C_FUNC(WriteRead)(appData.i2cSlaveAddr, &appData.wrBuffer[0], 1,  &appData.status, 1);
+
+            appData.state = APP_READ_STATUS_COMMAND_TRANSFER_COMPLETE;
+            break;
+
+        case APP_READ_STATUS_COMMAND_TRANSFER_COMPLETE:
             if (appData.trasnferStatus == APP_TRANSFER_STATUS_SUCCESS)
             {
-                if (appData.status != 0)
+                if (appData.status == APP_BL_STATUS_BIT_BUSY)
                 {
-                    appData.state = APP_ERROR;
+                    /* Slave is busy. Keep checking the status */
+                    appData.state = APP_READ_STATUS;
+                }
+                else if (appData.status == APP_BL_STATUS_READY)
+                {
+                    /* Slave is ready for next command */
+                    appData.state = appData.nextState;
                 }
                 else
                 {
-                    appData.state = appData.nextState;
+                    appData.state = APP_ERROR;
                 }
             }
             else if (appData.trasnferStatus == APP_TRANSFER_STATUS_ERROR)
             {
                 /* Slave is busy. Keep checking the status */
-                appData.wrBuffer[0] = APP_BL_COMMAND_READ_STATUS;
-                appData.trasnferStatus = APP_TRANSFER_STATUS_IN_PROGRESS;
-                SERCOM2_I2C_WriteRead(appData.i2cSlaveAddr, &appData.wrBuffer[0], 1,  &appData.status, 1);
+                appData.state = APP_READ_STATUS;
             }
             break;
 
+        case APP_OPEN_DEVCFG_FILE:
+            appData.fileHandle = SYS_FS_FileOpen((const char*)firmwareUpdateInfo[appData.i2cSlaveIndex].devCfgFileName, SYS_FS_FILE_OPEN_READ);
+
+            if(appData.fileHandle == SYS_FS_HANDLE_INVALID)
+            {
+                /* Could not open the file. Error out */
+                printf("\r\nERROR!!! Unable to open the device configuration file %s\r\n\r\n", firmwareUpdateInfo[appData.i2cSlaveIndex].devCfgFileName);
+                appData.state = APP_ERROR;
+            }
+            else
+            {
+                appData.fileSize = SYS_FS_FileSize(appData.fileHandle);
+
+                if (appData.fileSize == 0)
+                {
+                    appData.state = APP_ERROR;
+                }
+                else
+                {
+                    appData.state = APP_READ_DEVCFG_DATA;
+                }
+            }
+            break;
+
+        case APP_READ_DEVCFG_DATA:
+            nTxBytes = APP_SDCARD_ReadDevCfgData();
+
+            // Completed programming device configurations
+            if (nTxBytes == 0)
+            {
+                appData.state = APP_SEND_RESET_COMMAND;
+            }
+            // Completed Reading Device configuration for a Row
+            else if (nTxBytes > 0)
+            {
+                appData.state = APP_SEND_DEVCFG_ERASE_COMMAND;
+            }
+            else if (nTxBytes < 0)
+            {
+                appData.state = APP_ERROR;
+            }
+            break;
+
+        case APP_SEND_DEVCFG_ERASE_COMMAND:
+            nTxBytes = APP_EraseCommandHeaderGen(firmwareUpdateInfo[appData.i2cSlaveIndex].devCfgAddr);
+            
+            appData.trasnferStatus = APP_TRANSFER_STATUS_IN_PROGRESS;
+            I2C_FUNC(Write)(appData.i2cSlaveAddr, &appData.wrBuffer[0], nTxBytes);
+            appData.state = APP_WAIT_DEVCFG_ERASE_COMMAND_TRANSFER_COMPLETE;
+            break;
+            
+        case APP_WAIT_DEVCFG_ERASE_COMMAND_TRANSFER_COMPLETE:
+            if (appData.trasnferStatus == APP_TRANSFER_STATUS_SUCCESS)
+            {
+                /* Read the status of erase command */
+                appData.state = APP_READ_STATUS;
+                appData.nextState = APP_SEND_DEVCFG_WRITE_COMMAND;
+            }
+            else if (appData.trasnferStatus == APP_TRANSFER_STATUS_ERROR)
+            {
+                appData.state = APP_ERROR;
+            }
+            break;
+                    
+        case APP_SEND_DEVCFG_WRITE_COMMAND:
+          
+            /* Just write 0xFF to remaining pages in the erased row */
+            memset(appData.wrBuffer, 0xFF, appData.programPageSize);
+            nTxBytes = APP_DevConfigProgramCommandHeaderGen(firmwareUpdateInfo[appData.i2cSlaveIndex].devCfgAddr, appData.programPageSize);
+            
+            memcpy((void *)&appData.wrBuffer[nTxBytes], firmwareUpdateInfo[appData.i2cSlaveIndex].devCfgData, sizeof(firmwareUpdateInfo[appData.i2cSlaveIndex].devCfgData));
+            
+            nTxBytes += appData.programPageSize;
+            
+            appData.trasnferStatus = APP_TRANSFER_STATUS_IN_PROGRESS;
+            I2C_FUNC(Write)(appData.i2cSlaveAddr, &appData.wrBuffer[0], nTxBytes);
+            appData.state = APP_WAIT_DEVCFG_WRITE_COMMAND_TRANSFER_COMPLETE;
+            
+            break;
+          
+        case APP_WAIT_DEVCFG_WRITE_COMMAND_TRANSFER_COMPLETE:
+            if (appData.trasnferStatus == APP_TRANSFER_STATUS_SUCCESS)
+            {                
+                /* Command transfer complete. Wait for internal write to complete */
+                appData.state = APP_READ_STATUS;
+                appData.nextState = APP_READ_DEVCFG_DATA;
+            }
+            else if (appData.trasnferStatus == APP_TRANSFER_STATUS_ERROR)
+            {
+                appData.state = APP_ERROR;
+            }
+            break;
+            
         case APP_SEND_RESET_COMMAND:
 
             appData.wrBuffer[0] = APP_BL_COMMAND_RESET;
             appData.trasnferStatus = APP_TRANSFER_STATUS_IN_PROGRESS;
-            SERCOM2_I2C_Write(appData.i2cSlaveAddr, &appData.wrBuffer[0], 1);
+            I2C_FUNC(Write)(appData.i2cSlaveAddr, &appData.wrBuffer[0], 1);
             appData.state = APP_WAIT_RESET_COMMAND_TRANSFER_COMPLETE;
             break;
 

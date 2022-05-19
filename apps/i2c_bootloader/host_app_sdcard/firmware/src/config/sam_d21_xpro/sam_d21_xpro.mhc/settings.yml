@@ -5,9 +5,9 @@ frameworkPath: ../../../..
 processor: ATSAMD21J18A
 projectName: ''
 settings:
-  PackageFilter: bootloader;bootloader_apps_ethernet;bootloader_apps_i2c;bootloader_apps_sdcard;bootloader_apps_uart;bootloader_apps_usb;bsp;core;csp;net;usb;
+  PackageFilter: bootloader;bsp;core;csp;Devices;dev_packs;harmony-services;net;quick_docs;usb
   FORCE_OPTIMIZATION: 'false'
   GENERATE_BACKUP: 'true'
-  CMSISPath: .\dev_packs\arm\CMSIS\5.6.0
+  CMSISPath: .\dev_packs\arm\CMSIS\5.8.0
   MERGE_STRATEGY: USER_ALL
-  DFPPath: .\dev_packs\Microchip\SAMD21_DFP\3.3.98\samd21a\atdf\ATSAMD21J18A.atdf
+  DFPPath: .\dev_packs\Microchip\SAMD21_DFP\3.6.144\samd21a\atdf\ATSAMD21J18A.atdf

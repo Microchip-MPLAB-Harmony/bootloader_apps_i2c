@@ -74,6 +74,7 @@ extern "C" {
 // *****************************************************************************
 #define APP_MAX_MEM_PAGE_SIZE                           (8192UL)
 #define APP_PROTOCOL_HEADER_MAX_SIZE                    9
+
 // *****************************************************************************
 /* Application states
 
@@ -94,6 +95,8 @@ typedef enum
     APP_FILE_OPEN,
     APP_WAIT_SWITCH_PRESS,
     APP_LOAD_I2C_SLAVE_DATA,
+    APP_SEND_READ_VERSION_COMMAND,
+    APP_WAIT_READ_VERSION_COMMAND_TRANSFER_COMPLETE,
     APP_SEND_UNLOCK_COMMAND,
     APP_WAIT_UNLOCK_COMMAND_TRANSFER_COMPLETE,
     APP_SEND_ERASE_COMMAND,
@@ -103,6 +106,13 @@ typedef enum
     APP_SEND_VERIFY_COMMAND,
     APP_WAIT_VERIFY_COMMAND_TRANSFER_COMPLETE,
     APP_READ_STATUS,
+    APP_READ_STATUS_COMMAND_TRANSFER_COMPLETE,
+    APP_OPEN_DEVCFG_FILE,
+    APP_READ_DEVCFG_DATA,
+    APP_SEND_DEVCFG_ERASE_COMMAND,
+    APP_WAIT_DEVCFG_ERASE_COMMAND_TRANSFER_COMPLETE,
+    APP_SEND_DEVCFG_WRITE_COMMAND,
+    APP_WAIT_DEVCFG_WRITE_COMMAND_TRANSFER_COMPLETE,
     APP_SEND_RESET_COMMAND,
     APP_WAIT_RESET_COMMAND_TRANSFER_COMPLETE,
     APP_SUCCESSFUL,
@@ -128,7 +138,9 @@ typedef enum
     APP_BL_COMMAND_PROGRAM = 0xA2,
     APP_BL_COMMAND_VERIFY = 0xA3,
     APP_BL_COMMAND_RESET = 0xA4,
-    APP_BL_COMMAND_READ_STATUS = 0xA5
+    APP_BL_COMMAND_READ_STATUS = 0xA5,
+    APP_BL_COMMAND_DEVCFG_PROGRAM = 0xA7,
+    APP_BL_COMMAND_READ_VERSION = 0xA8,
 }APP_BL_COMMAND;
 
 typedef struct
@@ -138,8 +150,12 @@ typedef struct
     uint32_t                programPageSize;
     uint32_t                appStartAddr;
     char*                   filename;
+    bool                    devCfgProgram;
+    char*                   devCfgFileName;
+    uint32_t                devCfgAddr;
+    uint32_t                devCfgData[APP_ERASE_PAGE_SIZE/sizeof(uint32_t)];
 
-}APP_FIRMWARE_UPDATE_INFO;
+} APP_FIRMWARE_UPDATE_INFO;
 
 // *****************************************************************************
 /* Application Data
@@ -176,6 +192,7 @@ typedef struct
     uint32_t                                    nBytesWrittenInErasedPage;
     uint32_t                                    crcVal;
     uint8_t                                     status;
+    uint16_t                                    btlVersion;
     uint8_t                                     wrBuffer[APP_MAX_MEM_PAGE_SIZE + APP_PROTOCOL_HEADER_MAX_SIZE];
 
 } APP_DATA;
