@@ -1,6 +1,22 @@
-// DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+  UART3 PLIB
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    plib_uart3.h
+
+  Summary:
+    UART3 PLIB Header File
+
+  Description:
+    None
+
+*******************************************************************************/
+
+/*******************************************************************************
+* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -21,68 +37,65 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
-// DOM-IGNORE-END
-/*******************************************************************************
-  I2C Target Board Selection Header
 
-  File Name:
-    i2c_target_board.h
+#ifndef PLIB_UART3_H
+#define PLIB_UART3_H
 
-  Summary:
-    Build-time configuration header for the user defined by this project.
-
-  Description:
-    An MPLAB Project may have multiple configurations.  This file defines the
-    build-time options for a single configuration.
-
-  Remarks:
-    It only provides macro definitions for build-time configuration options
-
-*******************************************************************************/
-
-#ifndef I2C_TARGET_BOARD_H
-#define I2C_TARGET_BOARD_H
+#include <stddef.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include "device.h"
+#include "plib_uart_common.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
 
-extern "C" {
+    extern "C" {
 
 #endif
 // DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: User Configuration macros
+// Section: Interface
 // *****************************************************************************
 // *****************************************************************************
 
-/* Following are the Target Devices which can be programmed using the I2C bootloader host
- * Refer to user.h of the configuration to see the selected target device being upgraded
- * by the I2C bootloader host.
-*/
+#define UART3_FrequencyGet()    (uint32_t)(24000000UL)
 
-#define SAM_C21N_XPRO                   1
-#define SAM_D11_XPRO                    2
-#define SAM_D20_XPRO                    3
-#define SAM_D21_XPRO                    4
-#define SAM_DA1_XPRO                    5
-#define SAM_E54_XPRO                    6
-#define SAM_HA1_XPRO                    7
-#define SAM_L10_XPRO                    8
-#define SAM_L21_XPRO                    9
-#define SAM_L22_XPRO                    10
-#define PIC32CM_MC00_CURIOSITY_PRO      11
-#define PIC32MM_USB_CURIOSITY           12
+/****************************** UART3 API *********************************/
+
+void UART3_Initialize( void );
+
+bool UART3_SerialSetup( UART_SERIAL_SETUP *setup, uint32_t srcClkFreq );
+
+bool UART3_Write( void *buffer, const size_t size );
+
+bool UART3_Read( void *buffer, const size_t size );
+
+UART_ERROR UART3_ErrorGet( void );
+
+bool UART3_AutoBaudQuery( void );
+
+void UART3_AutoBaudSet( bool enable );
+
+int UART3_ReadByte( void );
+
+bool UART3_ReceiverIsReady( void );
+
+void UART3_WriteByte( int data );
+
+bool UART3_TransmitterIsReady( void );
 
 
-//DOM-IGNORE-BEGIN
-#ifdef __cplusplus
-}
+bool UART3_TransmitComplete( void );
+
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
+
+    }
+
 #endif
-//DOM-IGNORE-END
+// DOM-IGNORE-END
 
-#endif // I2C_TARGET_BOARD_H
-/*******************************************************************************
- End of File
-*/
+#endif // PLIB_UART3_H

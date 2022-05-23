@@ -209,6 +209,15 @@ extern "C" {
 #define APP_PROGRAM_DEV_CONFIG      false
 #define APP_DEVCFG_FILE             "devcfg.txt"
 
+#elif APP_I2C_BOOTLOADER_TARGET_DEVICE == PIC32MM_USB_CURIOSITY
+#define APP_BINARY_FILE             "pic32mm_usb_curiosity.X.production.bin"
+#define APP_I2C_SLAVE_ADDR          0x0054
+#define APP_ERASE_PAGE_SIZE         (2048L)
+#define APP_PROGRAM_PAGE_SIZE       (2048L)
+#define APP_IMAGE_START_ADDR        0x9d001800UL
+#define APP_PROGRAM_DEV_CONFIG      false
+#define APP_DEVCFG_FILE             "devcfg.txt"
+
 #endif
 
 //DOM-IGNORE-BEGIN
