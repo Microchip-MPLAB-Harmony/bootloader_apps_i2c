@@ -33,7 +33,7 @@ To build the application, refer to the following table and open the project usin
 
 ## Setting up [PIC32CM MC00 Curiosity Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/EV15N46A)
 
-- [SAM D21 Xplained Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/atsamd21-xpro) is used for both **Host Development kit** and **Target Development kit**
+- [PIC32CM MC00 Curiosity Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/EV15N46A) is used for both **Host Development kit** and **Target Development kit**
 
     ![i2c_bootloader_host_target_connection](../../docs/images/i2c_bootloader_host_target_connection.png)
 
