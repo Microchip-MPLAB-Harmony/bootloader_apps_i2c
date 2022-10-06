@@ -55,13 +55,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 9E153A6D4F8E0EA1F6901BAED7DD80FD
-- generatedChecksum: A8B1FB108F34C00BF6707AB8000E3E0E
+- generatedChecksum: 0E733F6FCE93CA91362DC4423D689B38
   logicalPath: config/sam_e54_xpro
   name: initialization.c
   physicalPath: ''
   security: NON_SECURE
   type: SOURCE
-  userChecksum: A8B1FB108F34C00BF6707AB8000E3E0E
+  userChecksum: 0E733F6FCE93CA91362DC4423D689B38
 - generatedChecksum: 732243D7EA8391D0C2274C39CB6C35DC
   logicalPath: config/sam_e54_xpro
   name: interrupts.c
@@ -83,13 +83,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: null
-- generatedChecksum: 3D3190E212E1B8463A514C4CE7A6FB6F
+- generatedChecksum: 6CA9D0581AF63B9FC4337E86CDF83748
   logicalPath: config/sam_e54_xpro/peripheral/clock
   name: plib_clock.c
   physicalPath: peripheral/clock
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 3D3190E212E1B8463A514C4CE7A6FB6F
+  userChecksum: 6CA9D0581AF63B9FC4337E86CDF83748
 - generatedChecksum: D903E8D9DCBC4107D0AA841E07F653BA
   logicalPath: config/sam_e54_xpro/peripheral/cmcc
   name: plib_cmcc.c
@@ -111,20 +111,20 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: CA5393E484BB000100F2EE940D82AFC7
-- generatedChecksum: 9A0811BECC258F0546629DC1D05B6DB9
+- generatedChecksum: 34FB45AD7077FEDCC0D3CCB8AAD95AC1
   logicalPath: config/sam_e54_xpro/peripheral/nvmctrl
   name: plib_nvmctrl.c
   physicalPath: peripheral/nvmctrl
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 9A0811BECC258F0546629DC1D05B6DB9
-- generatedChecksum: 49548A1B71175905FC8FEE80434749DE
+  userChecksum: 34FB45AD7077FEDCC0D3CCB8AAD95AC1
+- generatedChecksum: 51E99E25F35C6A16F3823318C7A79F35
   logicalPath: config/sam_e54_xpro/peripheral/port
   name: plib_port.c
   physicalPath: peripheral/port
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 49548A1B71175905FC8FEE80434749DE
+  userChecksum: 51E99E25F35C6A16F3823318C7A79F35
 - generatedChecksum: 1CB309497ECC0754CDABC076BB5057EB
   logicalPath: config/sam_e54_xpro/peripheral/sdhc
   name: plib_sdhc1.c
@@ -195,13 +195,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 02C3C1B519E59992810626BB6098CF56
-- generatedChecksum: AD9DEEA019A0C5B587E2066874A0499D
+- generatedChecksum: B68110221BEC42FE6B718139BA64DA52
   logicalPath: config/sam_e54_xpro/system/time
   name: sys_time.c
   physicalPath: system/time/src
   security: NON_SECURE
   type: SOURCE
-  userChecksum: AD9DEEA019A0C5B587E2066874A0499D
+  userChecksum: B68110221BEC42FE6B718139BA64DA52
 - generatedChecksum: CAAB0B44BE9900DF798D7E10899F1A98
   logicalPath: config/sam_e54_xpro
   name: tasks.c
@@ -1364,6 +1364,13 @@ files:
   security: NON_SECURE
   type: LINKER
   userChecksum: 3AF834F70E6AE7FFE146F7AE12B6AF97
+- generatedChecksum: FE72432E10AE3D7402DE6D00A9F6645B
+  logicalPath: ''
+  name: pin_configurations.csv
+  physicalPath: ''
+  security: NON_SECURE
+  type: IMPORTANT
+  userChecksum: FE72432E10AE3D7402DE6D00A9F6645B
 format_version: v1.0
 libraries: []
 settings:

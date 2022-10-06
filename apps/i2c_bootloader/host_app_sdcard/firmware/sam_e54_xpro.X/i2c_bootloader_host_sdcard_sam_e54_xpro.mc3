@@ -1,4 +1,4 @@
-<config configName="sam_e54_xpro" projectName="i2c_bootloader_host_sdcard_sam_e54_xpro" configVersion="1.1" device="ATSAME54P20A" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.4.2">
+<config configName="sam_e54_xpro" projectName="i2c_bootloader_host_sdcard_sam_e54_xpro" configVersion="1.1" device="ATSAME54P20A" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.4.11">
    <usedPackages class="java.util.ArrayList"/>
    <usedClasses class="java.util.TreeMap">
       <entry>
@@ -560,7 +560,8 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;GraphSettings canvasHeight=&quot;495&quot; canvasWidth=&quot;647&quot; dnOrder=&quot;0&quot;/&gt;
+    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_SAM_E54_Xplained_Pro&quot; x=&quot;640&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;HarmonyCore&quot; x=&quot;330&quot; y=&quot;60&quot;/&gt;
@@ -579,7 +580,6 @@
         &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;tc0&quot; x=&quot;15&quot; y=&quot;106&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
-    &lt;GraphSettings canvasHeight=&quot;495&quot; canvasWidth=&quot;647&quot; dnOrder=&quot;1&quot;/&gt;
   &lt;/UserData&gt;
 &lt;/UserData&gt;
 </value>
@@ -5334,6 +5334,10 @@
          <hash>7a4406dfa7eb718eee60217e7836e2a70d929d7ee4bac6f4495149b9f20ee2c8</hash>
       </entry>
       <entry>
+         <file>..\src\config\sam_e54_xpro\pin_configurations.csv</file>
+         <hash>a588fd3aa899df39332452c0bfd95e02bf6d265d7798bc220366193a6fcf8cf0</hash>
+      </entry>
+      <entry>
          <file>..\src\packs\ATSAME54P20A_DFP\component\pdec.h</file>
          <hash>acbe65ae334a0fc7f7ff94042e6ec87b296cbd0e48aa2e11a2e008ecf317efb5</hash>
       </entry>
@@ -5483,7 +5487,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e54_xpro\peripheral\nvmctrl\plib_nvmctrl.c</file>
-         <hash>038db9be853a13acf706b778cc17fb9993965213397c6157a3069168a9dedb0f</hash>
+         <hash>47d11de9cd641091a877f388429489353c47b8fe1c8be23b45a90db5ba2fcbfa</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e54_xpro\peripheral\nvmctrl\plib_nvmctrl.h</file>
@@ -5531,7 +5535,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e54_xpro\initialization.c</file>
-         <hash>2fc41337164827e869ae83cb27197a54223fccdb6eac883bbd2cb0fd7b43f5c7</hash>
+         <hash>f1173b3224e9eba319f3585c08e94637ac09fb27cb651f4a253e57b31f7eec23</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME54P20A_DFP\component\dac.h</file>
@@ -5759,7 +5763,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e54_xpro\peripheral\port\plib_port.c</file>
-         <hash>cc36ad30351269d5b4b55d0a36d8a858719c7aec82350b1a8fa8ba6c592dd72c</hash>
+         <hash>11c8ff75a06d5f0a8ec6067d03a787ee89d6e7bc35fe21316d14098ee5f40a2e</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME54P20A_DFP\instance\tc4.h</file>
@@ -5783,7 +5787,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e54_xpro\system\time\src\sys_time.c</file>
-         <hash>4c2c39bc061655a06d6da7bd1f448c4de26a181e5710d74b4391923fb37ddadb</hash>
+         <hash>b722ac0c5d955d289bd906609ab6f302342166c5ba66f87b30cac17ac6bfdcd9</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME54P20A_DFP\component\osc32kctrl.h</file>
@@ -5947,7 +5951,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e54_xpro\peripheral\clock\plib_clock.c</file>
-         <hash>1c6aee9db43630bc5f38ecd333010c7c83c17ceabee3e4f3ea3f2de89c8ef6d2</hash>
+         <hash>2eaca845beb6442ebdc3f20568570b033e5863e1229373f4856de10e8a6a4808</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME54P20A_DFP\instance\dac.h</file>

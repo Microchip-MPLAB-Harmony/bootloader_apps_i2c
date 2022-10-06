@@ -178,7 +178,7 @@ extern "C" {
 #define APP_I2C_SLAVE_ADDR          0x0054
 #define APP_ERASE_PAGE_SIZE         (256L)
 #define APP_PROGRAM_PAGE_SIZE       (256L)
-#define APP_IMAGE_START_ADDR        0x800UL
+#define APP_IMAGE_START_ADDR        0x1000UL
 #define APP_PROGRAM_DEV_CONFIG      false
 #define APP_DEVCFG_FILE             "devcfg.txt"
 
