@@ -55,7 +55,7 @@
 #include "peripheral/nvic/plib_nvic.h"
 #include "peripheral/pac/plib_pac.h"
 #include "peripheral/sercom/i2c_slave/plib_sercom5_i2c_slave.h"
-#include "bootloader/bootloader.h"
+#include "bootloader/bootloader_i2c.h"
 #include "peripheral/dsu/plib_dsu.h"
 
 // DOM-IGNORE-BEGIN
