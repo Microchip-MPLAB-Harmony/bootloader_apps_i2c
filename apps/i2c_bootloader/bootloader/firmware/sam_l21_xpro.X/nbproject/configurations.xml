@@ -27,13 +27,14 @@
               <logicalFolder name="f1" displayName="i2c_slave" projectFiles="true">
               </logicalFolder>
             </logicalFolder>
-            <itemPath>../src/config/sam_l21_xpro/bootloader/bootloader.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f1" displayName="peripheral" projectFiles="true">
             <logicalFolder name="f5" displayName="clock" projectFiles="true">
               <itemPath>../src/config/sam_l21_xpro/peripheral/clock/plib_clock.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f9" displayName="dsu" projectFiles="true">
+              <logicalFolder name="f1" displayName="i2c_slave" projectFiles="true">
+              </logicalFolder>
               <itemPath>../src/config/sam_l21_xpro/peripheral/dsu/plib_dsu.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f3" displayName="evsys" projectFiles="true">
@@ -60,6 +61,8 @@
                 <itemPath>../src/config/sam_l21_xpro/peripheral/sercom/i2c_slave/plib_sercom2_i2c_slave.h</itemPath>
               </logicalFolder>
             </logicalFolder>
+            <itemPath>../src/config/sam_l21_xpro/bootloader/bootloader_i2c.h</itemPath>
+            <itemPath>../src/config/sam_l21_xpro/bootloader/bootloader_common.h</itemPath>
           </logicalFolder>
           <itemPath>../src/config/sam_l21_xpro/device_cache.h</itemPath>
           <itemPath>../src/config/sam_l21_xpro/toolchain_specifics.h</itemPath>
@@ -100,6 +103,7 @@
             <itemPath>../src/packs/ATSAML21J18B_DFP/component/trng.h</itemPath>
             <itemPath>../src/packs/ATSAML21J18B_DFP/component/usb.h</itemPath>
             <itemPath>../src/packs/ATSAML21J18B_DFP/component/wdt.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/component/fuses.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f3" displayName="instance" projectFiles="true">
             <itemPath>../src/packs/ATSAML21J18B_DFP/instance/ac.h</itemPath>
@@ -145,6 +149,7 @@
           </logicalFolder>
           <logicalFolder name="f2" displayName="pio" projectFiles="true">
             <itemPath>../src/packs/ATSAML21J18B_DFP/pio/saml21j18b.h</itemPath>
+            <itemPath>../src/packs/ATSAML21J18B_DFP/instance/fuses.h</itemPath>
           </logicalFolder>
           <itemPath>../src/packs/ATSAML21J18B_DFP/device.h</itemPath>
           <itemPath>../src/packs/ATSAML21J18B_DFP/atsaml21j18b_compat.h</itemPath>
@@ -176,6 +181,8 @@
                    projectFiles="true">
       <itemPath>Makefile</itemPath>
       <itemPath>../src/config/sam_l21_xpro/harmony-manifest-success.yml</itemPath>
+      <itemPath>../src/config/sam_l21_xpro/pin_configurations.csv</itemPath>
+      <itemPath>i2c_bootloader_sam_l21_xpro.mc3</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -208,13 +215,14 @@
               <logicalFolder name="f1" displayName="i2c_slave" projectFiles="true">
               </logicalFolder>
             </logicalFolder>
-            <itemPath>../src/config/sam_l21_xpro/bootloader/bootloader.c</itemPath>
           </logicalFolder>
           <logicalFolder name="f1" displayName="peripheral" projectFiles="true">
             <logicalFolder name="f5" displayName="clock" projectFiles="true">
               <itemPath>../src/config/sam_l21_xpro/peripheral/clock/plib_clock.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f9" displayName="dsu" projectFiles="true">
+              <logicalFolder name="f1" displayName="i2c_slave" projectFiles="true">
+              </logicalFolder>
               <itemPath>../src/config/sam_l21_xpro/peripheral/dsu/plib_dsu.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f3" displayName="evsys" projectFiles="true">
@@ -240,6 +248,8 @@
                 <itemPath>../src/config/sam_l21_xpro/peripheral/sercom/i2c_slave/plib_sercom2_i2c_slave.c</itemPath>
               </logicalFolder>
             </logicalFolder>
+            <itemPath>../src/config/sam_l21_xpro/bootloader/bootloader_i2c.c</itemPath>
+            <itemPath>../src/config/sam_l21_xpro/bootloader/bootloader_common.c</itemPath>
           </logicalFolder>
           <itemPath>../src/config/sam_l21_xpro/initialization.c</itemPath>
           <itemPath>../src/config/sam_l21_xpro/startup_xc32.c</itemPath>
@@ -321,6 +331,7 @@
       <C32>
         <property key="additional-warnings" value="true"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="enable-app-io" value="false"/>
         <property key="enable-omit-frame-pointer" value="false"/>
         <property key="enable-symbols" value="true"/>
@@ -377,6 +388,7 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -416,6 +428,7 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>

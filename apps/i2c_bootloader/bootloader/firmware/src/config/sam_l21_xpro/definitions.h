@@ -56,7 +56,7 @@
 #include "peripheral/clock/plib_clock.h"
 #include "peripheral/nvic/plib_nvic.h"
 #include "peripheral/pac/plib_pac.h"
-#include "bootloader/bootloader.h"
+#include "bootloader/bootloader_i2c.h"
 #include "peripheral/dsu/plib_dsu.h"
 
 // DOM-IGNORE-BEGIN
