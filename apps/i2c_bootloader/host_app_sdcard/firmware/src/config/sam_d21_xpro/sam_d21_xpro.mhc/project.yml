@@ -62,13 +62,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 9E153A6D4F8E0EA1F6901BAED7DD80FD
-- generatedChecksum: CD8CD394533467ED4E0DC08D985A2A78
+- generatedChecksum: CD5BB064255695DCE1E26E3CB016EA0A
   logicalPath: config/sam_d21_xpro
   name: initialization.c
   physicalPath: ''
   security: NON_SECURE
   type: SOURCE
-  userChecksum: CD8CD394533467ED4E0DC08D985A2A78
+  userChecksum: CD5BB064255695DCE1E26E3CB016EA0A
 - generatedChecksum: 9A1192A360C7B8F5CC5D21BFD7038A34
   logicalPath: config/sam_d21_xpro
   name: interrupts.c
@@ -132,13 +132,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 574A99ABE53F9253B347078C4D76342C
-- generatedChecksum: B215BBDB8011B2749851703ACDE50667
+- generatedChecksum: 12F22B2C9A4141073BB04B07BF6BCF11
   logicalPath: config/sam_d21_xpro/peripheral/port
   name: plib_port.c
   physicalPath: peripheral/port
   security: NON_SECURE
   type: SOURCE
-  userChecksum: B215BBDB8011B2749851703ACDE50667
+  userChecksum: 12F22B2C9A4141073BB04B07BF6BCF11
 - generatedChecksum: 9ADF451396547B6508023F0D9FA5049D
   logicalPath: config/sam_d21_xpro/peripheral/sercom/spi_master
   name: plib_sercom1_spi_master.c
@@ -209,13 +209,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 02C3C1B519E59992810626BB6098CF56
-- generatedChecksum: AD9DEEA019A0C5B587E2066874A0499D
+- generatedChecksum: B68110221BEC42FE6B718139BA64DA52
   logicalPath: config/sam_d21_xpro/system/time
   name: sys_time.c
   physicalPath: system/time/src
   security: NON_SECURE
   type: SOURCE
-  userChecksum: AD9DEEA019A0C5B587E2066874A0499D
+  userChecksum: B68110221BEC42FE6B718139BA64DA52
 - generatedChecksum: 3DB7CABF2C0D9DADCD06760D15BF4779
   logicalPath: config/sam_d21_xpro
   name: tasks.c
@@ -692,13 +692,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 363904EE8E19BEF0E3E4DB0400631EBF
-- generatedChecksum: 231433A77B48657B45E03C9B4159B670
+- generatedChecksum: 1335F2FC9F96C231AC58802D79E9EDFA
   logicalPath: config/sam_d21_xpro/peripheral/sercom/spi_master
   name: plib_sercom1_spi_master.h
   physicalPath: peripheral/sercom/spi_master
   security: NON_SECURE
   type: HEADER
-  userChecksum: 231433A77B48657B45E03C9B4159B670
+  userChecksum: 1335F2FC9F96C231AC58802D79E9EDFA
 - generatedChecksum: 1B5B4B9D402B612B264AD6E60EA5D231
   logicalPath: config/sam_d21_xpro/peripheral/sercom/i2c_master
   name: plib_sercom2_i2c_master.h
@@ -1140,6 +1140,13 @@ files:
   security: NON_SECURE
   type: LINKER
   userChecksum: 70E03B89B33D299773D844BF7C20E664
+- generatedChecksum: EAB8F7D04959E910D0D49692CA1A99D1
+  logicalPath: ''
+  name: pin_configurations.csv
+  physicalPath: ''
+  security: NON_SECURE
+  type: IMPORTANT
+  userChecksum: EAB8F7D04959E910D0D49692CA1A99D1
 format_version: v1.0
 libraries: []
 settings:

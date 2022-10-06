@@ -134,7 +134,7 @@ void TC3_TimerCommandSet(TC_COMMAND command)
     while((TC3_REGS->COUNT16.TC_STATUS & TC_STATUS_SYNCBUSY_Msk)!= 0U)
     {
         /* Wait for Write Synchronization */
-    }    
+    }
 }
 
 /* Get the current timer counter value */

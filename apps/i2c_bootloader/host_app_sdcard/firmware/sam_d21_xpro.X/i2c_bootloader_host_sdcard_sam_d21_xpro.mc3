@@ -1,4 +1,4 @@
-<config configName="sam_d21_xpro" projectName="i2c_bootloader_host_sdcard_sam_d21_xpro" configVersion="1.1" device="ATSAMD21J18A" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.4.2">
+<config configName="sam_d21_xpro" projectName="i2c_bootloader_host_sdcard_sam_d21_xpro" configVersion="1.1" device="ATSAMD21J18A" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.4.11">
    <usedPackages class="java.util.ArrayList"/>
    <usedClasses class="java.util.TreeMap">
       <entry>
@@ -686,8 +686,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;GraphSettings canvasHeight=&quot;400&quot; canvasWidth=&quot;400&quot; dnOrder=&quot;0&quot;/&gt;
-    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_SAM_D21_Xplained_Pro&quot; x=&quot;330&quot; y=&quot;60&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;HarmonyCore&quot; x=&quot;550&quot; y=&quot;60&quot;/&gt;
@@ -707,6 +706,7 @@
         &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;tc3&quot; x=&quot;21&quot; y=&quot;336&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
+    &lt;GraphSettings canvasHeight=&quot;400&quot; canvasWidth=&quot;400&quot; dnOrder=&quot;1&quot;/&gt;
   &lt;/UserData&gt;
 &lt;/UserData&gt;
 </value>
@@ -5090,7 +5090,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d21_xpro\initialization.c</file>
-         <hash>794de2d3709da5a070e8ade9397ee743903edf3c160a85726c0e97d6dded1afe</hash>
+         <hash>0543b2eb9efde9380497a50a18f2158edfedd5826afedb2e98d271171c3512a1</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d21_xpro\driver\driver_common.h</file>
@@ -5127,6 +5127,10 @@
       <entry>
          <file>..\src\config\sam_d21_xpro\driver\sdspi\drv_sdspi_definitions.h</file>
          <hash>6506972cd90772194097fe9d177951755eeef742333dd109b8010a6d8a06f8f9</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\sam_d21_xpro\pin_configurations.csv</file>
+         <hash>18a3755ee4f6d6807fe19638a873a60a6eda529cbf6d20339f05b7eaf8f6d021</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d21_xpro\driver\sdspi\src\drv_sdspi_local.h</file>
@@ -5254,7 +5258,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d21_xpro\peripheral\tc\plib_tc3.c</file>
-         <hash>ef53a2f5bf3e72b8d794b9f49c53ea26799e78163c9a50a85e9b1599c04e05dd</hash>
+         <hash>f53a8bb7e7604eb9eb726eb1a711a0c03adfa90fa5aa0cc64ee5c27048201209</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAMD21J18A_DFP\instance\pm.h</file>
@@ -5314,7 +5318,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d21_xpro\system\time\src\sys_time.c</file>
-         <hash>4c2c39bc061655a06d6da7bd1f448c4de26a181e5710d74b4391923fb37ddadb</hash>
+         <hash>b722ac0c5d955d289bd906609ab6f302342166c5ba66f87b30cac17ac6bfdcd9</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAMD21J18A_DFP\instance\sercom0.h</file>
@@ -5398,7 +5402,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d21_xpro\peripheral\port\plib_port.c</file>
-         <hash>40b59ffdfb381e871456e712da1d6caba6ab71da2a59c9d1af7bc4abf051eea2</hash>
+         <hash>446aa26978a623fd18c77aff8934b42b29222cb8efdc54ca1a1e7d958ac0c14b</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d21_xpro\device.h</file>
@@ -5534,7 +5538,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d21_xpro\peripheral\sercom\spi_master\plib_sercom1_spi_master.h</file>
-         <hash>fae66f0919ce7ee73c63ec05c043fed931ff8c86453be94a82cdb90d777ce01b</hash>
+         <hash>27dba3e4bd95c522ba463d1d2b5030e81bd490055a73ae6d11fb41494d432f82</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAMD21J18A_DFP\pio\samd21j18a.h</file>

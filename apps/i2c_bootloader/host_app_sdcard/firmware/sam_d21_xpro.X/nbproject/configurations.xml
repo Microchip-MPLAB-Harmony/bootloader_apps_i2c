@@ -19,12 +19,12 @@
             <itemPath>../src/config/sam_d21_xpro/driver/driver.h</itemPath>
             <itemPath>../src/config/sam_d21_xpro/driver/driver_common.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f5" displayName="osal" projectFiles="true">
+          <logicalFolder name="f3" displayName="osal" projectFiles="true">
             <itemPath>../src/config/sam_d21_xpro/osal/osal.h</itemPath>
             <itemPath>../src/config/sam_d21_xpro/osal/osal_definitions.h</itemPath>
             <itemPath>../src/config/sam_d21_xpro/osal/osal_impl_basic.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f3" displayName="peripheral" projectFiles="true">
+          <logicalFolder name="f4" displayName="peripheral" projectFiles="true">
             <logicalFolder name="f1" displayName="clock" projectFiles="true">
               <itemPath>../src/config/sam_d21_xpro/peripheral/clock/plib_clock.h</itemPath>
             </logicalFolder>
@@ -51,11 +51,11 @@
                 <itemPath>../src/config/sam_d21_xpro/peripheral/sercom/i2c_master/plib_sercom_i2c_master_common.h</itemPath>
                 <itemPath>../src/config/sam_d21_xpro/peripheral/sercom/i2c_master/plib_sercom2_i2c_master.h</itemPath>
               </logicalFolder>
-              <logicalFolder name="f3" displayName="spi_master" projectFiles="true">
+              <logicalFolder name="f2" displayName="spi_master" projectFiles="true">
                 <itemPath>../src/config/sam_d21_xpro/peripheral/sercom/spi_master/plib_sercom1_spi_master.h</itemPath>
                 <itemPath>../src/config/sam_d21_xpro/peripheral/sercom/spi_master/plib_sercom_spi_master_common.h</itemPath>
               </logicalFolder>
-              <logicalFolder name="f2" displayName="usart" projectFiles="true">
+              <logicalFolder name="f3" displayName="usart" projectFiles="true">
                 <itemPath>../src/config/sam_d21_xpro/peripheral/sercom/usart/plib_sercom3_usart.h</itemPath>
                 <itemPath>../src/config/sam_d21_xpro/peripheral/sercom/usart/plib_sercom_usart_common.h</itemPath>
               </logicalFolder>
@@ -65,7 +65,7 @@
               <itemPath>../src/config/sam_d21_xpro/peripheral/tc/plib_tc3.h</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f4" displayName="system" projectFiles="true">
+          <logicalFolder name="f5" displayName="system" projectFiles="true">
             <logicalFolder name="f1" displayName="debug" projectFiles="true">
               <itemPath>../src/config/sam_d21_xpro/system/debug/sys_debug.h</itemPath>
             </logicalFolder>
@@ -145,7 +145,7 @@
             <itemPath>../src/packs/ATSAMD21J18A_DFP/component/wdt.h</itemPath>
             <itemPath>../src/packs/ATSAMD21J18A_DFP/component/fuses.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f3" displayName="instance" projectFiles="true">
+          <logicalFolder name="f2" displayName="instance" projectFiles="true">
             <itemPath>../src/packs/ATSAMD21J18A_DFP/instance/ac.h</itemPath>
             <itemPath>../src/packs/ATSAMD21J18A_DFP/instance/adc.h</itemPath>
             <itemPath>../src/packs/ATSAMD21J18A_DFP/instance/dac.h</itemPath>
@@ -184,7 +184,7 @@
             <itemPath>../src/packs/ATSAMD21J18A_DFP/instance/wdt.h</itemPath>
             <itemPath>../src/packs/ATSAMD21J18A_DFP/instance/fuses.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f2" displayName="pio" projectFiles="true">
+          <logicalFolder name="f3" displayName="pio" projectFiles="true">
             <itemPath>../src/packs/ATSAMD21J18A_DFP/pio/samd21j18a.h</itemPath>
           </logicalFolder>
           <itemPath>../src/packs/ATSAMD21J18A_DFP/samd21j18a.h</itemPath>
@@ -239,6 +239,7 @@
       <itemPath>Makefile</itemPath>
       <itemPath>../src/config/sam_d21_xpro/harmony-manifest-success.yml</itemPath>
       <itemPath>i2c_bootloader_host_sdcard_sam_d21_xpro.mc3</itemPath>
+      <itemPath>../src/config/sam_d21_xpro/pin_configurations.csv</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -290,10 +291,10 @@
               <logicalFolder name="f1" displayName="i2c_master" projectFiles="true">
                 <itemPath>../src/config/sam_d21_xpro/peripheral/sercom/i2c_master/plib_sercom2_i2c_master.c</itemPath>
               </logicalFolder>
-              <logicalFolder name="f3" displayName="spi_master" projectFiles="true">
+              <logicalFolder name="f2" displayName="spi_master" projectFiles="true">
                 <itemPath>../src/config/sam_d21_xpro/peripheral/sercom/spi_master/plib_sercom1_spi_master.c</itemPath>
               </logicalFolder>
-              <logicalFolder name="f2" displayName="usart" projectFiles="true">
+              <logicalFolder name="f3" displayName="usart" projectFiles="true">
                 <itemPath>../src/config/sam_d21_xpro/peripheral/sercom/usart/plib_sercom3_usart.c</itemPath>
               </logicalFolder>
             </logicalFolder>
@@ -352,7 +353,7 @@
         <targetDevice>ATSAMD21J18A</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>noID</platformTool>
+        <platformTool>EdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>4.00</languageToolchainVersion>
         <platform>3</platform>
@@ -444,6 +445,10 @@
       <C32-AR>
         <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
+      <C32-CO>
+        <property key="coverage-enable" value=""/>
+        <property key="stack-guidance" value="false"/>
+      </C32-CO>
       <C32-LD>
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
