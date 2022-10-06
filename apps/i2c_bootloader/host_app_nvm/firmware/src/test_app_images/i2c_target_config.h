@@ -140,7 +140,7 @@ extern "C" {
 #define APP_I2C_SLAVE_ADDR          0x0054
 #define APP_ERASE_PAGE_SIZE         (256L)
 #define APP_PROGRAM_PAGE_SIZE       (256L)
-#define APP_IMAGE_START_ADDR        0x800UL
+#define APP_IMAGE_START_ADDR        0x1000UL
 
 #elif APP_I2C_BOOTLOADER_TARGET_DEVICE == SAM_L21_XPRO
 #define APP_HEX_HEADER_FILE         "test_app_images/image_pattern_hex_sam_l21_xpro.h"
