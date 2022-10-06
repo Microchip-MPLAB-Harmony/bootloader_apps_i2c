@@ -1,16 +1,16 @@
 /*******************************************************************************
-  UART Bootloader Source File
+  I2C Bootloader Source File
 
   File Name:
     bootloader_i2c.c
 
   Summary:
-    This file contains source code necessary to execute UART bootloader.
+    This file contains source code necessary to execute I2C bootloader.
 
   Description:
-    This file contains source code necessary to execute UART bootloader.
-    It implements bootloader protocol which uses UART peripheral to download
-    application firmware into internal flash from HOST-PC.
+    This file contains source code necessary to execute I2C bootloader.
+    It implements bootloader protocol which uses I2C peripheral to download
+    application firmware into internal flash.
  *******************************************************************************/
 
 // DOM-IGNORE-BEGIN
@@ -45,6 +45,7 @@
 // *****************************************************************************
 
 #include "definitions.h"
+#include "bootloader_common.h"
 #include <device.h>
 
 // *****************************************************************************
@@ -53,19 +54,10 @@
 // *****************************************************************************
 // *****************************************************************************
 
-#define FLASH_START                             (0UL)
-#define FLASH_LENGTH                            (1048576UL)
-#define PAGE_SIZE                               (512UL)
-#define ERASE_BLOCK_SIZE                        (8192UL)
-#define PAGES_IN_ERASE_BLOCK                    (ERASE_BLOCK_SIZE / PAGE_SIZE)
-
-#define BOOTLOADER_SIZE                         8192
-
 #define SET_BIT(reg, bits)                      (reg |= (bits))
 #define CLR_BIT(reg, bits)                      (reg &= ~(bits))
 #define IS_BIT_SET(reg, bit)                    ((reg & bit)? true:false)
 
-#define BL_APP_START_ADDRESS                    (0x2000UL)
 #define BL_BUFFER_SIZE                          ERASE_BLOCK_SIZE
 
 #define BL_STATUS_BIT_BUSY                      (0x01 << 0)
@@ -73,8 +65,9 @@
 #define BL_STATUS_BIT_INVALID_MEM_ADDR          (0x01 << 2)
 #define BL_STATUS_BIT_COMMAND_EXECUTION_ERROR   (0x01 << 3)      //Valid only when BL_STATUS_BIT_BUSY is 0
 #define BL_STATUS_BIT_CRC_ERROR                 (0x01 << 4)
+#define BL_STATUS_BIT_COMM_ERROR                (0x01 << 5)
 #define BL_STATUS_BIT_ALL                       (BL_STATUS_BIT_BUSY | BL_STATUS_BIT_INVALID_COMMAND | BL_STATUS_BIT_INVALID_MEM_ADDR | \
-                                                 BL_STATUS_BIT_COMMAND_EXECUTION_ERROR | BL_STATUS_BIT_CRC_ERROR)
+                                                 BL_STATUS_BIT_COMMAND_EXECUTION_ERROR | BL_STATUS_BIT_CRC_ERROR | BL_STATUS_BIT_COMM_ERROR)
 
 typedef enum
 {
@@ -85,6 +78,7 @@ typedef enum
     BL_COMMAND_RESET = 0xA4,
     BL_COMMAND_READ_STATUS = 0xA5,
     BL_COMMAND_BKSWAP_RESET = 0xA6,
+    BL_COMMAND_READ_VERSION = 0xA8,
     BL_COMMAND_MAX,
 }BL_COMMAND;
 
@@ -102,6 +96,8 @@ typedef enum
     BL_FLASH_STATE_WRITE,
     BL_FLASH_STATE_VERIFY,
     BL_FLASH_STATE_RESET,
+    BL_FLASH_STATE_ERASE_BUSY_POLL,
+    BL_FLASH_STATE_WRITE_BUSY_POLL,
     BL_FLASH_STATE_BKSWAP_RESET,
 }BL_FLASH_STATE;
 
@@ -147,6 +143,7 @@ typedef struct
     uint8_t                                 status;
     uint32_t                                appImageStartAddr;
     uint32_t                                appImageEndAddr;
+    uint32_t                                nFlashBytesWritten;
     BL_COMMAND_PROTOCOL                     cmdProtocol;
 }BL_PROTOCOL;
 
@@ -158,7 +155,9 @@ typedef struct
 // *****************************************************************************
 // *****************************************************************************
 
-static BL_PROTOCOL                          blProtocol;
+static BL_PROTOCOL blProtocol;
+
+static bool i2cBLActive = false;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -166,48 +165,45 @@ static BL_PROTOCOL                          blProtocol;
 // *****************************************************************************
 // *****************************************************************************
 
-/* Function to Generate CRC using the device service unit peripheral on programmed data */
-static uint32_t BL_CRCGenerate(void)
+static void BL_I2C_SendResponse(uint8_t command)
 {
-    uint32_t crc  = 0;
+    static uint8_t numVersionBytesSent = 0;
+    uint16_t btlVersion = 0;
 
-    PAC_PeripheralProtectSetup (PAC_PERIPHERAL_DSU, PAC_PROTECTION_CLEAR);
-
-    DSU_CRCCalculate (
-       blProtocol.appImageStartAddr,
-       (blProtocol.appImageEndAddr - blProtocol.appImageStartAddr),
-       0xffffffff,
-       &crc
-   );
-
-    PAC_PeripheralProtectSetup (PAC_PERIPHERAL_DSU, PAC_PROTECTION_SET);
-
-    return crc;
-}
-
-/* Function to program received application firmware data into internal flash */
-static bool BL_FlashWrite(uint32_t flash_addr, uint8_t* flash_data, uint32_t numPages)
-{
-    uint32_t page;
-    uint32_t write_idx  = 0;
-
-    for (page = 0; page < numPages; page++)
+    switch(command)
     {
-        if (NVMCTRL_PageWrite((uint32_t*)&flash_data[write_idx], (flash_addr + write_idx)) == true)
-        {
-            while(NVMCTRL_IsBusy() == true);
-            write_idx += PAGE_SIZE;
-        }
-        else
-        {
-            return false;
-        }
-    }
+        case BL_COMMAND_READ_STATUS:
+            SERCOM3_I2C_WriteByte(blProtocol.status);
 
-    return true;
+            /* Clear all status bits except the busy bit */
+            CLR_BIT(blProtocol.status, (BL_STATUS_BIT_ALL & ~(BL_STATUS_BIT_BUSY)));
+
+            break;
+
+        case BL_COMMAND_READ_VERSION:
+            btlVersion = bootloader_GetVersion();
+
+            if (numVersionBytesSent == 0)
+            {
+                SERCOM3_I2C_WriteByte(((btlVersion >> 8) & 0xFF));
+
+                numVersionBytesSent = 1;
+            }
+            else
+            {
+                SERCOM3_I2C_WriteByte((btlVersion & 0xFF));
+
+                numVersionBytesSent = 0;
+            }
+
+            break;
+
+        default:
+            break;
+    }
 }
 
-static bool BL_I2CMasterWriteHandler(uint8_t rdByte)
+static bool BL_I2C_MasterWriteHandler(uint8_t rdByte)
 {
     switch(blProtocol.rdState)
     {
@@ -231,7 +227,7 @@ static bool BL_I2CMasterWriteHandler(uint8_t rdByte)
             {
                 blProtocol.flashState = BL_FLASH_STATE_BKSWAP_RESET;
             }
-            else if (blProtocol.command == BL_COMMAND_READ_STATUS)
+            else if ((blProtocol.command == BL_COMMAND_READ_STATUS) || (blProtocol.command == BL_COMMAND_READ_VERSION))
             {
                 /* Do Nothing */
             }
@@ -265,8 +261,11 @@ static bool BL_I2CMasterWriteHandler(uint8_t rdByte)
 
                 if (blProtocol.command == BL_COMMAND_UNLOCK)
                 {
+                    /* Since this is the first command, clear any previously set status bits (host may be retrying and status may be set from previous communication) */
+                    CLR_BIT(blProtocol.status, BL_STATUS_BIT_ALL);
+
                     /* Save application start address and size for future reference */
-                    if ((blProtocol.cmdProtocol.unlockCommand.appImageStartAddr + blProtocol.cmdProtocol.unlockCommand.appImageSize) > FLASH_LENGTH)
+                    if ((blProtocol.cmdProtocol.unlockCommand.appImageStartAddr + blProtocol.cmdProtocol.unlockCommand.appImageSize) > (FLASH_START + FLASH_LENGTH))
                     {
                         SET_BIT(blProtocol.status, BL_STATUS_BIT_INVALID_MEM_ADDR);
                         return false;
@@ -293,16 +292,15 @@ static bool BL_I2CMasterWriteHandler(uint8_t rdByte)
                 }
                 else if (blProtocol.command == BL_COMMAND_ERASE)
                 {
-                    if ((blProtocol.cmdProtocol.eraseCommand.memAddr < blProtocol.appImageStartAddr) ||
-                    ((blProtocol.cmdProtocol.eraseCommand.memAddr + ERASE_BLOCK_SIZE) > blProtocol.appImageEndAddr))
-                    {
-                        SET_BIT(blProtocol.status, BL_STATUS_BIT_INVALID_MEM_ADDR);
-                        return false;
-                    }
-                    else
+                    if ((blProtocol.cmdProtocol.eraseCommand.memAddr >= blProtocol.appImageStartAddr) && ((blProtocol.cmdProtocol.eraseCommand.memAddr + ERASE_BLOCK_SIZE) <= blProtocol.appImageEndAddr))
                     {
                         SET_BIT(blProtocol.status, BL_STATUS_BIT_BUSY);
                         blProtocol.flashState = BL_FLASH_STATE_ERASE;
+                    }
+                    else
+                    {
+                        SET_BIT(blProtocol.status, BL_STATUS_BIT_INVALID_MEM_ADDR);
+                        return false;
                     }
                 }
                 else if (blProtocol.command == BL_COMMAND_VERIFY)
@@ -317,6 +315,7 @@ static bool BL_I2CMasterWriteHandler(uint8_t rdByte)
             if (blProtocol.index >= blProtocol.cmdProtocol.programCommand.nBytes)
             {
                 SET_BIT(blProtocol.status, BL_STATUS_BIT_BUSY);
+                blProtocol.nFlashBytesWritten = 0;
                 blProtocol.rdState = BL_I2C_READ_COMMAND;
                 blProtocol.flashState = BL_FLASH_STATE_WRITE;
             }
@@ -331,11 +330,22 @@ static void BL_I2C_EventsProcess(void)
 {
     static bool isFirstRxByte;
     static bool transferDir;
+    SERCOM_I2C_SLAVE_ERROR error;
     SERCOM_I2C_SLAVE_INTFLAG intFlags = SERCOM3_I2C_InterruptFlagsGet();
 
-    if (intFlags & SERCOM_I2C_SLAVE_INTFLAG_AMATCH)
+    if (intFlags & SERCOM_I2C_SLAVE_INTFLAG_ERROR)
+    {
+        error = SERCOM3_I2C_ErrorGet();
+        (void)error;
+
+        SERCOM3_I2C_InterruptFlagsClear(SERCOM_I2C_SLAVE_INTFLAG_ERROR);
+
+        SET_BIT(blProtocol.status, BL_STATUS_BIT_COMM_ERROR);
+    }
+    else if (intFlags & SERCOM_I2C_SLAVE_INTFLAG_AMATCH)
     {
         isFirstRxByte = true;
+        i2cBLActive   = true;
 
         transferDir = SERCOM3_I2C_TransferDirGet();
 
@@ -355,7 +365,7 @@ static void BL_I2C_EventsProcess(void)
     {
         if (transferDir == SERCOM_I2C_SLAVE_TRANSFER_DIR_WRITE)
         {
-            if (BL_I2CMasterWriteHandler(SERCOM3_I2C_ReadByte()) == true)
+            if (BL_I2C_MasterWriteHandler(SERCOM3_I2C_ReadByte()) == true)
             {
                 SERCOM3_I2C_CommandSet(SERCOM_I2C_SLAVE_COMMAND_SEND_ACK);
             }
@@ -368,10 +378,7 @@ static void BL_I2C_EventsProcess(void)
         {
             if ((isFirstRxByte == true) || (SERCOM3_I2C_LastByteAckStatusGet() == SERCOM_I2C_SLAVE_ACK_STATUS_RECEIVED_ACK))
             {
-                SERCOM3_I2C_WriteByte(blProtocol.status);
-
-                /* Clear all status bits except the busy bit */
-                CLR_BIT(blProtocol.status, (BL_STATUS_BIT_ALL & ~(BL_STATUS_BIT_BUSY)));
+                BL_I2C_SendResponse(blProtocol.command);
 
                 isFirstRxByte = false;
 
@@ -390,39 +397,31 @@ static void BL_I2C_EventsProcess(void)
     }
 }
 
-static void BL_FlashSM(void)
+static void BL_I2C_FlashTask(void)
 {
     switch(blProtocol.flashState)
     {
         case BL_FLASH_STATE_ERASE:
-
             // Lock region size is always bigger than the row size
             NVMCTRL_RegionUnlock(blProtocol.cmdProtocol.eraseCommand.memAddr);
 
-            while(NVMCTRL_IsBusy() == true);
+            while(NVMCTRL_IsBusy() == true)
+            {
+            }
 
             /* Erase the Current row */
             NVMCTRL_BlockErase(blProtocol.cmdProtocol.eraseCommand.memAddr);
 
-            while(NVMCTRL_IsBusy() == true);
-
-            CLR_BIT(blProtocol.status, BL_STATUS_BIT_BUSY);
-
-            blProtocol.flashState = BL_FLASH_STATE_IDLE;
-
+            blProtocol.flashState = BL_FLASH_STATE_ERASE_BUSY_POLL;
             break;
 
         case BL_FLASH_STATE_WRITE:
-            if (BL_FlashWrite(blProtocol.cmdProtocol.programCommand.memAddr, blProtocol.cmdProtocol.programCommand.data, (blProtocol.cmdProtocol.programCommand.nBytes/PAGE_SIZE)) == false)
-            {
-                SET_BIT(blProtocol.status, BL_STATUS_BIT_COMMAND_EXECUTION_ERROR);
-            }
-            CLR_BIT(blProtocol.status, BL_STATUS_BIT_BUSY);
-            blProtocol.flashState = BL_FLASH_STATE_IDLE;
+            NVMCTRL_PageWrite((uint32_t*)&blProtocol.cmdProtocol.programCommand.data[blProtocol.nFlashBytesWritten], (blProtocol.cmdProtocol.programCommand.memAddr + blProtocol.nFlashBytesWritten));
+            blProtocol.flashState = BL_FLASH_STATE_WRITE_BUSY_POLL;
             break;
 
         case BL_FLASH_STATE_VERIFY:
-            if (BL_CRCGenerate() != blProtocol.cmdProtocol.verifyCommand.crc)
+            if (bootloader_CRCGenerate(blProtocol.appImageStartAddr, (blProtocol.appImageEndAddr - blProtocol.appImageStartAddr)) != blProtocol.cmdProtocol.verifyCommand.crc)
             {
                 SET_BIT(blProtocol.status, BL_STATUS_BIT_CRC_ERROR);
             }
@@ -430,10 +429,35 @@ static void BL_FlashSM(void)
             blProtocol.flashState = BL_FLASH_STATE_IDLE;
             break;
 
+        case BL_FLASH_STATE_ERASE_BUSY_POLL:
+            if(NVMCTRL_IsBusy() == false)
+            {
+                CLR_BIT(blProtocol.status, BL_STATUS_BIT_BUSY);
+                blProtocol.flashState = BL_FLASH_STATE_IDLE;
+            }
+            break;
+
+        case BL_FLASH_STATE_WRITE_BUSY_POLL:
+            if(NVMCTRL_IsBusy() == false)
+            {
+                blProtocol.nFlashBytesWritten += PAGE_SIZE;
+
+                if (blProtocol.nFlashBytesWritten < blProtocol.cmdProtocol.programCommand.nBytes)
+                {
+                    blProtocol.flashState = BL_FLASH_STATE_WRITE;
+                }
+                else
+                {
+                    CLR_BIT(blProtocol.status, BL_STATUS_BIT_BUSY);
+                    blProtocol.flashState = BL_FLASH_STATE_IDLE;
+                }
+            }
+            break;
+
         case BL_FLASH_STATE_RESET:
             /* Wait for the I2C transfer to complete */
             while (!(SERCOM3_I2C_InterruptFlagsGet() & SERCOM_I2C_SLAVE_INTFLAG_PREC));
-            NVIC_SystemReset();
+            bootloader_TriggerReset();
             break;
 
         case BL_FLASH_STATE_BKSWAP_RESET:
@@ -443,6 +467,7 @@ static void BL_FlashSM(void)
             break;
 
         case BL_FLASH_STATE_IDLE:
+            /* Do nothing */
             break;
 
         default:
@@ -456,34 +481,15 @@ static void BL_FlashSM(void)
 // *****************************************************************************
 // *****************************************************************************
 
-void run_Application(void)
+void bootloader_I2C_Tasks(void)
 {
-    uint32_t msp            = *(uint32_t *)(BL_APP_START_ADDRESS);
-    uint32_t reset_vector   = *(uint32_t *)(BL_APP_START_ADDRESS + 4);
-
-    if (msp == 0xffffffff)
+    do
     {
-        return;
-    }
+        if (IS_BIT_SET(blProtocol.status, BL_STATUS_BIT_BUSY) == false)
+        {
+            BL_I2C_EventsProcess();
+        }
 
-    __set_MSP(msp);
-
-    asm("bx %0"::"r" (reset_vector));
-}
-
-bool __WEAK bootloader_Trigger(void)
-{
-    /* Function can be overriden with custom implementation */
-    return false;
-}
-
-void bootloader_Tasks(void)
-{
-    blProtocol.flashState = BL_FLASH_STATE_IDLE;
-
-    while (1)
-    {
-        BL_I2C_EventsProcess();
-        BL_FlashSM();
-    }
+        BL_I2C_FlashTask();
+    } while (i2cBLActive);
 }
