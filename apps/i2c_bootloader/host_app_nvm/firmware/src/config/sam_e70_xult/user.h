@@ -1,6 +1,6 @@
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -23,10 +23,10 @@
 *******************************************************************************/
 // DOM-IGNORE-END
 /*******************************************************************************
-  I2C Target Board Selection Header
+  User Configuration Header
 
   File Name:
-    i2c_target_board.h
+    user.h
 
   Summary:
     Build-time configuration header for the user defined by this project.
@@ -40,8 +40,8 @@
 
 *******************************************************************************/
 
-#ifndef I2C_TARGET_BOARD_H
-#define I2C_TARGET_BOARD_H
+#ifndef USER_H
+#define USER_H
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -57,24 +57,18 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 
-/* Following are the Target Devices which can be programmed using the I2C bootloader host
- * Refer to user.h of the configuration to see the selected target device being upgraded
- * by the I2C bootloader host.
+/* Include the Header file defining the supported target boards. */
+#include "test_app_images/i2c_target_board.h"
+
+/* Select the device being upgraded by the I2C bootloader host.
+ * Refer to i2c_target_board.h for target board names
 */
+#define APP_I2C_BOOTLOADER_TARGET_DEVICE        SAM_E70_XULT
 
-#define SAM_C21N_XPRO                   1
-#define SAM_D11_XPRO                    2
-#define SAM_D20_XPRO                    3
-#define SAM_D21_XPRO                    4
-#define SAM_DA1_XPRO                    5
-#define SAM_E54_XPRO                    6
-#define SAM_HA1_XPRO                    7
-#define SAM_L10_XPRO                    8
-#define SAM_L21_XPRO                    9
-#define SAM_L22_XPRO                    10
-#define PIC32CM_MC00_CURIOSITY_PRO      11
-#define SAM_E70_XULT                    12
+/* Include the Header file defining the target configuration for the board selected above */
+#include "test_app_images/i2c_target_config.h"
 
+#define I2C_FUNC(OP)           (TWIHS0_ ## OP)
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
@@ -82,7 +76,7 @@ extern "C" {
 #endif
 //DOM-IGNORE-END
 
-#endif // I2C_TARGET_BOARD_H
+#endif // USER_H
 /*******************************************************************************
  End of File
 */

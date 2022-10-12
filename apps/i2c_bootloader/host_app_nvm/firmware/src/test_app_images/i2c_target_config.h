@@ -163,6 +163,13 @@ extern "C" {
 #define APP_PROGRAM_PAGE_SIZE       (256L)
 #define APP_IMAGE_START_ADDR        0x800UL
 
+#elif APP_I2C_BOOTLOADER_TARGET_DEVICE == SAM_E70_XULT
+#define APP_HEX_HEADER_FILE         "test_app_images/image_pattern_hex_sam_e70_xult.h"
+#define APP_I2C_SLAVE_ADDR          0x0054
+#define APP_ERASE_PAGE_SIZE         (8192L)
+#define APP_PROGRAM_PAGE_SIZE       (512L)
+#define APP_IMAGE_START_ADDR        0x402000UL
+
 #endif
 
 //DOM-IGNORE-BEGIN
