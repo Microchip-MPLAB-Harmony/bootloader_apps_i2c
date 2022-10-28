@@ -208,6 +208,15 @@ extern "C" {
 #define APP_IMAGE_START_ADDR        0x800UL
 #define APP_PROGRAM_DEV_CONFIG      false
 #define APP_DEVCFG_FILE             "devcfg.txt"
+    
+#elif APP_I2C_BOOTLOADER_TARGET_DEVICE == PIC32MK_MCA_CURIOSITY_PRO
+#define APP_BINARY_FILE             "pic32mk_mca_curiosity_pro.X.production.bin"
+#define APP_I2C_SLAVE_ADDR          0x0054
+#define APP_ERASE_PAGE_SIZE         (4096L)
+#define APP_PROGRAM_PAGE_SIZE       (512L)
+#define APP_IMAGE_START_ADDR        0x9d000000UL  
+#define APP_PROGRAM_DEV_CONFIG       false
+#define APP_DEVCFG_FILE             "devcfg.txt" 
 
 #elif APP_I2C_BOOTLOADER_TARGET_DEVICE == PIC32MM_USB_CURIOSITY
 #define APP_BINARY_FILE             "pic32mm_usb_curiosity.X.production.bin"

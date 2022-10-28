@@ -72,7 +72,7 @@ extern "C" {
 /* Select the device being upgraded by the I2C bootloader host.
  * Refer to i2c_target_board.h for target board names
 */
-#define APP_I2C_BOOTLOADER_TARGET_DEVICE        SAM_E54_XPRO
+#define APP_I2C_BOOTLOADER_TARGET_DEVICE        PIC32MK_MCA_CURIOSITY_PRO
 
 /* Include the Header file defining the target configuration for the board selected above */
 #include "i2c_target_config.h"
