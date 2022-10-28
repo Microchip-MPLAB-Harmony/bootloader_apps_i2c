@@ -1,25 +1,24 @@
 /*******************************************************************************
-  Main Source File
+  Serial Communication Interface Inter-Integrated Circuit (I2C) Library
+  Instance Header File
 
   Company:
     Microchip Technology Inc.
 
   File Name:
-    main.c
+    plib_i2c2_slave.h
 
   Summary:
-    This file contains the "main" function for bootloader project.
+    I2C PLIB Slave Mode Header file
 
   Description:
-    This file contains the "main" function for bootloader project.  The
-    "main" function calls the "SYS_Initialize" function to initialize
-    all modules in the system.
-    It calls "bootloader_start" once system is initialized.
- *******************************************************************************/
-
+    This file defines the interface to the I2C peripheral library. This
+    library provides access to and control of the associated peripheral
+    instance.
+*******************************************************************************/
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2019-2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -39,81 +38,55 @@
 * FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
- *******************************************************************************/
+*******************************************************************************/
 // DOM-IGNORE-END
+
+#ifndef PLIB_I2C2_SLAVE_H
+#define PLIB_I2C2_SLAVE_H
 
 // *****************************************************************************
 // *****************************************************************************
 // Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
-
-#include <stddef.h>                     // Defines NULL
-#include <stdbool.h>                    // Defines true
-#include <stdlib.h>                     // Defines EXIT_FAILURE
-#include "definitions.h"                // SYS function prototypes
-
-#define BTL_TRIGGER_PATTERN (0x5048434DUL)
-
-static uint32_t *ramStart = (uint32_t *)BTL_TRIGGER_RAM_START;
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Main Entry Point
-// *****************************************************************************
-// *****************************************************************************
-
-bool bootloader_Trigger(void)
-{
-    uint32_t i;
-
-    // Cheap delay. This should give at leat 1 ms delay.
-    for (i = 0; i < 200000; i++)
-    {
-        asm("nop");
-    }
-
-    /* Check for Bootloader Trigger Pattern in first 16 Bytes of RAM to enter
-     * Bootloader.
-     */
-    if (BTL_TRIGGER_PATTERN == ramStart[0] && BTL_TRIGGER_PATTERN == ramStart[1] &&
-        BTL_TRIGGER_PATTERN == ramStart[2] && BTL_TRIGGER_PATTERN == ramStart[3])
-    {
-        ramStart[0] = 0;
-        LED_Clear();
-        return true;
-    }
-
-    /* Check for Switch press to enter Bootloader */
-    if (SWITCH_Get() == 0)
-    {
-        LED_Clear();
-        return true;
-    }
-
-    return false;
-}
-
-
-int main ( void )
-{
-    /* Initialize all modules */
-    SYS_Initialize ( NULL );
-    
-    /* Indicate that bootloader code is running */
-    LED_Clear();
-
-    while (true)
-    {
-        bootloader_I2C_Tasks();
-    }
-
-    /* Execution should not come here during normal operation */
-    return ( EXIT_FAILURE );
-}
-
-
-/*******************************************************************************
- End of File
+/* This section lists the other files that are included in this file.
 */
 
+#include "plib_i2c_slave_common.h"
+
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus // Provide C++ Compatibility
+
+    extern "C" {
+
+#endif
+// DOM-IGNORE-END
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Interface Routines
+// *****************************************************************************
+// *****************************************************************************
+
+/*
+ * The following functions make up the methods (set of possible operations) of
+ * this interface.
+ */
+
+void I2C2_Initialize(void);
+void I2C2_CallbackRegister(I2C_SLAVE_CALLBACK callback, uintptr_t contextHandle);
+bool I2C2_IsBusy(void);
+uint8_t I2C2_ReadByte(void);
+void I2C2_WriteByte(uint8_t wrByte);
+I2C_SLAVE_TRANSFER_DIR I2C2_TransferDirGet(void);
+I2C_SLAVE_ACK_STATUS I2C2_LastByteAckStatusGet(void);
+I2C_SLAVE_ERROR I2C2_ErrorGet(void);
+
+
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
+}
+#endif
+// DOM-IGNORE-END
+
+#endif /* PLIB_I2C2_SLAVE_H */

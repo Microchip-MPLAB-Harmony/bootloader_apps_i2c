@@ -1,25 +1,22 @@
 /*******************************************************************************
-  Main Source File
+ System Interrupts File
 
   Company:
     Microchip Technology Inc.
 
   File Name:
-    main.c
+    interrupt.h
 
   Summary:
-    This file contains the "main" function for bootloader project.
+    Interrupt vectors mapping
 
   Description:
-    This file contains the "main" function for bootloader project.  The
-    "main" function calls the "SYS_Initialize" function to initialize
-    all modules in the system.
-    It calls "bootloader_start" once system is initialized.
+    This file contains declarations of device vectors used by Harmony 3
  *******************************************************************************/
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -42,78 +39,24 @@
  *******************************************************************************/
 // DOM-IGNORE-END
 
+#ifndef INTERRUPTS_H
+#define INTERRUPTS_H
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
+#include <stdint.h>
 
-#include <stddef.h>                     // Defines NULL
-#include <stdbool.h>                    // Defines true
-#include <stdlib.h>                     // Defines EXIT_FAILURE
-#include "definitions.h"                // SYS function prototypes
 
-#define BTL_TRIGGER_PATTERN (0x5048434DUL)
-
-static uint32_t *ramStart = (uint32_t *)BTL_TRIGGER_RAM_START;
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Main Entry Point
+// Section: Handler Routines
 // *****************************************************************************
 // *****************************************************************************
 
-bool bootloader_Trigger(void)
-{
-    uint32_t i;
-
-    // Cheap delay. This should give at leat 1 ms delay.
-    for (i = 0; i < 200000; i++)
-    {
-        asm("nop");
-    }
-
-    /* Check for Bootloader Trigger Pattern in first 16 Bytes of RAM to enter
-     * Bootloader.
-     */
-    if (BTL_TRIGGER_PATTERN == ramStart[0] && BTL_TRIGGER_PATTERN == ramStart[1] &&
-        BTL_TRIGGER_PATTERN == ramStart[2] && BTL_TRIGGER_PATTERN == ramStart[3])
-    {
-        ramStart[0] = 0;
-        LED_Clear();
-        return true;
-    }
-
-    /* Check for Switch press to enter Bootloader */
-    if (SWITCH_Get() == 0)
-    {
-        LED_Clear();
-        return true;
-    }
-
-    return false;
-}
 
 
-int main ( void )
-{
-    /* Initialize all modules */
-    SYS_Initialize ( NULL );
-    
-    /* Indicate that bootloader code is running */
-    LED_Clear();
-
-    while (true)
-    {
-        bootloader_I2C_Tasks();
-    }
-
-    /* Execution should not come here during normal operation */
-    return ( EXIT_FAILURE );
-}
-
-
-/*******************************************************************************
- End of File
-*/
-
+#endif // INTERRUPTS_H

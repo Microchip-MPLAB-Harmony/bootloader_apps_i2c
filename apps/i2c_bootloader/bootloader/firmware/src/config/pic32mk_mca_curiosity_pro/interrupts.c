@@ -1,25 +1,26 @@
 /*******************************************************************************
-  Main Source File
+ System Interrupts File
 
   Company:
     Microchip Technology Inc.
 
   File Name:
-    main.c
+    interrupt.c
 
   Summary:
-    This file contains the "main" function for bootloader project.
+    Interrupt vectors mapping
 
   Description:
-    This file contains the "main" function for bootloader project.  The
-    "main" function calls the "SYS_Initialize" function to initialize
-    all modules in the system.
-    It calls "bootloader_start" once system is initialized.
+    This file maps all the interrupt vectors to their corresponding
+    implementations. If a particular module interrupt is used, then its ISR
+    definition can be found in corresponding PLIB source file. If a module
+    interrupt is not used, then its ISR implementation is mapped to dummy
+    handler.
  *******************************************************************************/
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -48,72 +49,36 @@
 // *****************************************************************************
 // *****************************************************************************
 
-#include <stddef.h>                     // Defines NULL
-#include <stdbool.h>                    // Defines true
-#include <stdlib.h>                     // Defines EXIT_FAILURE
-#include "definitions.h"                // SYS function prototypes
+#include "interrupts.h"
+#include "definitions.h"
 
-#define BTL_TRIGGER_PATTERN (0x5048434DUL)
-
-static uint32_t *ramStart = (uint32_t *)BTL_TRIGGER_RAM_START;
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Main Entry Point
+// Section: System Interrupt Vector Functions
 // *****************************************************************************
 // *****************************************************************************
 
-bool bootloader_Trigger(void)
+
+void I2C2_BUS_InterruptHandler( void );
+void I2C2_SLAVE_InterruptHandler( void );
+
+
+
+/* All the handlers are defined here.  Each will call its PLIB-specific function. */
+void __ISR(_I2C2_BUS_VECTOR, ipl1SRS) I2C2_BUS_Handler (void)
 {
-    uint32_t i;
+    I2C2_BUS_InterruptHandler();
+}
 
-    // Cheap delay. This should give at leat 1 ms delay.
-    for (i = 0; i < 200000; i++)
-    {
-        asm("nop");
-    }
-
-    /* Check for Bootloader Trigger Pattern in first 16 Bytes of RAM to enter
-     * Bootloader.
-     */
-    if (BTL_TRIGGER_PATTERN == ramStart[0] && BTL_TRIGGER_PATTERN == ramStart[1] &&
-        BTL_TRIGGER_PATTERN == ramStart[2] && BTL_TRIGGER_PATTERN == ramStart[3])
-    {
-        ramStart[0] = 0;
-        LED_Clear();
-        return true;
-    }
-
-    /* Check for Switch press to enter Bootloader */
-    if (SWITCH_Get() == 0)
-    {
-        LED_Clear();
-        return true;
-    }
-
-    return false;
+void __ISR(_I2C2_SLAVE_VECTOR, ipl1SRS) I2C2_SLAVE_Handler (void)
+{
+    I2C2_SLAVE_InterruptHandler();
 }
 
 
-int main ( void )
-{
-    /* Initialize all modules */
-    SYS_Initialize ( NULL );
-    
-    /* Indicate that bootloader code is running */
-    LED_Clear();
-
-    while (true)
-    {
-        bootloader_I2C_Tasks();
-    }
-
-    /* Execution should not come here during normal operation */
-    return ( EXIT_FAILURE );
-}
 
 
 /*******************************************************************************
  End of File
 */
-
