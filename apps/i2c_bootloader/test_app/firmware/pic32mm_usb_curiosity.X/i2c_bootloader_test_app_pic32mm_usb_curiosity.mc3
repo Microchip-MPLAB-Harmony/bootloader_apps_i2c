@@ -1,5 +1,18 @@
 <config configName="pic32mm_usb_curiosity" projectName="pic32mm_usb_curiosity" configVersion="1.1" device="PIC32MM0256GPM064" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.4.2">
-   <usedPackages class="java.util.ArrayList"/>
+   <usedPackages class="java.util.ArrayList">
+      <package packageName="bsp" version="unknown" contentType="HARMONY">
+         <modules class="java.util.ArrayList"/>
+      </package>
+      <package packageName="core" version="3.11.1" contentType="HARMONY">
+         <modules class="java.util.ArrayList"/>
+      </package>
+      <package packageName="csp" version="unknown" contentType="HARMONY">
+         <modules class="java.util.ArrayList"/>
+      </package>
+      <package packageName="dev_packs" version="3.14.0" contentType="HARMONY">
+         <modules class="java.util.ArrayList"/>
+      </package>
+   </usedPackages>
    <usedClasses class="java.util.TreeMap">
       <entry>
          <string>BSP_PIC32MM_USB_Curiosity</string>
@@ -31,7 +44,7 @@
       </entry>
    </usedClasses>
    <usedLibraries class="java.util.ArrayList">
-      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.1.0"/>
+      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.1.2-a"/>
    </usedLibraries>
    <tokenMap class="java.util.TreeMap">
       <entry>
@@ -1235,7 +1248,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mm_usb_curiosity\definitions.h</file>
-         <hash>61ec29fb9202f72d409120085b69b8dd558e23065a55e49fb0af1e15faa13e12</hash>
+         <hash>8dcbd1d049d5ad946d8b4fddbebb40994a350e57701fe99fcf145973e5195fce</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mm_usb_curiosity\peripheral\gpio\plib_gpio.c</file>
@@ -1263,7 +1276,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mm_usb_curiosity\peripheral\uart\plib_uart3.c</file>
-         <hash>e9b8fed760f014c3ff2c4d1515d4d15a917c418d74ee8a336f77b2ac4fd3bfd5</hash>
+         <hash>864a1f7b9c61a4fcb35de99dca9da1d2979104cced99a13873638f1a2f60af7e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mm_usb_curiosity\peripheral\coretimer\plib_coretimer.h</file>
@@ -1283,7 +1296,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mm_usb_curiosity\stdio\xc32_monitor.c</file>
-         <hash>d129c1088bf5dbc8a565d147f5fd8dcfcdd859c706a499b697a1edddbcd3e4bc</hash>
+         <hash>a36426493a09f10cb08b762955b2cf31bde9af511cfb65b2b9b690ef0b7fcf74</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mm_usb_curiosity\peripheral\evic\plib_evic.h</file>
@@ -1307,7 +1320,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mm_usb_curiosity\initialization.c</file>
-         <hash>934f2bf3e51db56ad984c0427e1ae129ba667761edab7313c02a0661240f3ff4</hash>
+         <hash>c5ff0d0f883df03650d8eca49a8d1e6e7f2abe4edc1a28be6994e284fe49d5f9</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mm_usb_curiosity\exceptions.c</file>
