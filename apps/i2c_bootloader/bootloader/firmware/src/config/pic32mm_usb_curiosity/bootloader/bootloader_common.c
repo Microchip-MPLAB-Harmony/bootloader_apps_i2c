@@ -54,6 +54,8 @@
 #define BTL_MAJOR_VERSION       3
 #define BTL_MINOR_VERSION       6
 
+#define WORD_ALIGN_MASK         (~(sizeof(uint32_t) - 1))
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Global objects
@@ -147,10 +149,7 @@ void bootloader_TriggerReset(void)
 
 void run_Application(uint32_t address)
 {
-    uint32_t jumpAddrVal = *(uint8_t *)(address);
-    jumpAddrVal |= ((*(uint8_t *)(address + 1)) << 8);
-    jumpAddrVal |= ((*(uint8_t *)(address + 2)) << 16);
-    jumpAddrVal |= ((*(uint8_t *)(address + 3)) << 24);
+    uint32_t jumpAddrVal = *(uint32_t *)(address & WORD_ALIGN_MASK);
 
     void (*fptr)(void);
 
