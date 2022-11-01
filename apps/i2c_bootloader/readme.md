@@ -52,6 +52,7 @@ The following table provides links to documentation on how to build and run I2C 
 |:---------|
 |[PIC32CM MC00 Curiosity Pro Evaluation Kit](docs/readme_pic32cm_mc00_curiosity_pro.md) |
 |[PIC32MK MCA Curiosity Pro](docs/readme_pic32mk_mca_curiosity_pro.md) |
+|[PIC32MM USB Curiosity Development Board](docs/readme_pic32mm_usb_curiosity.md)|
 |[SAM C21N Xplained Pro Evaluation Kit](docs/readme_sam_c21n_xpro.md) |
 |[SAM D11 Xplained Pro Evaluation Kit](docs/readme_sam_d11_xpro.md) |
 |[SAM D20 Xplained Pro Evaluation Kit](docs/readme_sam_d20_xpro.md) |

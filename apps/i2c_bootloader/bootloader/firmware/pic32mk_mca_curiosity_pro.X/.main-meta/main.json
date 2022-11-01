@@ -3,10 +3,10 @@
 	"category": "com.microchip.ide.project",
 	"content": {
 		"metaDataVersion": "1.1.0",
-		"name": "com.microchip.mcu32.mplabx.project.bootloader_apps_i2c_i2c_bootloader_sam_d11_xpro",
+		"name": "com.microchip.mcu32.mplabx.project.bootloader_apps_i2c_i2c_bootloader_pic32mk_mca_curiosity_pro",
 		"version": "3.2.0",
-		"displayName": "I2C Bootloader Example for SAM D09/D10/D11 Family",
-		"projectName": "i2c_bootloader_sam_d11_xpro",
+		"displayName": "I2C Bootloader Example for PIC32MK MCA Family",
+		"projectName": "i2c_bootloader_pic32mk_mca_curiosity_pro",
 		"shortDescription": "This example application shows how to use the Bootloader Library to bootload an application using I2C protocol.",
 		"ide": {
 			"name": "MPLABX",
@@ -19,8 +19,8 @@
 			}
 		],
 		"dfp": {
-			"name": "SAMD11_DFP",
-			"semverRange": "^2.6.76"
+			"name": "PIC32MK-MC_DFP",
+			"semverRange": "^1.11.151"
 		},
 		"configurator": {
 			"name": "MCC",
@@ -32,7 +32,7 @@
 			"content": {
 				"metaDataVersion": "1.0.0",
 				"category": "com.microchip.device",
-				"name": "ATSAMD11D14AM",
+				"name": "PIC32MK0128MCA048",
 				"versionRange": "*"
 			}
 		},
@@ -40,7 +40,7 @@
 		"subcategories": [
 			[
 				"Development Kit",
-				"SAM D11 Xplained Pro Evaluation Kit"
+				"PIC32MK MCA Curiosity Pro"
 			],
 			[
 				"Harmony",
@@ -60,8 +60,8 @@
 			"Harmony",
 			"Bootloader",
 			"I2C",
-			"ATSAMD11D14AM",
-			"SAM D09/D10/D11 Family"
+			"PIC32MK0128MCA048",
+			"PIC32MK MCA Family"
 		],
 		"additionalData": {
 			"longDescription": {

@@ -8,6 +8,53 @@ nav_order: 99
 
 # Microchip MPLAB® Harmony 3 Release Notes
 
+## I2C Bootloader Applications Release v3.2.0
+
+### New Features
+
+- This release includes support of
+    - I2C Bootloader Applications for PIC32M and SAM E70/S70/V70/V71 family of 32-bit microcontrollers.
+
+### Development kit and demo application support
+- The following table provides bootloader demo applications available for different development kits.
+
+    | Product Family                 | Development Kits                                    | I2C              | I2C Fail Safe             |
+    | ------------------------------ | --------------------------------------------------- | ---------------- | ------------------------- |
+    | SAM D09/D10/D11                | [SAM D11 Xplained Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/atsamd11-xpro)               | Yes              | NA                        |
+    | SAM D20                        | [SAM D20 Xplained Pro Evaluation Kit](https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=ATSAMD20-XPRO)   | Yes              | NA                        |
+    | SAM D21/DA1                    | [SAM D21 Xplained Pro Evaluation Kit](https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=ATSAMD21-XPRO)   | Yes              | NA                        |
+    | SAM D21/DA1                    | [SAM DA1 Xplained Pro Evaluation Kit](https://www.microchip.com/DevelopmentTools/ProductDetails/PartNO/ATSAMDA1-XPRO)        | Yes              | NA                        |
+    | SAM HA1                        | [SAM HA1G16A Xplained Pro](https://www.microchip.com/DevelopmentTools/ProductDetails/PartNO/ATSAMHA1G16A-XPRO)    | Yes              | NA                        |
+    | SAM C20/C21                    | [SAM C21N Xplained Pro Evaluation Kit](https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=ATSAMC21-XPRO)   | Yes              | NA                        |
+    | SAM L21                        | [SAM L21 Xplained Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/ATSAML21-XPRO-B)             | Yes              | NA                        |
+    | SAM L22                        | [SAM L22 Xplained Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/ATSAML22-XPRO-B)             | Yes              | NA                        |
+    | SAM L10/L11                    | [SAM L10 Xplained Pro Evaluation Kit](https://www.microchip.com/DevelopmentTools/ProductDetails/dm320204)                    | Yes              | NA                        |
+    | SAM D5x/E5x                    | [SAM E54 Xplained Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/ATSAME54-XPRO)               | Yes              | Yes                       |
+    | PIC32CM MC                     | [PIC32CM MC00 Curiosity Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/EV15N46A)                    | Yes              | NA                        |
+    | PIC32MK MC                     | [PIC32MK MCA Curiosity Pro ](https://www.microchip.com/en-us/development-tool/EV15D86A)                                | Yes              | NA                        |
+    | SAM E70/S70/V70/V71            | [SAME70 Xplained Ultra Evaluation Kit ](https://www.microchip.com/en-us/product/ATSAME70Q21)                                      | Yes              | NA                        |
+
+- **NA:** Lack of product capability
+
+- The following WLCSP devices are shipped with preprogrammed bootloader
+
+    | Part Number                    | I2C              |
+    | ------------------------------ | ---------------- |
+    | SAMD20 (ATSAMD20E15BU)         | Yes              |
+    | SAMD20 (ATSAMD20E16BU)         | Yes              |
+
+
+### Known Issues
+
+- No changes from v3.0.0
+
+### Development Tools
+
+* [MPLAB® X IDE v6.00](https://www.microchip.com/mplab/mplab-x-ide)
+* [MPLAB® XC32 C/C++ Compiler v4.10](https://www.microchip.com/mplab/compilers)
+* MPLAB® X IDE plug-ins:
+    * MPLAB® Code Configurator (MCC) v5.1.9
+
 ## I2C Bootloader Applications Release v3.1.0
 
 ### New Features

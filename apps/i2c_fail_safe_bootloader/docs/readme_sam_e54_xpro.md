@@ -139,7 +139,7 @@ python <harmony3_path>/bootloader/tools/btl_bin_to_c_array_gen.py -b <binary_fil
 
 ![i2c_bootloader_host_nvm_btl_app_merge](../../docs/images/i2c_bootloader_host_nvm_btl_app_merge.png)
 
-1. Launch MHC for the bootloader project *bootloader/firmware/sam_e54_xpro.X*
+1. Launch MCC for the bootloader project *bootloader/firmware/sam_e54_xpro.X*
 2. Select **system** component from the project graph and disable fuse settings
 
 3. **Disable Fuse Settings:**
