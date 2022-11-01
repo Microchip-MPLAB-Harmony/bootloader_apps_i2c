@@ -62,4 +62,4 @@ The following table provides links to documentation on how to build and run I2C 
 |[SAM L10 Xplained Pro Evaluation Kit](docs/readme_sam_l10_xpro.md) |
 |[SAM L21 Xplained Pro Evaluation Kit](docs/readme_sam_l21_xpro.md) |
 |[SAM L22 Xplained Pro Evaluation Kit](docs/readme_sam_l22_xpro.md) |
-|[SAM E70 Xplained Pro Evaluation Kit](docs/readme_sam_e70_xult.md) |
+|[SAM E70 Xplained Ultra Evaluation Kit](docs/readme_sam_e70_xult.md) |

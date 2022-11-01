@@ -227,6 +227,15 @@ extern "C" {
 #define APP_PROGRAM_DEV_CONFIG      false
 #define APP_DEVCFG_FILE             "devcfg.txt"
 
+#elif APP_I2C_BOOTLOADER_TARGET_DEVICE == SAM_E70_XULT
+#define APP_BINARY_FILE             "sam_e70_xult.X.production.bin"
+#define APP_I2C_SLAVE_ADDR          0x0054
+#define APP_ERASE_PAGE_SIZE         (8192L)
+#define APP_PROGRAM_PAGE_SIZE       (512L)
+#define APP_IMAGE_START_ADDR        0x402000UL
+#define APP_PROGRAM_DEV_CONFIG      false
+#define APP_DEVCFG_FILE             "devcfg.txt" 
+
 #endif
 
 //DOM-IGNORE-BEGIN

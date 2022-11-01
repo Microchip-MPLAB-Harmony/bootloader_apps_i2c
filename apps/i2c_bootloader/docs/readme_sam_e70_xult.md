@@ -1,7 +1,7 @@
 ---
 grand_parent: TWI Bootloader Applications
 parent: I2C Bootloader
-title: Building and Running on SAM E70 Xplained Pro Evaluation Kit
+title: Building and Running on SAM E70 Xplained Ultra Evaluation Kit
 has_toc: false
 ---
 
@@ -21,19 +21,19 @@ To build the application, refer to the following table and open the project usin
 
 | Project Name      | Description                                    |
 | ----------------- | ---------------------------------------------- |
-| bootloader/firmware/sam_e70_xult.X    | MPLABX Project for [SAM E70 Xplained Pro Evaluation Kit](https://www.microchip.com/en-us/product/ATSAME70Q21)
+| bootloader/firmware/sam_e70_xult.X    | MPLABX Project for [SAM E70 Xplained Ultra Evaluation Kit](https://www.microchip.com/en-us/product/ATSAME70Q21)
 
 
 ### Test Application
 
 | Project Name      | Description                                    |
 | ----------------- | ---------------------------------------------- |
-| test_app/firmware/sam_e70_xult.X    | MPLABX Project for [SAM E70 Xplained Pro Evaluation Kit](https://www.microchip.com/en-us/product/ATSAME70Q21)
+| test_app/firmware/sam_e70_xult.X    | MPLABX Project for [SAM E70 Xplained Ultra Evaluation Kit](https://www.microchip.com/en-us/product/ATSAME70Q21)
 
 
-## Setting up [SAM E70 Xplained Pro Evaluation Kit](https://www.microchip.com/en-us/product/ATSAME70Q21)
+## Setting up [SAM E70 Xplained Ultra Evaluation Kit](https://www.microchip.com/en-us/product/ATSAME70Q21)
 
-- [SAM E70 Xplained Pro Evaluation Kit](https://www.microchip.com/en-us/product/ATSAME70Q21) is used for both **Host Development kit** and **Target Development kit**
+- [SAM E70 Xplained Ultra Evaluation Kit](https://www.microchip.com/en-us/product/ATSAME70Q21) is used for both **Host Development kit** and **Target Development kit**
 
     ![i2c_bootloader_host_target_connection](../../docs/images/i2c_bootloader_host_target_connection.png)
 
@@ -49,7 +49,7 @@ To build the application, refer to the following table and open the project usin
 
 ![host_app_nvm_setup](../../docs/images/i2c_bootloader_host_app_nvm_setup.png)
 
-If the NVM Host Development Kit being used is other than [SAM E70 Xplained Pro Evaluation Kit](https://www.microchip.com/en-us/product/ATSAME70Q21) then follow the steps mentioned in [Configuring NVM Host application project](../../docs/readme_configure_host_app_nvm.md#configuring-the-nvm-host-application)
+If the NVM Host Development Kit being used is other than [SAM E70 Xplained Ultra Evaluation Kit](https://www.microchip.com/en-us/product/ATSAME70Q21) then follow the steps mentioned in [Configuring NVM Host application project](../../docs/readme_configure_host_app_nvm.md#configuring-the-nvm-host-application)
 
 1. Open the NVM host application project *host_app_nvm/firmware/sam_e70_xult.X* in the IDE
     - If a NVM host application project of different development kit is used then open that project in the IDE
@@ -63,7 +63,7 @@ If the NVM Host Development Kit being used is other than [SAM E70 Xplained Pro E
 
 ![host_app_sdcard_setup](../../docs/images/i2c_bootloader_host_sdcard.png)
 
-If the SDCARD Host Development Kit being used is other than [SAM E70 Xplained Pro Evaluation Kit](https://www.microchip.com/en-us/product/ATSAME70Q21) then follow the steps mentioned in [Configuring SDCARD Host application project](../../docs/readme_configure_host_app_sdcard.md#configuring-the-sdcard-host-application)
+If the SDCARD Host Development Kit being used is other than [SAM E70 Xplained Ultra Evaluation Kit](https://www.microchip.com/en-us/product/ATSAME70Q21) then follow the steps mentioned in [Configuring SDCARD Host application project](../../docs/readme_configure_host_app_sdcard.md#configuring-the-sdcard-host-application)
 
 1. Open the SDCARD host application project *host_app_sdcard/firmware/sam_e70_xult.X* in the IDE
     - If a SDCARD host application project of different development kit is used then open that project in the IDE
@@ -72,7 +72,7 @@ If the SDCARD Host Development Kit being used is other than [SAM E70 Xplained Pr
 3. Open the test application project *test_app/firmware/sam_e70_xult.X* in the IDE
 4. Build the project to generate the binary **(Do not program the binary)**
 
-5. Copy the application binary into the SD card and insert the SD card in the SD card slot available on the  [SAM E70 Xplained Pro Evaluation Kit](https://www.microchip.com/en-us/product/ATSAME70Q21) 
+5. Copy the application binary into the SD card and insert the SD card in the SD card slot available on the  [SAM E70 Xplained Ultra Evaluation Kit](https://www.microchip.com/en-us/product/ATSAME70Q21) 
 
 6. Open the Terminal application (Ex.:Tera Term) on the computer
 7. Configure the serial port settings for **Host Development kit** as follows:
