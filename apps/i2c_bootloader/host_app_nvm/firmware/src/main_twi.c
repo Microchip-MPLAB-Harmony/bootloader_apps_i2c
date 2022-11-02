@@ -60,8 +60,8 @@
 #define APP_IMAGE_SIZE                              sizeof(image_pattern)
 #define APP_IMAGE_END_ADDR                          (APP_IMAGE_START_ADDR + APP_IMAGE_SIZE)
 #define APP_PROTOCOL_HEADER_MAX_SIZE                9
-#define LED_ON()                                    LED_Set()
-#define LED_OFF()                                   LED_Clear()
+#define LED_ON()                                    LED_Clear()
+#define LED_OFF()                                   LED_Set()
 #define SWITCH_GET()                                SWITCH_Get()
 #define SWITCH_PRESSED                              0
 

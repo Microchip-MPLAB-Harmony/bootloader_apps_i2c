@@ -76,7 +76,7 @@ void PIO_Initialize ( void )
     ((pio_registers_t*)PIO_PORT_A)->PIO_OER = 0x20;
     ((pio_registers_t*)PIO_PORT_A)->PIO_ODR = ~0x20U;
     /* Initialize PORTA pin state */
-    ((pio_registers_t*)PIO_PORT_A)->PIO_ODSR = 0x0;
+    ((pio_registers_t*)PIO_PORT_A)->PIO_ODSR = 0x20;
     /* PORTA drive control */
     ((pio_registers_t*)PIO_PORT_A)->PIO_DRIVER = 0x0;
 

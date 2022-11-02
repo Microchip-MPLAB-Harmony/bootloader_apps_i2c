@@ -59,7 +59,7 @@
 69,PD18,,Available,In,,,,,,,
 70,PA27,,Available,In,,,,,,,
 71,PD28,,Available,In,,,,,,,
-73,PA5,LED,GPIO,Out,Low,No,Disabled,No,No,Disabled,Low
+73,PA5,LED,GPIO,Out,High,No,Disabled,No,No,Disabled,Low
 74,PD17,,Available,In,,,,,,,
 75,PA9,,Available,In,,,,,,,
 76,PC28,,Available,In,,,,,,,

@@ -39,6 +39,7 @@ To build the application, refer to the following table and open the project usin
 
 - Connect the TWI SDA line Pin 06 (PA03) on MikroBUS Header of the **Host development kit** to the TWI SDA line Pin 06 (PA03) on MikroBUS Header of the **Target development kit**
 - Connect the TWI SCL line Pin 05 (PA04) on MikroBUS Header of the **Host development kit** to the TWI SCL line Pin 05 (PA04) on MikroBUS Header of the **Target development kit**
+- Connect a ground wire from **Host development kit** to **Target development kit** 
 - Connect the Debug USB port on the Host development kit to the computer using a micro USB cable
 - Connect the Debug USB port on the Target development kit to the computer using a micro USB cable
 
@@ -88,8 +89,8 @@ If the SDCARD Host Development Kit being used is other than [SAM E70 Xplained Ul
 
 1. Open the bootloader project *bootloader/firmware/sam_e70_xult.X* in the IDE
 2. Build and program the application using the IDE on to the **Target development kit**
-    - **LED3** will be turned-on to indicate that bootloader code is running on the target
-    - **LED3** will also turn on when the bootloader does not find a valid application; i.e. the first word of the application (stack pointer), contains 0xFFFFFFFF
+    - **LED1** will be turned-on to indicate that bootloader code is running on the target
+    - **LED1** will also turn on when the bootloader does not find a valid application; i.e. the first word of the application (stack pointer), contains 0xFFFFFFFF
 
 3. **If the test application is being programmed**, Open the Terminal application (Ex.:Tera Term) on the computer and configure the serial port settings for **Target Development kit** as follows:
     - Baud : 115200
@@ -100,11 +101,11 @@ If the SDCARD Host Development Kit being used is other than [SAM E70 Xplained Ul
 
 4. Press the Switch **SW0** on the Host development kit to trigger programming of the application binary
 5. Once the programming is complete,
-    - **LED3** will turn off and **LED2** on the Host development kit will be turned on indicating success
+    - **LED1** of Host development kit will turn on indicating success
 
     - The target development kit will be reset. Upon re-start, the boot-loader will jump to the user application
 
-    - If the test application is programmed then **LED2** should start blinking and you should see below output on the **Target development kit** console
+    - If the test application is programmed then **LED1** is off and **LED2** should start blinking and you should see below output on the **Target development kit** console
 
         ![output](./images/btl_i2c_test_app_console_success.png)
 
