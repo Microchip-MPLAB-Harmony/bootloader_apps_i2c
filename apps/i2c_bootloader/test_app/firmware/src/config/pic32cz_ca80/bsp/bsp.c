@@ -1,24 +1,22 @@
 /*******************************************************************************
-  User Configuration Header
+  Board Support Package Implementation
+
+  Company:
+    Microchip Technology Inc.
 
   File Name:
-    user.h
+    bsp.c
 
   Summary:
-    Build-time configuration header for the user defined by this project.
+    Board Support Package implementation.
 
   Description:
-    An MPLAB Project may have multiple configurations.  This file defines the
-    build-time options for a single configuration.
-
-  Remarks:
-    It only provides macro definitions for build-time configuration options
-
+    This file contains routines that implement the board support package
 *******************************************************************************/
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -41,51 +39,48 @@
 *******************************************************************************/
 // DOM-IGNORE-END
 
-#ifndef USER_H
-#define USER_H
+// *****************************************************************************
+// *****************************************************************************
+// Section: Included Files
+// *****************************************************************************
+// *****************************************************************************
 
-#include "bsp/bsp.h"
-#include "toolchain_specifics.h"
-
-// DOM-IGNORE-BEGIN
-#ifdef __cplusplus  // Provide C++ Compatibility
-
-extern "C" {
-
-#endif
-// DOM-IGNORE-END
+#include "bsp.h"
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: User Configuration macros
+// *****************************************************************************
+// Section: Interface Routines
 // *****************************************************************************
 // *****************************************************************************
-#define LED_ON()                            LED_On()
-#define LED_OFF()                           LED_Off()
-#define LED_TOGGLE()                        LED_Toggle()
-#define SWITCH_GET()                        SWITCH_Get()
-#define SWITCH_STATUS_PRESSED               SWITCH_STATE_PRESSED
 
-/* Include the Header file defining the supported target boards. */
-#include "i2c_target_board.h"
+// *****************************************************************************
+/* Function:
+    void BSP_Initialize(void)
 
-/* Select the device being upgraded by the I2C bootloader host.
- * Refer to i2c_target_board.h for target board names
+  Summary:
+    Performs the necessary actions to initialize a board
+
+  Description:
+    This function initializes the LED, Switch and other ports on the board.
+    This function must be called by the user before using any APIs present in
+    this BSP.
+
+  Remarks:
+    Refer to bsp.h for usage information.
 */
-#define APP_I2C_BOOTLOADER_TARGET_DEVICE        PIC32CZ_CA80
 
-/* Include the Header file defining the target configuration for the board selected above */
-#include "i2c_target_config.h"
+void BSP_Initialize(void )
+{
 
-#define I2C_FUNC(OP)           (SERCOM7_I2C_ ## OP)
 
-//DOM-IGNORE-BEGIN
-#ifdef __cplusplus
+    /* Switch off LEDs */
+    LED_Off();
+    LED1_Off();
+
+
 }
-#endif
-//DOM-IGNORE-END
 
-#endif // USER_H
 /*******************************************************************************
  End of File
 */

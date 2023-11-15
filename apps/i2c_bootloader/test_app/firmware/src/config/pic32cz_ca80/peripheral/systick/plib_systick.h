@@ -1,24 +1,21 @@
 /*******************************************************************************
-  User Configuration Header
+  Interface definition of SYSTICK PLIB.
+
+  Company:
+    Microchip Technology Inc.
 
   File Name:
-    user.h
+    plib_systick.h
 
   Summary:
-    Build-time configuration header for the user defined by this project.
+    Interface definition of the System Timer Plib (SYSTICK).
 
   Description:
-    An MPLAB Project may have multiple configurations.  This file defines the
-    build-time options for a single configuration.
-
-  Remarks:
-    It only provides macro definitions for build-time configuration options
-
+    This file defines the interface for the SYSTICK Plib.
 *******************************************************************************/
 
-// DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -39,53 +36,63 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
-// DOM-IGNORE-END
 
-#ifndef USER_H
-#define USER_H
+#ifndef PLIB_SYSTICK_H    // Guards against multiple inclusion
+#define PLIB_SYSTICK_H
 
-#include "bsp/bsp.h"
-#include "toolchain_specifics.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include <stddef.h>
 
-// DOM-IGNORE-BEGIN
-#ifdef __cplusplus  // Provide C++ Compatibility
+#ifdef __cplusplus // Provide C++ Compatibility
+    extern "C" {
+#endif
 
-extern "C" {
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Interface
+// *****************************************************************************
+// *****************************************************************************
+
+#define SYSTICK_FREQ   300000000U
+
+#define SYSTICK_INTERRUPT_PERIOD_IN_US  (1000U)
+
+typedef void (*SYSTICK_CALLBACK)(uintptr_t context);
+
+
+typedef struct
+{ 
+    uint32_t start; 
+    uint32_t count; 
+}SYSTICK_TIMEOUT;
+
+typedef struct
+{
+   SYSTICK_CALLBACK          callback;
+   uintptr_t                 context;
+   volatile uint32_t         tickCounter;
+} SYSTICK_OBJECT ;
+/***************************** SYSTICK API *******************************/
+void SYSTICK_TimerInitialize ( void );
+void SYSTICK_TimerRestart ( void );
+void SYSTICK_TimerStart ( void );
+void SYSTICK_TimerStop ( void );
+void SYSTICK_TimerPeriodSet ( uint32_t period );
+uint32_t SYSTICK_TimerPeriodGet ( void );
+uint32_t SYSTICK_TimerCounterGet ( void );
+uint32_t SYSTICK_TimerFrequencyGet ( void );
+void SYSTICK_DelayMs ( uint32_t delay_ms );
+void SYSTICK_DelayUs ( uint32_t delay_us );
+
+void SYSTICK_TimerCallbackSet ( SYSTICK_CALLBACK callback, uintptr_t context );
+uint32_t SYSTICK_GetTickCounter(void);
+void SYSTICK_StartTimeOut (SYSTICK_TIMEOUT* timeout, uint32_t delay_ms);
+void SYSTICK_ResetTimeOut (SYSTICK_TIMEOUT* timeout);
+bool SYSTICK_IsTimeoutReached (SYSTICK_TIMEOUT* timeout);
+#ifdef __cplusplus // Provide C++ Compatibility
+ }
+#endif
 
 #endif
-// DOM-IGNORE-END
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: User Configuration macros
-// *****************************************************************************
-// *****************************************************************************
-#define LED_ON()                            LED_On()
-#define LED_OFF()                           LED_Off()
-#define LED_TOGGLE()                        LED_Toggle()
-#define SWITCH_GET()                        SWITCH_Get()
-#define SWITCH_STATUS_PRESSED               SWITCH_STATE_PRESSED
-
-/* Include the Header file defining the supported target boards. */
-#include "i2c_target_board.h"
-
-/* Select the device being upgraded by the I2C bootloader host.
- * Refer to i2c_target_board.h for target board names
-*/
-#define APP_I2C_BOOTLOADER_TARGET_DEVICE        PIC32CZ_CA80
-
-/* Include the Header file defining the target configuration for the board selected above */
-#include "i2c_target_config.h"
-
-#define I2C_FUNC(OP)           (SERCOM7_I2C_ ## OP)
-
-//DOM-IGNORE-BEGIN
-#ifdef __cplusplus
-}
-#endif
-//DOM-IGNORE-END
-
-#endif // USER_H
-/*******************************************************************************
- End of File
-*/

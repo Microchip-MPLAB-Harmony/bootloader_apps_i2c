@@ -18,7 +18,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -38,14 +38,13 @@
 * FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+ *******************************************************************************/
 // DOM-IGNORE-END
 
 #ifndef USER_H
 #define USER_H
 
 #include "bsp/bsp.h"
-#include "toolchain_specifics.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -60,24 +59,22 @@ extern "C" {
 // Section: User Configuration macros
 // *****************************************************************************
 // *****************************************************************************
-#define LED_ON()                            LED_On()
-#define LED_OFF()                           LED_Off()
-#define LED_TOGGLE()                        LED_Toggle()
-#define SWITCH_GET()                        SWITCH_Get()
-#define SWITCH_STATUS_PRESSED               SWITCH_STATE_PRESSED
+#define LED_ON()        LED_On()
+#define LED_OFF()       LED_Off()
+#define LED_TOGGLE()    LED_Toggle()
 
-/* Include the Header file defining the supported target boards. */
-#include "i2c_target_board.h"
+#define SWITCH_GET()    SWITCH_Get()
+#define SWITCH_PRESSED  SWITCH_STATE_PRESSED
+    
+#define APP_TIMER_START     SYSTICK_TimerStart
+#define APP_TIMER_DelayMs   SYSTICK_DelayMs
 
-/* Select the device being upgraded by the I2C bootloader host.
- * Refer to i2c_target_board.h for target board names
-*/
-#define APP_I2C_BOOTLOADER_TARGET_DEVICE        PIC32CZ_CA80
+#define BTL_TRIGGER_RAM_START  0x20020000U
 
-/* Include the Header file defining the target configuration for the board selected above */
-#include "i2c_target_config.h"
-
-#define I2C_FUNC(OP)           (SERCOM7_I2C_ ## OP)
+static inline void APP_SystemReset( void )
+{
+    NVIC_SystemReset();
+}
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
