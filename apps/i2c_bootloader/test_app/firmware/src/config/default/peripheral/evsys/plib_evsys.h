@@ -1,24 +1,22 @@
 /*******************************************************************************
-  User Configuration Header
+  Interface definition of EVSYS PLIB.
+
+  Company:
+    Microchip Technology Inc.
 
   File Name:
-    user.h
+    plib_evsys.h
 
   Summary:
-    Build-time configuration header for the user defined by this project.
+    Interface definition of the Event System Plib (EVSYS).
 
   Description:
-    An MPLAB Project may have multiple configurations.  This file defines the
-    build-time options for a single configuration.
-
-  Remarks:
-    It only provides macro definitions for build-time configuration options
-
+    This file defines the interface for the EVSYS Plib.
+    It allows user to setup event generators and users.
 *******************************************************************************/
 
-// DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -39,53 +37,32 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
-// DOM-IGNORE-END
 
-#ifndef USER_H
-#define USER_H
+#ifndef EVSYS_H    // Guards against multiple inclusion
+#define EVSYS_H
 
-#include "bsp/bsp.h"
-#include "toolchain_specifics.h"
+#include "device.h"
+#include <stdint.h>
+#include <stddef.h>
 
-// DOM-IGNORE-BEGIN
-#ifdef __cplusplus  // Provide C++ Compatibility
+#ifdef __cplusplus // Provide C++ Compatibility
+ extern "C" {
+#endif
 
-extern "C" {
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Interface
+// *****************************************************************************
+// *****************************************************************************
+
+
+
+/***************************** EVSYS API *******************************/
+void EVSYS_Initialize( void );
+
+#ifdef __cplusplus // Provide C++ Compatibility
+ }
+#endif
 
 #endif
-// DOM-IGNORE-END
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: User Configuration macros
-// *****************************************************************************
-// *****************************************************************************
-#define LED_ON()                            LED_On()
-#define LED_OFF()                           LED_Off()
-#define LED_TOGGLE()                        LED_Toggle()
-#define SWITCH_GET()                        SWITCH_Get()
-#define SWITCH_STATUS_PRESSED               SWITCH_STATE_PRESSED
-
-/* Include the Header file defining the supported target boards. */
-#include "i2c_target_board.h"
-
-/* Select the device being upgraded by the I2C bootloader host.
- * Refer to i2c_target_board.h for target board names
-*/
-#define APP_I2C_BOOTLOADER_TARGET_DEVICE        PIC32CX_BZ_WBZ451
-
-/* Include the Header file defining the target configuration for the board selected above */
-#include "i2c_target_config.h"
-
-#define I2C_FUNC(OP)           (SERCOM7_I2C_ ## OP)
-
-//DOM-IGNORE-BEGIN
-#ifdef __cplusplus
-}
-#endif
-//DOM-IGNORE-END
-
-#endif // USER_H
-/*******************************************************************************
- End of File
-*/

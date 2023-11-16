@@ -1,6 +1,26 @@
+/*******************************************************************************
+  Cortex-M L1 Cache Header
+
+  File Name:
+    device_cache.h
+
+  Summary:
+    Preprocessor definitions to provide L1 Cache control.
+
+  Description:
+    An MPLAB PLIB or Project can include this header to perform cache cleans,
+    invalidates etc. For the DCache and ICache.
+
+  Remarks:
+    This header should not define any prototypes or data definitions, or
+    include any files that do.  The file only provides macro definitions for
+    build-time.
+
+*******************************************************************************/
+
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -22,26 +42,20 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 // DOM-IGNORE-END
-/*******************************************************************************
-  I2C Target Board Selection Header
 
-  File Name:
-    i2c_target_board.h
+#ifndef DEVICE_CACHE_H
+#define DEVICE_CACHE_H
 
-  Summary:
-    Build-time configuration header for the user defined by this project.
+// *****************************************************************************
+// *****************************************************************************
+// Section: Included Files
+// *****************************************************************************
+// *****************************************************************************
+/*  This section Includes other configuration headers necessary to completely
+    define this configuration.
+*/
 
-  Description:
-    An MPLAB Project may have multiple configurations.  This file defines the
-    build-time options for a single configuration.
-
-  Remarks:
-    It only provides macro definitions for build-time configuration options
-
-*******************************************************************************/
-
-#ifndef I2C_TARGET_BOARD_H
-#define I2C_TARGET_BOARD_H
+#include "device.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -53,32 +67,23 @@ extern "C" {
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: User Configuration macros
+// Section: L1 Cache Configuration
 // *****************************************************************************
 // *****************************************************************************
 
-/* Following are the Target Devices which can be programmed using the I2C bootloader host
- * Refer to user.h of the configuration to see the selected target device being upgraded
- * by the I2C bootloader host.
-*/
 
-#define SAM_C21N_XPRO                   1
-#define SAM_D11_XPRO                    2
-#define SAM_D20_XPRO                    3
-#define SAM_D21_XPRO                    4
-#define SAM_DA1_XPRO                    5
-#define SAM_E54_XPRO                    6
-#define SAM_HA1_XPRO                    7
-#define SAM_L10_XPRO                    8
-#define SAM_L21_XPRO                    9
-#define SAM_L22_XPRO                    10
-#define PIC32CM_MC00_CURIOSITY_PRO      11
-#define PIC32MM_USB_CURIOSITY           12
-#define PIC32MK_MCA_CURIOSITY_PRO       13
-#define SAM_E70_XULT                    14
-#define PIC32CZ_CA80                    15
-#define PIC32CX_BZ_WBZ451               16
+#define ICACHE_ENABLE()
+#define ICACHE_DISABLE()
+#define ICACHE_INVALIDATE()
 
+#define DCACHE_ENABLE()
+#define DCACHE_DISABLE()
+#define DCACHE_INVALIDATE()
+#define DCACHE_CLEAN()
+#define DCACHE_CLEAN_INVALIDATE()
+#define DCACHE_CLEAN_BY_ADDR(addr,sz)
+#define DCACHE_INVALIDATE_BY_ADDR(addr,sz)
+#define DCACHE_CLEAN_INVALIDATE_BY_ADDR(addr,sz)
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
@@ -86,7 +91,4 @@ extern "C" {
 #endif
 //DOM-IGNORE-END
 
-#endif // I2C_TARGET_BOARD_H
-/*******************************************************************************
- End of File
-*/
+#endif // #ifndef DEVICE_CACHE_H

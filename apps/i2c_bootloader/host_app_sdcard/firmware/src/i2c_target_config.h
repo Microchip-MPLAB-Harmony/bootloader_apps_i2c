@@ -244,6 +244,16 @@ extern "C" {
 #define APP_IMAGE_START_ADDR        0xc000000UL
 #define APP_PROGRAM_DEV_CONFIG      false
 #define APP_DEVCFG_FILE             "devcfg.txt"
+
+    
+#elif APP_I2C_BOOTLOADER_TARGET_DEVICE == PIC32CX_BZ_WBZ451
+#define APP_BINARY_FILE             "pic32cxbz2_wbz45.X.production.bin"
+#define APP_I2C_SLAVE_ADDR          0x0054
+#define APP_ERASE_PAGE_SIZE         (4096L)
+#define APP_PROGRAM_PAGE_SIZE       (4096L)
+#define APP_IMAGE_START_ADDR        0x1000000UL
+#define APP_PROGRAM_DEV_CONFIG      false
+#define APP_DEVCFG_FILE             "devcfg.txt"
 #endif
 
 //DOM-IGNORE-BEGIN

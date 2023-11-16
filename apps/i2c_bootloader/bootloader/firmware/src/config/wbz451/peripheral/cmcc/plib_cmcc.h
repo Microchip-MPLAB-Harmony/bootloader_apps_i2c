@@ -1,24 +1,21 @@
 /*******************************************************************************
-  User Configuration Header
+  Interface definition of CMCC PLIB.
+
+  Company:
+    Microchip Technology Inc.
 
   File Name:
-    user.h
+    plib_cmcc.h
 
   Summary:
-    Build-time configuration header for the user defined by this project.
+    Interface definition of the CMCC(Cortex M Cache Controller) Peripheral Library
 
   Description:
-    An MPLAB Project may have multiple configurations.  This file defines the
-    build-time options for a single configuration.
-
-  Remarks:
-    It only provides macro definitions for build-time configuration options
-
+    This file defines the interface for the CMCC Plib.
 *******************************************************************************/
 
-// DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -39,53 +36,39 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
-// DOM-IGNORE-END
 
-#ifndef USER_H
-#define USER_H
+#ifndef PLIB_CMCC_H    // Guards against multiple inclusion
+#define PLIB_CMCC_H
 
-#include "bsp/bsp.h"
-#include "toolchain_specifics.h"
 
-// DOM-IGNORE-BEGIN
+#ifdef __cplusplus // Provide C++ Compatibility
+	extern "C" {
+#endif
+
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Interface
+// *****************************************************************************
+// *****************************************************************************
+
+#define CMCC_NO_OF_WAYS     (4U)
+#define CMCC_LINE_PER_WAY   (64U)
+#define CMCC_LINE_SIZE      (16U)
+#define CMCC_WAY_SIZE       (1024U)
+
+/***************************** CMCC API *******************************/
+void CMCC_Disable (void );
+void CMCC_EnableDCache (void );
+void CMCC_DisableDCache (void );
+
+void CMCC_EnableICache (void );
+void CMCC_DisableICache (void );
+
+void CMCC_InvalidateAll (void );
+
 #ifdef __cplusplus  // Provide C++ Compatibility
-
-extern "C" {
+    }
+#endif
 
 #endif
-// DOM-IGNORE-END
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: User Configuration macros
-// *****************************************************************************
-// *****************************************************************************
-#define LED_ON()                            LED_On()
-#define LED_OFF()                           LED_Off()
-#define LED_TOGGLE()                        LED_Toggle()
-#define SWITCH_GET()                        SWITCH_Get()
-#define SWITCH_STATUS_PRESSED               SWITCH_STATE_PRESSED
-
-/* Include the Header file defining the supported target boards. */
-#include "i2c_target_board.h"
-
-/* Select the device being upgraded by the I2C bootloader host.
- * Refer to i2c_target_board.h for target board names
-*/
-#define APP_I2C_BOOTLOADER_TARGET_DEVICE        PIC32CX_BZ_WBZ451
-
-/* Include the Header file defining the target configuration for the board selected above */
-#include "i2c_target_config.h"
-
-#define I2C_FUNC(OP)           (SERCOM7_I2C_ ## OP)
-
-//DOM-IGNORE-BEGIN
-#ifdef __cplusplus
-}
-#endif
-//DOM-IGNORE-END
-
-#endif // USER_H
-/*******************************************************************************
- End of File
-*/

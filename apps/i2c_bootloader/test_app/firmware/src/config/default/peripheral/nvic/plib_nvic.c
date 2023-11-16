@@ -1,24 +1,22 @@
 /*******************************************************************************
-  User Configuration Header
+  NVIC PLIB Implementation
+
+  Company:
+    Microchip Technology Inc.
 
   File Name:
-    user.h
+    plib_nvic.c
 
   Summary:
-    Build-time configuration header for the user defined by this project.
+    NVIC PLIB Source File
 
   Description:
-    An MPLAB Project may have multiple configurations.  This file defines the
-    build-time options for a single configuration.
-
-  Remarks:
-    It only provides macro definitions for build-time configuration options
+    None
 
 *******************************************************************************/
 
-// DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -39,53 +37,68 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
-// DOM-IGNORE-END
 
-#ifndef USER_H
-#define USER_H
+#include "device.h"
+#include "plib_nvic.h"
 
-#include "bsp/bsp.h"
-#include "toolchain_specifics.h"
-
-// DOM-IGNORE-BEGIN
-#ifdef __cplusplus  // Provide C++ Compatibility
-
-extern "C" {
-
-#endif
-// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: User Configuration macros
+// Section: NVIC Implementation
 // *****************************************************************************
 // *****************************************************************************
-#define LED_ON()                            LED_On()
-#define LED_OFF()                           LED_Off()
-#define LED_TOGGLE()                        LED_Toggle()
-#define SWITCH_GET()                        SWITCH_Get()
-#define SWITCH_STATUS_PRESSED               SWITCH_STATE_PRESSED
 
-/* Include the Header file defining the supported target boards. */
-#include "i2c_target_board.h"
+void NVIC_Initialize( void )
+{
+    /* Priority 0 to 7 and no sub-priority. 0 is the highest priority */
+    NVIC_SetPriorityGrouping( 0x00 );
 
-/* Select the device being upgraded by the I2C bootloader host.
- * Refer to i2c_target_board.h for target board names
-*/
-#define APP_I2C_BOOTLOADER_TARGET_DEVICE        PIC32CX_BZ_WBZ451
+    /* Enable NVIC Controller */
+    __DMB();
+    __enable_irq();
 
-/* Include the Header file defining the target configuration for the board selected above */
-#include "i2c_target_config.h"
+    /* Enable the interrupt sources and configure the priorities as configured
+     * from within the "Interrupt Manager" of MHC. */
 
-#define I2C_FUNC(OP)           (SERCOM7_I2C_ ## OP)
+    /* Enable Usage fault */
+    SCB->SHCSR |= (SCB_SHCSR_USGFAULTENA_Msk);
+    /* Trap divide by zero */
+    SCB->CCR   |= SCB_CCR_DIV_0_TRP_Msk;
 
-//DOM-IGNORE-BEGIN
-#ifdef __cplusplus
+    /* Enable Bus fault */
+    SCB->SHCSR |= (SCB_SHCSR_BUSFAULTENA_Msk);
+
+    /* Enable memory management fault */
+    SCB->SHCSR |= (SCB_SHCSR_MEMFAULTENA_Msk);
+
 }
-#endif
-//DOM-IGNORE-END
 
-#endif // USER_H
-/*******************************************************************************
- End of File
-*/
+void NVIC_INT_Enable( void )
+{
+    __DMB();
+    __enable_irq();
+}
+
+bool NVIC_INT_Disable( void )
+{
+    bool processorStatus = (__get_PRIMASK() == 0U);
+
+    __disable_irq();
+    __DMB();
+
+    return processorStatus;
+}
+
+void NVIC_INT_Restore( bool state )
+{
+    if( state == true )
+    {
+        __DMB();
+        __enable_irq();
+    }
+    else
+    {
+        __disable_irq();
+        __DMB();
+    }
+}
