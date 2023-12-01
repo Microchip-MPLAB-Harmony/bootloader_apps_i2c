@@ -76,8 +76,8 @@ extern "C" {
 #define PIC32MM_USB_CURIOSITY           12
 #define PIC32MK_MCA_CURIOSITY_PRO       13
 #define SAM_E70_XULT                    14
-#define PIC32CZ_CA80                    15
-#define PIC32CX_BZ_WBZ451               16
+#define PIC32CZ_CA80_CURIOSITY_ULTRA    15
+#define WBZ451_curiosity                16
 
 
 //DOM-IGNORE-BEGIN

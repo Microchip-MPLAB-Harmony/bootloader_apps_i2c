@@ -236,7 +236,7 @@ extern "C" {
 #define APP_PROGRAM_DEV_CONFIG      false
 #define APP_DEVCFG_FILE             "devcfg.txt" 
 
-#elif APP_I2C_BOOTLOADER_TARGET_DEVICE == PIC32CZ_CA80
+#elif APP_I2C_BOOTLOADER_TARGET_DEVICE == PIC32CZ_CA80_CURIOSITY_ULTRA
 #define APP_BINARY_FILE             "pic32cz_ca80_curiosity_ultra.X.production.bin"
 #define APP_I2C_SLAVE_ADDR          0x0054
 #define APP_ERASE_PAGE_SIZE         (4096L)
@@ -246,7 +246,7 @@ extern "C" {
 #define APP_DEVCFG_FILE             "devcfg.txt"
 
     
-#elif APP_I2C_BOOTLOADER_TARGET_DEVICE == PIC32CX_BZ_WBZ451
+#elif APP_I2C_BOOTLOADER_TARGET_DEVICE == WBZ451_curiosity
 #define APP_BINARY_FILE             "pic32cxbz2_wbz45.X.production.bin"
 #define APP_I2C_SLAVE_ADDR          0x0054
 #define APP_ERASE_PAGE_SIZE         (4096L)

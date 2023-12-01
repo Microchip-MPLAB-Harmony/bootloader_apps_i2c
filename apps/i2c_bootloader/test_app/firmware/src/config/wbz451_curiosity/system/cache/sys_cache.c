@@ -1,24 +1,23 @@
 /*******************************************************************************
-  User Configuration Header
+  Cache System Service Library Implementation Source File
 
-  File Name:
-    user.h
+  Company
+    Microchip Technology Inc.
 
-  Summary:
-    Build-time configuration header for the user defined by this project.
+  File Name
+    sys_cache.c
 
-  Description:
-    An MPLAB Project may have multiple configurations.  This file defines the
-    build-time options for a single configuration.
+  Summary
+    Cache System Service Library interface implementation.
 
-  Remarks:
-    It only provides macro definitions for build-time configuration options
+  Description
+    This file implements the interface to the Cache System Service Library.
 
 *******************************************************************************/
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -41,51 +40,71 @@
 *******************************************************************************/
 // DOM-IGNORE-END
 
-#ifndef USER_H
-#define USER_H
-
-#include "bsp/bsp.h"
-#include "toolchain_specifics.h"
-
-// DOM-IGNORE-BEGIN
-#ifdef __cplusplus  // Provide C++ Compatibility
-
-extern "C" {
-
-#endif
-// DOM-IGNORE-END
+// *****************************************************************************
+// *****************************************************************************
+// Section: Included Files
+// *****************************************************************************
+// *****************************************************************************
+#include "device.h"
+#include "device_cache.h"
+#include "system/cache/sys_cache.h"
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: User Configuration macros
+// Section: System Cache Interface Functions
 // *****************************************************************************
 // *****************************************************************************
-#define LED_ON()                            LED_On()
-#define LED_OFF()                           LED_Off()
-#define LED_TOGGLE()                        LED_Toggle()
-#define SWITCH_GET()                        SWITCH_Get()
-#define SWITCH_STATUS_PRESSED               SWITCH_STATE_PRESSED
-
-/* Include the Header file defining the supported target boards. */
-#include "i2c_target_board.h"
-
-/* Select the device being upgraded by the I2C bootloader host.
- * Refer to i2c_target_board.h for target board names
-*/
-#define APP_I2C_BOOTLOADER_TARGET_DEVICE        SAM_E54_XPRO
-
-/* Include the Header file defining the target configuration for the board selected above */
-#include "i2c_target_config.h"
-
-#define I2C_FUNC(OP)           (SERCOM7_I2C_ ## OP)
-
-//DOM-IGNORE-BEGIN
-#ifdef __cplusplus
+void SYS_CACHE_EnableCaches (void)
+{
 }
-#endif
-//DOM-IGNORE-END
 
-#endif // USER_H
-/*******************************************************************************
- End of File
-*/
+void SYS_CACHE_DisableCaches (void)
+{
+}
+void SYS_CACHE_EnableICache (void)
+{
+}
+
+void SYS_CACHE_DisableICache (void)
+{
+}
+
+void SYS_CACHE_InvalidateICache (void)
+{
+}
+
+void SYS_CACHE_EnableDCache (void)
+{
+}
+
+void SYS_CACHE_DisableDCache (void)
+{
+}
+
+void SYS_CACHE_InvalidateDCache (void)
+{
+}
+
+void SYS_CACHE_CleanDCache (void)
+{
+}
+
+void SYS_CACHE_InvalidateDCache_by_Addr (void *addr, int32_t size)
+{
+}
+
+void SYS_CACHE_CleanDCache_by_Addr (void *addr, int32_t size)
+{
+}
+
+/* MISRA C-2012 Rule 5.1 deviated:1 Deviation record ID -  H3_MISRAC_2012_R_5_1_DR_1 */
+
+void SYS_CACHE_CleanInvalidateDCache (void)
+{
+}
+
+void SYS_CACHE_CleanInvalidateDCache_by_Addr (void *addr, int32_t size)
+{
+}
+
+/* MISRAC 2012 deviation block end */
