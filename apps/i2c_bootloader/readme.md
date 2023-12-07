@@ -52,6 +52,7 @@ The following table provides links to documentation on how to build and run I2C 
 |:---------|
 |[PIC32CM MC00 Curiosity Pro Evaluation Kit](docs/readme_pic32cm_mc00_curiosity_pro.md) |
 |[PIC32MK MCA Curiosity Pro](docs/readme_pic32mk_mca_curiosity_pro.md) |
+|[PIC32MK MCJ Curiosity Pro](docs/readme_pic32mk_mcj_curiosity_pro.md) |
 |[PIC32MM USB Curiosity Development Board](docs/readme_pic32mm_usb_curiosity.md)|
 |[PIC32CZ CA80 Curiosity Ultra Development Board](docs/readme_pic32cz_ca80_curiosity_ultra.md) |
 |[WBZ451 Curiosity Development Board](docs/readme_wbz451_curiosity.md) |
