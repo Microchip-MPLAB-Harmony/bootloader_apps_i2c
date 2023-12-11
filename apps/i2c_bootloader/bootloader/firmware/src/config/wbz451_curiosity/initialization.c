@@ -218,7 +218,7 @@ void SYS_Initialize ( void* data )
     }
 
 
-    CLK_Initialize();
+    CLOCK_Initialize();
 
     SERCOM2_I2C_Initialize();
 
