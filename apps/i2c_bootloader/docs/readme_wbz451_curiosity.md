@@ -33,12 +33,12 @@ To build the application, refer to the following table and open the project usin
 
 ## Setting up [PIC32CX-BZ2 and WBZ451 Curiosity Development Board](https://www.microchip.com/en-us/development-tool/ev96b94a)
 
-- [PIC32CX-BZ2 and WBZ451 Curiosity Development Board](https://www.microchip.com/en-us/development-tool/ev96b94a) is used for both **Host Development kit** and **Target Development kit**
+- [SAM E54 Xplained Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/atsame54-xpro) is used for **Host Development kit** and [PIC32CX-BZ2 and WBZ451 Curiosity Development Board](https://www.microchip.com/en-us/development-tool/ev96b94a) is used for **Target Development kit**
 
     ![i2c_bootloader_host_target_connection](../../docs/images/i2c_bootloader_host_target_connection.png)
 
-- Connect the I2C SDA line of the **Host development kit** to the I2C SDA line of the **Target development kit**
-- Connect the I2C SCL line of the **Host development kit** to the I2C SCL line of the **Target development kit**
+- Connect the pin 11 of EXT3 of the **Host development kit** to the I2C SDA line of the **Target development kit**
+- Connect the pin 12 of EXT3 of the **Host development kit** to the I2C SCL line of the **Target development kit**
 - Connect a ground wire between the Host development kit and Target development kit
 - Connect the Debug USB port on the Host development kit to the computer using a micro USB cable
 - Connect the Debug USB port on the Target development kit to the computer using a micro USB cable
@@ -48,16 +48,16 @@ To build the application, refer to the following table and open the project usin
 
 ![host_app_sdcard_setup](../../docs/images/i2c_bootloader_host_sdcard.png)
 
-If the SDCARD Host Development Kit being used is other than [PIC32CX-BZ2 and WBZ451 Curiosity Development Board](https://www.microchip.com/en-us/development-tool/ev96b94a) then follow the steps mentioned in [Configuring SDCARD Host application project](../../docs/readme_configure_host_app_sdcard.md#configuring-the-sdcard-host-application)
+If the SDCARD Host Development Kit being used is other than [SAM E54 Xplained Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/atsame54-xpro) then follow the steps mentioned in [Configuring SDCARD Host application project](../../docs/readme_configure_host_app_sdcard.md#configuring-the-sdcard-host-application)
 
-1. Open the SDCARD host application project *host_app_sdcard/firmware/wbz451_curiosity.X* in the IDE
+1. Open the SDCARD host application project *host_app_sdcard/firmware/sam_e54_xpro.X* in the IDE
     - If a SDCARD host application project of different development kit is used then open that project in the IDE
 2. Build and program the SDCARD host application using the IDE on to the I2C host dvelopment kit
 
 3. Open the test application project *test_app/firmware/wbz451_curiosity.X* in the IDE
 4. Build the project to generate the binary **(Do not program the binary)**
 
-5. Copy the application binary into the SD card and insert the SD card in the SD card slot available on the  [PIC32CX-BZ2 and WBZ451 Curiosity Development Board](https://www.microchip.com/en-us/development-tool/ev96b94a) 
+5. Copy the application binary into the SD card and insert the SD card in the SD card slot available on the  [SAM E54 Xplained Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/atsame54-xpro) 
 
 6. Open the Terminal application (Ex.:Tera Term) on the computer
 7. Configure the serial port settings for **Host Development kit** as follows:
@@ -97,9 +97,7 @@ If the SDCARD Host Development Kit being used is other than [PIC32CX-BZ2 and WBZ
 
         ![output](./images/btl_i2c_test_app_console_success.png)
 
-6. Press and hold the Switch **SW0** to trigger Bootloader from test application and you should see below output
-
-    ![output](./images/btl_i2c_test_app_console_trigger_bootloader.png)
+6. Press and hold the reset Switch SW1, Press user Switch SW2 and release reset Switch SW1 to trigger Bootloader. No output message displays on  serial port.
 
 7. Press Reset button on the Host development kit to reprogram the application binary
 8. Repeat Steps 4-5 once
