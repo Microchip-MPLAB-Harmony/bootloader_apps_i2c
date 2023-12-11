@@ -40,6 +40,7 @@ To build the application, refer to the following table and open the project usin
 - Connect the TWI SDA line Pin 06 (PA03) on MikroBUS Header of the **Host development kit** to the TWI SDA line Pin 06 (PA03) on MikroBUS Header of the **Target development kit**
 - Connect the TWI SCL line Pin 05 (PA04) on MikroBUS Header of the **Host development kit** to the TWI SCL line Pin 05 (PA04) on MikroBUS Header of the **Target development kit**
 - Connect a ground wire from **Host development kit** to **Target development kit** 
+- Connect the Jumper between pin1 and pin2 of J203 header.
 - Connect the Debug USB port on the Host development kit to the computer using a micro USB cable
 - Connect the Debug USB port on the Target development kit to the computer using a micro USB cable
 
