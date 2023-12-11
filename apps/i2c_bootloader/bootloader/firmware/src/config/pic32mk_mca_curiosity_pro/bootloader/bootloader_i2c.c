@@ -308,7 +308,8 @@ static bool BL_I2C_CommandParser(uint8_t rdByte)
                 else if (command == BL_COMMAND_ERASE)
                 {
                     uint32_t appImageEndAddr = i2cBLData.appImageEndAddr;
-                    if ((memAddr >= i2cBLData.appImageStartAddr) && ((memAddr + ERASE_BLOCK_SIZE) <= appImageEndAddr))
+					uint32_t erasememAddr = i2cBLData.cmdProtocol.eraseCommand.memAddr;
+                    if ((erasememAddr >= i2cBLData.appImageStartAddr) && ((erasememAddr + ERASE_BLOCK_SIZE) <= appImageEndAddr))
                     {
                         SET_BIT(i2cBLData.status, BL_STATUS_BIT_BUSY);
                         i2cBLData.flashState = BL_FLASH_STATE_ERASE;

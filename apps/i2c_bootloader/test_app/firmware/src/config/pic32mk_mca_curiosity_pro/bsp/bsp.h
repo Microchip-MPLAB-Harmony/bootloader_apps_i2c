@@ -40,8 +40,8 @@
 *******************************************************************************/
 // DOM-IGNORE-END
 
-#ifndef _BSP_H
-#define _BSP_H
+#ifndef BSP_H
+#define BSP_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -60,11 +60,14 @@
 // Section: BSP Macros
 // *****************************************************************************
 // *****************************************************************************
+#define pic32mk_mca_curiosity_pro
+#define BSP_NAME             "pic32mk_mca_curiosity_pro"
+
 /*** LED Macros for LED1 ***/
-#define LED1_Toggle() (LATAINV = (1U<<10))
+#define LED1_Toggle() (LATAINV = (1UL<<10))
 #define LED1_Get() ((PORTA >> 10) & 0x1U)
-#define LED1_On() (LATACLR = (1U<<10))
-#define LED1_Off() (LATASET = (1U<<10))
+#define LED1_On() (LATACLR = (1UL<<10))
+#define LED1_Off() (LATASET = (1UL<<10))
 /*** SWITCH Macros for SWITCH ***/
 #define SWITCH_Get() ((PORTA >> 7) & 0x1U)
 #define SWITCH_STATE_PRESSED 0U
@@ -102,7 +105,6 @@
 
   Example:
     <code>
-    //Initialize the BSP
     BSP_Initialize();
     </code>
 
@@ -112,7 +114,7 @@
 
 void BSP_Initialize(void);
 
-#endif // _BSP_H
+#endif // BSP_H
 
 /*******************************************************************************
  End of File
