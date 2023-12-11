@@ -110,6 +110,8 @@ typedef enum
     SERCOM_I2C_SLAVE_TRANSFER_DIR_READ  = 1,
 }SERCOM_I2C_SLAVE_TRANSFER_DIR;
 
+/* MISRAC 2012 deviation block start */
+/* MISRA C-2012 Rule 5.2 deviated:30  Deviation record ID -  H3_MISRAC_2012_R_5_2_DR_1 */
 typedef enum
 {
     SERCOM_I2C_SLAVE_ACK_ACTION_SEND_ACK = 0,
@@ -143,6 +145,8 @@ typedef enum
     SERCOM_I2C_SLAVE_TRANSFER_EVENT_STOP_BIT_RECEIVED,
 }SERCOM_I2C_SLAVE_TRANSFER_EVENT;
 
+  /* MISRAC 2012 deviation block end */
+  
 typedef enum
 {
     SERCOM_I2C_SLAVE_COMMAND_SEND_ACK = 0,
