@@ -11,7 +11,7 @@
             <sourceRootList/>
             <confList>
                 <confElem>
-                    <name>pic32cz_ca80</name>
+                    <name>pic32cz_ca80_curiosity_ultra</name>
                     <type>2</type>
                 </confElem>
             </confList>

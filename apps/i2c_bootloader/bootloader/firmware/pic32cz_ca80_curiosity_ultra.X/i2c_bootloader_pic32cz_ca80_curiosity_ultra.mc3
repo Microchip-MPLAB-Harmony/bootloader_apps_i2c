@@ -1,4 +1,4 @@
-<config configName="pic32cz_ca80" projectName="i2c_bootloader_pic32cz_ca80_curiosity_ultra" configVersion="1.1" device="PIC32CZ8110CA80208" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.6.1">
+<config configName="pic32cz_ca80_curiosity_ultra" projectName="i2c_bootloader_pic32cz_ca80_curiosity_ultra" configVersion="1.1" device="PIC32CZ8110CA80208" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.6.1">
    <usedPackages class="java.util.ArrayList"/>
    <usedClasses class="java.util.TreeMap">
       <entry>
@@ -47,7 +47,10 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
     &lt;GraphSettings canvasHeight=&quot;305&quot; canvasWidth=&quot;857&quot; dnOrder=&quot;0&quot;/&gt;
-    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;PowerProfiles dnOrder=&quot;1&quot;&gt;
+      &lt;Profile dnOrder=&quot;0&quot; id=&quot;profile0&quot; name=&quot;Main&quot;/&gt;
+    &lt;/PowerProfiles&gt;
+    &lt;ComponentGraph dnOrder=&quot;2&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;cmsis&quot; x=&quot;589&quot; y=&quot;35&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;core&quot; x=&quot;424&quot; y=&quot;32&quot;/&gt;
@@ -55,7 +58,7 @@
         &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;evsys&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;fcr&quot; x=&quot;720&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;fcw&quot; x=&quot;308&quot; y=&quot;193&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;i2c_bootloader&quot; x=&quot;456&quot; y=&quot;109&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;i2c_bootloader&quot; x=&quot;474&quot; y=&quot;129&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;sercom0&quot; x=&quot;300&quot; y=&quot;92&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
@@ -3288,119 +3291,119 @@
    </tokenMap>
    <generatedFileHashHistoryMap class="java.util.TreeMap">
       <entry>
-         <file>..\src\config\pic32cz_ca80\bootloader\bootloader_common.c</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\bootloader\bootloader_common.c</file>
          <hash>a91ecde559fac7452b0f2ad14aeb1bb46e2c3913de262c6de33edf6b66d1d4b9</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\bootloader\bootloader_common.h</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\bootloader\bootloader_common.h</file>
          <hash>e24bbf2db73561e6423e020a55abee7d8d7663a76e9388e8b6d1b2f4b96e565e</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\bootloader\bootloader_i2c.c</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\bootloader\bootloader_i2c.c</file>
          <hash>9f012d5712969f057a01d4c27d5bd2eb03f80f2518a8e1eeb04e3594ba91425a</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\bootloader\bootloader_i2c.h</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\bootloader\bootloader_i2c.h</file>
          <hash>7c3d36a9a50ad34b02d2441a22ecff9cf1074843037394c2a75249e73ee504d2</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\bootloader\bootloader_interrupt.h</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\bootloader\bootloader_interrupt.h</file>
          <hash>837763bc7dc36bd7376c590dfc8da33dd26a2d61be65aefa8f8efeed8ef1f3d1</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\btl.ld</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\btl.ld</file>
          <hash>dcbb83e52527d839ac60178b2de40ed7321ba87589b16d66c82beded34a6e536</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\definitions.h</file>
-         <hash>5bad8fdfe4a3c1d306d0a92b0721fea78d4101ef01a9c2cad1dbee2f7180efe5</hash>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\definitions.h</file>
+         <hash>5d98896292402dfa1bdfec5db346842f7ada6e15267efba04113db1c58eac88b</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\device.h</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\device.h</file>
          <hash>33e44f633b5a3a85be5cd1fb73a2714e8014c5a29153d9e3933854c2483a93a5</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\device_cache.h</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\device_cache.h</file>
          <hash>90ab2a7320a2a8c1123fb5d297dfaa0f56e3cb28c3ad1ea2ab5633988c1ef252</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\device_vectors.h</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\device_vectors.h</file>
          <hash>2a3366b0039bb81422897c93926c8ac3eea1d391d54d65f0c2462a5b7ae9ebec</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\initialization.c</file>
-         <hash>3e06f0ffd0050e2605312c6186038451b93b9c87f6209d4156ee5fc7b7b9e66a</hash>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\initialization.c</file>
+         <hash>a21ee5f1fc4e8a4ff9e6cd1594f1d6f8425ab372265d9b73381595b69220a6ab</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\peripheral\clock\plib_clock.c</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\peripheral\clock\plib_clock.c</file>
          <hash>e08da6bea0e6aa091cc35cc9babc7c8df1ce0f24a5f1669757243299951d9aab</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\peripheral\clock\plib_clock.h</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\peripheral\clock\plib_clock.h</file>
          <hash>ef92e6c864f589939b7fe47a0b7f63ba43196ec34753fe221f85cd633fa19786</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\peripheral\evsys\plib_evsys.c</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\peripheral\evsys\plib_evsys.c</file>
          <hash>d2c7649027b4ba94173ba7819ffae158aa9ff41c624334297179c69203157a79</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\peripheral\evsys\plib_evsys.h</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\peripheral\evsys\plib_evsys.h</file>
          <hash>f7d08eb8162f271ce1db384c082586a6624e506aa7f502c64c4ab5a1aadac47d</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\peripheral\fcr\plib_fcr.c</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\peripheral\fcr\plib_fcr.c</file>
          <hash>bcb5abbe36463ca8fc0b74be892ffb1f71aa67ab621e16b6119de891306c3679</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\peripheral\fcr\plib_fcr.h</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\peripheral\fcr\plib_fcr.h</file>
          <hash>efb5dffeb7e6086bb5da0a9629594ed3fccea00f7122b07740af0a9cba2cd022</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\peripheral\fcw\plib_fcw.c</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\peripheral\fcw\plib_fcw.c</file>
          <hash>9ccf2ab8bf0f626b8d7ff3154262a64fdf0b7e344b3f6b9c41c8ebf37c15e929</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\peripheral\fcw\plib_fcw.h</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\peripheral\fcw\plib_fcw.h</file>
          <hash>41095c0b68b3d7a39aecbb9d746f1ddf585e93a1f868dea2649593a62a463637</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\peripheral\nvic\plib_nvic.c</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\peripheral\nvic\plib_nvic.c</file>
          <hash>3d89f9371ce4e519ebca69b0bda48169332067a95f4dbfdb90c6131ced1470c4</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\peripheral\nvic\plib_nvic.h</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\peripheral\nvic\plib_nvic.h</file>
          <hash>81e813a093101d546799e00723cbf7245e2d18471fa51c8d130c5809cecca03e</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\peripheral\port\plib_port.c</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\peripheral\port\plib_port.c</file>
          <hash>c8d4787a776b82d77ad52f3dc81946084f03504d3e1379aa001e745d7733643e</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\peripheral\port\plib_port.h</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\peripheral\port\plib_port.h</file>
          <hash>6ece53d7acd05526bca04935dc363dd244d0c95dcba3bed2dff595b3ddb88117</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\peripheral\sercom\i2c_slave\plib_sercom0_i2c_slave.c</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\peripheral\sercom\i2c_slave\plib_sercom0_i2c_slave.c</file>
          <hash>cdbb22e550b485050e6f645ff04c6b32276a1eef9f0e41cbaf25da60183ed555</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\peripheral\sercom\i2c_slave\plib_sercom0_i2c_slave.h</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\peripheral\sercom\i2c_slave\plib_sercom0_i2c_slave.h</file>
          <hash>eb3150c9c86ec1547741e7a21d4d31316de59f3a79d1c7feb3401861cc67c1b7</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\peripheral\sercom\i2c_slave\plib_sercom_i2c_slave_common.h</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\peripheral\sercom\i2c_slave\plib_sercom_i2c_slave_common.h</file>
          <hash>9abfacbd8f9767b9373ca43f53c4c4ca82a5c010b83e1ebab67447576f6b5569</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\pin_configurations.csv</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\pin_configurations.csv</file>
          <hash>76be5c0c059d60257a5c4acc6896336786155d8e0ef51f487732d17fb35d723a</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\startup_xc32.c</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\startup_xc32.c</file>
          <hash>ddf6abcac4287e202159cfd9f65847b4c3b220aa47680c3c2d308ba0f7be71d6</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80\toolchain_specifics.h</file>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\toolchain_specifics.h</file>
          <hash>406ef48ae415706beb0796977cab09342077f7b1efc3f24767bd97bbd5e5a433</hash>
       </entry>
       <entry>
