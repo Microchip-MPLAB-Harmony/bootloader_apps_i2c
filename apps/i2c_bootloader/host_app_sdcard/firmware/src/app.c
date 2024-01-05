@@ -666,7 +666,7 @@ void APP_Tasks ( void )
                     if (nBytesToRead < appData.programPageSize)
                     {
                         /* This the last page of data. Fill the buffer bytes with 0xFF */
-                        memset(appData.wrBuffer, 0xFF, appData.programPageSize);
+                        memset(appData.wrBuffer, 0xFF, (appData.programPageSize+APP_PROTOCOL_HEADER_MAX_SIZE));
                     }
 
                     nTxBytes = APP_ImageDataWrite((appData.appStartAddr + appData.nBytesWritten), appData.programPageSize);
